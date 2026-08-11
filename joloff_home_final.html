@@ -132,8 +132,7 @@ body { font-size: 17px; }
     /* ── HERO ── */
     .hero {
       min-height: calc(100vh - 120px);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: block;
       position: relative;
       overflow: hidden;
       background: var(--terra);
@@ -142,12 +141,13 @@ body { font-size: 17px; }
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 80px 60px 80px 80px;
+      padding: 80px;
       position: relative;
       color: #fff;
     }
     .hero-right {
-      background: var(--warm);
+      display: none;
+      background: var(--terra);
       position: relative;
       overflow: hidden;
       display: flex;
