@@ -1992,6 +1992,7 @@ function updateGuests(n) {
   if (n === 0) {
     display.innerHTML = 'Select number of guests';
     display.style.color = 'var(--mid)';
+    display.style.fontSize = '25px';
   } else {
     display.innerHTML = `${n} <span>guests</span>`;
     display.style.color = '';
@@ -2255,7 +2256,7 @@ function calcPricing() {
       const itemTotal = totalPerTray * trays;
       foodFlat += itemTotal;
       const starchNote = noStarch ? '' : (starchName === 'None' ? ' — no side' : ` — ${starchName}`);
-      const trayNote = ` (${trays} ${trays !== 1 ? 'Trays' : 'Tray'})`;
+      const trayNote = ` (${trays} ${trays !== 1 ? 'trays' : 'tray'})`;
       lines.entrees.push([item.name + starchNote + trayNote, `$${itemTotal.toLocaleString()}`]);
     } else {
       // Non-entrees: price per person × all guests
@@ -2266,7 +2267,7 @@ function calcPricing() {
         const itemTotal = item.trayPrice * trays;
         foodFlat += itemTotal;
         const catKey = Object.keys(MENU_DATA).find(k => MENU_DATA[k].label === item.category) || '';
-        const unit = catKey === 'drinks' ? (trays === 1 ? 'Gallon' : 'Gallons') : (trays === 1 ? 'Tray' : 'Trays');
+        const unit = catKey === 'drinks' ? (trays === 1 ? 'gallon' : 'gallons') : (trays === 1 ? 'tray' : 'trays');
         const sub = `$${itemTotal.toLocaleString()}`;
         const label = `${item.name} (${trays} ${unit})`;
         if (sub_cat === 'sides') lines.sides.push([label, sub]);
@@ -2400,23 +2401,23 @@ function catSectionBanner(catId, items) {
   const isDrink = catId === 'drinks';
   if (!isSide && !isApp && !isDessert && !isDrink) return '';
 
-  const unitWord = isDrink ? (totalUnits === 1 ? 'Gallon' : 'Gallons') : (totalUnits === 1 ? 'Tray' : 'Trays');
+  const unitWord = isDrink ? (totalUnits === 1 ? 'gallon' : 'gallons') : (totalUnits === 1 ? 'tray' : 'trays');
   const selWord = selected === 1 ? 'item' : 'items';
 
   // Build main recommendation sentence matching entree banner style
   let mainLine = '';
   if (isSide) {
     const rec = Math.max(1, Math.ceil(g / 15));
-    mainLine = 'Each tray of sides feeds up to 15 people. Based on <strong>' + g + ' Guests</strong>, we recommend ordering a total of <strong>' + rec + ' ' + (rec !== 1 ? 'Trays' : 'Tray') + '</strong>.';
+    mainLine = 'Each tray of sides feeds up to 15 people. Based on <strong>' + g + ' guests</strong>, we recommend ordering a total of <strong>' + rec + ' ' + (rec !== 1 ? 'trays' : 'tray') + '</strong>.';
   } else if (isApp) {
     const rec = Math.max(1, Math.ceil(g / 15));
-    mainLine = 'Each tray of appetizers feeds up to 15 people. Based on <strong>' + g + ' Guests</strong>, we recommend ordering a total of <strong>' + rec + ' ' + (rec !== 1 ? 'Trays' : 'Tray') + '</strong>.';
+    mainLine = 'Each tray of appetizers feeds up to 15 people. Based on <strong>' + g + ' guests</strong>, we recommend ordering a total of <strong>' + rec + ' ' + (rec !== 1 ? 'trays' : 'tray') + '</strong>.';
   } else if (isDessert) {
     const rec = Math.max(1, Math.ceil(g / 15));
-    mainLine = 'Each tray of desserts feeds up to 15 people. Based on <strong>' + g + ' Guests</strong>, we recommend ordering a total of <strong>' + rec + ' ' + (rec !== 1 ? 'Trays' : 'Tray') + '</strong>.';
+    mainLine = 'Each tray of desserts feeds up to 15 people. Based on <strong>' + g + ' guests</strong>, we recommend ordering a total of <strong>' + rec + ' ' + (rec !== 1 ? 'trays' : 'tray') + '</strong>.';
   } else if (isDrink) {
     const rec = Math.max(1, Math.ceil(g * 4 / 16));
-    mainLine = '1 gallon = 16 drinks (8 oz each). Based on <strong>' + g + ' Guests</strong>, we recommend ordering <strong>' + rec + ' ' + (rec !== 1 ? 'Gallons' : 'Gallon') + '</strong>.';
+    mainLine = '1 gallon = 16 drinks (8 oz each). Based on <strong>' + g + ' guests</strong>, we recommend ordering <strong>' + rec + ' ' + (rec !== 1 ? 'gallons' : 'gallon') + '</strong>.';
   }
 
   const countColor = (totalUnits > 0 || selected > 0) ? 'color:var(--dark);font-weight:600;' : 'color:var(--mid);';
@@ -2443,8 +2444,8 @@ function renderMenuCustomizer() {
         <div class="menu-section-title">Entrees</div>
         <div class="menu-section-sub">Choose from our chicken, lamb, fish, and vegetarian options</div>
         <div style="background:var(--warm);border-left:3px solid var(--terra);padding:14px 18px;margin-bottom:24px;">
-          <div style="font-size:17px;font-weight:400;color:var(--dark);margin-bottom:6px;">Each tray of a particular entree can feed up to 15 people. Based on <strong>${Q.guestCount} Guests</strong>, we recommend ordering a total of <strong>${recommended} ${recommended !== 1 ? 'Trays' : 'Tray'}</strong>.</div>
-          <div id="entree-count-note" style="font-size:17px;color:var(--dark);font-weight:600;">${entreeCount} ${entreeCount !== 1 ? 'Entrees' : 'Entree'} selected · ${ordered} ${ordered !== 1 ? 'Trays' : 'Tray'} ordered</div>
+          <div style="font-size:17px;font-weight:400;color:var(--dark);margin-bottom:6px;">Each tray of a particular entree can feed up to 15 people. Based on <strong>${Q.guestCount} guests</strong>, we recommend ordering a total of <strong>${recommended} ${recommended !== 1 ? 'trays' : 'tray'}</strong>.</div>
+          <div id="entree-count-note" style="font-size:17px;color:var(--dark);font-weight:600;">${entreeCount} ${entreeCount !== 1 ? 'entrees' : 'entree'} selected · ${ordered} ${ordered !== 1 ? 'trays' : 'tray'} ordered</div>
         </div>
         ${entreeCats.map(subCatId => {
           const subCat = MENU_DATA[subCatId];
@@ -2484,7 +2485,7 @@ function renderMenuCustomizer() {
                     }).join('');
                     starchHtml = `<div onclick="event.stopPropagation()" style=""><select class="starch-select visible" id="starch-${item.id}" onchange="setStarch('${item.id}', this.value)" style="font-size:14px;padding:5px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--mid);outline:none;width:auto;">${optHtml}</select></div>`;
                   }
-                  const trayHtml = inCart ? `<div onclick="event.stopPropagation()" style="display:flex;align-items:center;justify-content:flex-start;gap:8px;margin-top:8px;"><button class="pc-btn" onclick="event.stopPropagation();changeTray('${item.id}',-1)" ${trays <= 1 ? 'disabled' : ''}>−</button><div class="pc-num" id="pcn-${item.id}">${trays} ${trays !== 1 ? 'Trays' : 'Tray'}</div><button class="pc-btn" onclick="event.stopPropagation();changeTray('${item.id}',1)">+</button></div>` : '';
+                  const trayHtml = inCart ? `<div onclick="event.stopPropagation()" style="display:flex;align-items:center;justify-content:flex-start;gap:8px;margin-top:8px;"><button class="pc-btn" onclick="event.stopPropagation();changeTray('${item.id}',-1)" ${trays <= 1 ? 'disabled' : ''}>−</button><div class="pc-num" id="pcn-${item.id}">${trays} ${trays !== 1 ? 'trays' : 'tray'}</div><button class="pc-btn" onclick="event.stopPropagation();changeTray('${item.id}',1)">+</button></div>` : '';
                   return `<div class="menu-item-row ${inCart ? 'in-cart' : ''}" id="mir-${item.id}" onclick="toggleMenuItem('${item.id}','${subCat.label}',${item.trayPrice || 0},'${item.name}')"><div class="mi-check-circle">${inCart ? '✓' : ''}</div><div class="mi-info-wrap"><div class="mi-name">${item.name}</div>${item.desc ? `<div class="mi-desc">${item.desc}</div>` : ''}${trayHtml}</div><div class="mi-right">${priceHtml}${starchHtml}</div></div>`;
                 }).join('')}
               </div>
@@ -2591,8 +2592,8 @@ function setStarch(id, val) {
 }
 
 function unitLabel(catId, qty) {
-  if (catId === 'drinks') return qty === 1 ? 'Gallon' : 'Gallons';
-  return qty === 1 ? 'Tray' : 'Trays';
+  if (catId === 'drinks') return qty === 1 ? 'gallon' : 'gallons';
+  return qty === 1 ? 'tray' : 'trays';
 }
 
 
@@ -2610,7 +2611,7 @@ function updateEntreeCountNote() {
   if (!note) return;
   const count = countSelectedEntrees();
   const ordered = traysOrdered();
-  note.textContent = `${count} Entree${count !== 1 ? 's' : ''} selected · ${ordered} ${ordered !== 1 ? 'Trays' : 'Tray'} ordered`;
+  note.textContent = `${count} Entree${count !== 1 ? 's' : ''} selected · ${ordered} ${ordered !== 1 ? 'trays' : 'tray'} ordered`;
   note.style.color = count > 0 ? 'var(--dark)' : 'var(--mid)';
 }
 
@@ -2689,7 +2690,7 @@ function renderBreakdown() {
       if (m) total += parseInt(m[1]);
     });
     if (total === 0) return '';
-    const unit = isDrink ? (total === 1 ? 'Gallon' : 'Gallons') : (total === 1 ? 'Tray' : 'Trays');
+    const unit = isDrink ? (total === 1 ? 'gallon' : 'gallons') : (total === 1 ? 'tray' : 'trays');
     return ` · ${total} ${unit}`;
   };
 
@@ -2754,7 +2755,7 @@ function renderBreakdown() {
         </div>
         <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);">
           <span>Your guest count</span>
-          <strong style="color:var(--dark);">${g} Guests</strong>
+          <strong style="color:var(--dark);">${g} guests</strong>
         </div>
         <div style="display:flex;justify-content:space-between;padding:8px 0 0;">
           <span style="font-weight:600;color:var(--dark);">Estimated cost per person</span>
@@ -2799,7 +2800,7 @@ function processDeposit() {
   let menuLines = '';
   const ec = ['Chicken entrees','Lamb entrees','Fish & seafood entrees','Vegetarian & vegan entrees'];
   Object.values(menuCart).forEach(item => {
-    const unit = item.category === 'Drinks' ? (item.trays === 1 ? 'Gallon' : 'Gallons') : (item.trays === 1 ? 'Tray' : 'Trays');
+    const unit = item.category === 'Drinks' ? (item.trays === 1 ? 'gallon' : 'gallons') : (item.trays === 1 ? 'tray' : 'trays');
     const starchNote = item.starch && item.starch !== 'None' && ec.includes(item.category) ? ' (' + item.starch + ')' : '';
     menuLines += '  • ' + item.name + starchNote + ' — ' + item.trays + ' ' + unit + ' ($' + (item.trayPrice * item.trays).toLocaleString() + ')\n';
   });
@@ -3198,7 +3199,7 @@ document.addEventListener('click', function(e) {
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© <span id="footer-year">2026</span> Joloff Restaurant 2 Inc. All rights reserved.</span>
+    <span>© <span id="footer-year">2026</span> Joloff Restaurant. All rights reserved.</span>
     <span>1168 Bedford Avenue, Brooklyn, NY 11216</span>
   </div>
 </footer>
