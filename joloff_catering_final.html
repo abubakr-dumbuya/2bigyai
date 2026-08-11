@@ -1642,7 +1642,7 @@ body { font-size: 17px; }
     <div class="results-right">
       <div class="breakdown-title">Price breakdown</div>
       <div id="price-breakdown"></div>
-      <button class="btn-book-now" id="btn-book-now" onclick="openModal()">Book with Deposit</button>
+      <button class="btn-book-now" id="btn-book-now" onclick="openModal()">Book with 50% Deposit</button>
       <button class="btn-book-now" onclick="saveQuote()" style="background:var(--mid);margin-top:10px;">Save Quote as PDF</button>
 
       <div id="tray-summary" style="margin-top:20px;padding:16px;background:var(--warm);border:1px solid var(--border);font-size:13px;color:var(--mid);line-height:1.7;"></div>
@@ -2644,7 +2644,6 @@ function renderBreakdown() {
       <div class="bt-row"><span>Gratuity (20%)</span><span>$${gratuity.toLocaleString()}</span></div>
       <div class="bt-row grand"><span>Total</span><span class="btv">$${total.toLocaleString()}</span></div>
     </div>
-    <div class="bt-deposit">50% deposit to book: <strong>$${deposit.toLocaleString()}</strong></div>
   `;
 
   // Update tray summary panel
