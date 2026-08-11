@@ -1983,18 +1983,29 @@ function updateDuration() {
 // ── SIDEBAR ────────────────────────────────────────────────────────────────
 function updateSidebar() {
   const rows = [];
+  // Step 1 — Required information
   if (Q.firstName) rows.push(['Name', Q.firstName + (Q.lastName ? ' '+Q.lastName : '')]);
   if (Q.email) rows.push(['Email', Q.email]);
-  if (Q.eventType) rows.push(['Event', Q.eventType]);
+  if (Q.phone) rows.push(['Phone', Q.phone]);
+  if (Q.eventType) rows.push(['Event type', Q.eventType]);
   if (Q.eventDate) rows.push(['Date', formatDate(Q.eventDate)]);
   if (Q.startTime && Q.endTime) rows.push(['Time', Q.startTime + ' – ' + Q.endTime]);
   if (Q.guestCount) rows.push(['Guests', Q.guestCount]);
+  if (Q.children) rows.push(['Children', Q.children]);
+  // Step 2 — Additional details
   if (Q.venue) rows.push(['Location', Q.venue]);
-  if (Q.indoorOutdoor) rows.push(['Setting', Q.indoorOutdoor]);
-  if (Q.service) rows.push(['Service', Q.service]);
+  if (Q.venueAddress) rows.push(['Address', Q.venueAddress]);
+  if (Q.kitchen) rows.push(['Kitchen', Q.kitchen]);
+  if (Q.service) rows.push(['Service type', Q.service]);
+  if (Q.servingStyle) rows.push(['Serving style', Q.servingStyle]);
+  if (Q.dietary && Q.dietary.length > 0) rows.push(['Dietary', Q.dietary.join(', ')]);
+  if (Q.extras && Q.extras !== 'Entrees only') rows.push(['Equipment', Q.extras]);
+  if (Q.budget) rows.push(['Budget', Q.budget]);
+  if (Q.returning) rows.push(['Returning client', Q.returning]);
+  if (Q.referral) rows.push(['How they heard', Q.referral]);
+  if (Q.notes) rows.push(['Notes', Q.notes]);
   if (Q.drinksNonAlc && Q.drinksNonAlc !== 'none-nonalc') rows.push(['Non-Alc Drinks', {'water':'Water','full-beverage':'Full Service'}[Q.drinksNonAlc]||Q.drinksNonAlc]);
   if (Q.drinksAlc && Q.drinksAlc !== 'none-alc') rows.push(['Bar', {'beer-wine':'Beer & Wine','full-bar':'Full Bar'}[Q.drinksAlc]||Q.drinksAlc]);
-  if (Q.extras && Q.extras !== 'Entrees only') rows.push(['Extras', Q.extras]);
 
   const empty = document.getElementById('sidebar-empty');
   const summary = document.getElementById('sidebar-summary');
