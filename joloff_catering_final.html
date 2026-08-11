@@ -1514,31 +1514,8 @@ body { font-size: 17px; }
 
       <!-- DIETARY -->
       
-
-      <div class="question">
-        <div class="q-label">Have you worked with joloff before?</div>
-        <select class="q-input" onchange="setVal('returning',this.value)">
-          <option value="">Select one…</option>
-          <option value="First time">First time</option>
-          <option value="Returning client">Returning client</option>
-        </select>
-      </div>
-
-      <div class="question">
-        <div class="q-label">How did you hear about us? <span class="q-optional">optional</span></div>
-        <select class="q-input" onchange="setVal('referral',this.value)">
-          <option value="">Select one…</option>
-          <option value="Word of mouth">Word of mouth</option>
-          <option value="Google">Google</option>
-          <option value="Instagram">Instagram</option>
-          <option value="Facebook">Facebook</option>
-          <option value="The Infatuation">The Infatuation</option>
-          <option value="Yelp">Yelp</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
 <div class="question">
-        <div class="q-label">Any dietary requirements? <span class="q-optional">select all that apply</span></div>
+        <div class="q-label">Any dietary requirements? <span class="q-required">Required</span> <span style="font-size:12px;color:var(--mid);font-weight:400;"> — select all that apply</span></div>
         <div class="check-grid">
           <div class="check-item" onclick="toggleExclusive(this,'dietary','Gluten-free','None')"><div class="check-box"></div><div class="check-text">Gluten-free</div></div>
           <div class="check-item" onclick="toggleExclusive(this,'dietary','Halal','None')"><div class="check-box"></div><div class="check-text">Halal</div></div>
@@ -1614,6 +1591,29 @@ body { font-size: 17px; }
       </div>
 
       <!-- NOTES -->
+      <div class="question">
+        <div class="q-label">Have you worked with joloff before?</div>
+        <select class="q-input" onchange="setVal('returning',this.value)">
+          <option value="">Select one…</option>
+          <option value="First time">First time</option>
+          <option value="Returning client">Returning client</option>
+        </select>
+      </div>
+
+      <div class="question">
+        <div class="q-label">How did you hear about us? <span class="q-optional">optional</span></div>
+        <select class="q-input" onchange="setVal('referral',this.value)">
+          <option value="">Select one…</option>
+          <option value="Word of mouth">Word of mouth</option>
+          <option value="Google">Google</option>
+          <option value="Instagram">Instagram</option>
+          <option value="Facebook">Facebook</option>
+          <option value="The Infatuation">The Infatuation</option>
+          <option value="Yelp">Yelp</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
       <div class="question">
         <div class="q-label">Anything else we should know? <span class="q-optional">optional</span></div>
         <textarea class="q-input" rows="3" placeholder="Dietary restrictions, allergies, theme, setup preferences..." oninput="setVal('notes',this.value)" style="resize:vertical;"></textarea>
@@ -2053,9 +2053,7 @@ function nextStep(n) {
   }
   if (n === 3) {
     const missing = [];
-    if (!Q.eventType) missing.push('Event type');
-    if (!Q.eventDate) missing.push('Event date');
-    if (!Q.guestCount) missing.push('Number of guests');
+    if (!Q.dietary || Q.dietary.length === 0) missing.push('Dietary requirements');
     if (missing.length) { showValidationPopup(missing); return; }
   }
   if (n < 3) goToStep(n+1);
