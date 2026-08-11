@@ -1370,7 +1370,7 @@ body { font-size: 17px; }
 
     <!-- STEP 1: ABOUT YOU -->
     <div class="step-page active" id="step-2">
-      <div class="step-eyebrow">Step 1 of 3</div>
+      <div class="step-eyebrow">Step 1: Required information</div>
 
       <div class="question">
         <div class="q-label">Your name <span class="q-required">Required</span></div>
@@ -1391,42 +1391,6 @@ body { font-size: 17px; }
       </div>
 
       <div class="question">
-        <div class="q-label">Have you worked with joloff before?</div>
-        <select class="q-input" onchange="setVal('returning',this.value)">
-          <option value="">Select one…</option>
-          <option value="First time">First time</option>
-          <option value="Returning client">Returning client</option>
-        </select>
-      </div>
-
-      <div class="question">
-        <div class="q-label">How did you hear about us? <span class="q-optional">optional</span></div>
-        <select class="q-input" onchange="setVal('referral',this.value)">
-          <option value="">Select one…</option>
-          <option value="Word of mouth">Word of mouth</option>
-          <option value="Google">Google</option>
-          <option value="Instagram">Instagram</option>
-          <option value="Facebook">Facebook</option>
-          <option value="The Infatuation">The Infatuation</option>
-          <option value="Yelp">Yelp</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-
-      <div class="step-nav">
-        <div style="display:grid;grid-template-columns:1fr 2fr;gap:12px;">
-          <button class="btn-back" onclick="goToStep(1)" style="width:100%;">← Back</button>
-          <button class="btn-next" onclick="nextStep(2)" style="width:100%;">Next Step: Provide Event Details →</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- STEP 2: YOUR EVENT -->
-    <div class="step-page" id="step-3">
-      <div class="step-eyebrow">Step 2 of 3</div>
-
-      <!-- EVENT TYPE -->
-      <div class="question">
         <div class="q-label">What type of event is this? <span class="q-required">Required</span></div>
         <div class="pill-grid grid-2">
           <div class="opt-pill" onclick="pick(this,'eventType','Corporate Event')">Corporate event</div>
@@ -1441,7 +1405,6 @@ body { font-size: 17px; }
         <input type="text" class="q-input" id="other-event-input" placeholder="Describe your event..." style="display:none;margin-top:10px;" oninput="setVal('eventType',this.value)"/>
       </div>
 
-      <!-- DATE & TIME -->
       <div class="question">
         <div class="q-label">Date &amp; time <span class="q-required">Required</span></div>
         <div style="display:flex;flex-direction:column;gap:12px;">
@@ -1518,7 +1481,6 @@ body { font-size: 17px; }
         <div id="duration-note" style="margin-top:4px;font-size:13px;color:var(--mid);"></div>
       </div>
 
-      <!-- GUESTS -->
       <div class="question">
         <div class="q-label">How many guests are you expecting? <span class="q-required">Required</span></div>
         <div class="slider-wrap">
@@ -1532,8 +1494,50 @@ body { font-size: 17px; }
         </div>
       </div>
 
+      <div class="step-nav">
+        <div style="display:grid;grid-template-columns:1fr 2fr;gap:12px;">
+          <button class="btn-back" onclick="goToStep(1)" style="width:100%;">← Back</button>
+          <button class="btn-next" onclick="nextStep(2)" style="width:100%;">Next Step: Provide Event Details →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: YOUR EVENT -->
+    <div class="step-page" id="step-3">
+      <div class="step-eyebrow">Step 2: Additional details</div>
+
+      <!-- EVENT TYPE -->
+
+      <!-- DATE & TIME -->
+
+      <!-- GUESTS -->
+
       <!-- DIETARY -->
+      
+
       <div class="question">
+        <div class="q-label">Have you worked with joloff before?</div>
+        <select class="q-input" onchange="setVal('returning',this.value)">
+          <option value="">Select one…</option>
+          <option value="First time">First time</option>
+          <option value="Returning client">Returning client</option>
+        </select>
+      </div>
+
+      <div class="question">
+        <div class="q-label">How did you hear about us? <span class="q-optional">optional</span></div>
+        <select class="q-input" onchange="setVal('referral',this.value)">
+          <option value="">Select one…</option>
+          <option value="Word of mouth">Word of mouth</option>
+          <option value="Google">Google</option>
+          <option value="Instagram">Instagram</option>
+          <option value="Facebook">Facebook</option>
+          <option value="The Infatuation">The Infatuation</option>
+          <option value="Yelp">Yelp</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+<div class="question">
         <div class="q-label">Any dietary requirements? <span class="q-optional">select all that apply</span></div>
         <div class="check-grid">
           <div class="check-item" onclick="toggleExclusive(this,'dietary','Gluten-free','None')"><div class="check-box"></div><div class="check-text">Gluten-free</div></div>
@@ -2042,6 +2046,9 @@ function nextStep(n) {
     if (!Q.firstName || !Q.firstName.trim()) missing.push('Your first name');
     if (!Q.email || !Q.email.trim()) missing.push('Email address');
     if (!Q.phone || !Q.phone.trim()) missing.push('Phone number');
+    if (!Q.eventType) missing.push('Event type');
+    if (!Q.eventDate) missing.push('Event date');
+    if (!Q.guestCount) missing.push('Number of guests');
     if (missing.length) { showValidationPopup(missing); return; }
   }
   if (n === 3) {
