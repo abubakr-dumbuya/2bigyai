@@ -253,8 +253,8 @@ body { font-size: 17px; }
     }
     .btn-lg.primary:hover { background: var(--gold); opacity: 0.9; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(196,98,45,0.3); }
     .btn-lg.secondary {
-      background: var(--gold);
-      color: var(--dark);
+      background: var(--terra);
+      color: #fff;
       border: none;
     }
     .btn-lg.secondary:hover { border-color: var(--dark); }
@@ -400,7 +400,11 @@ body { font-size: 17px; }
       margin-bottom: 24px;
     }
     .section-title em { color: var(--terra); font-style: italic; }
-    .hero .section-title em, .catering-hero .section-title em, .results-header .section-title em { color: #fff; }
+    .hero .section-title em, .catering-hero .section-title em, .results-header .section-title em, .hero h1 em, .catering-hero h1 em, .hero h2 em, .catering-hero h2 em { color: #fff; }
+    /* All text on dark bg sections should be white */
+    .hero *, .catering-hero *, .ratings-section *, .results-header * { color: #fff; }
+    .hero .hero-sub, .catering-hero .hero-sub { color: rgba(255,255,255,0.82); }
+    .hero .btn-lg, .catering-hero .btn-lg, .hero a.btn-lg, .catering-hero a.btn-lg { color: var(--dark); }
     .section-body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 17px;

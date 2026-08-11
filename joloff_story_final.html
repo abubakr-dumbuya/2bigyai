@@ -384,7 +384,11 @@ body { font-size: 17px; }
       margin-bottom: 24px;
     }
     .section-title em { color: var(--terra); font-style: italic; }
-    .hero .section-title em, .catering-hero .section-title em, .results-header .section-title em { color: #fff; }
+    .hero .section-title em, .catering-hero .section-title em, .results-header .section-title em, .hero h1 em, .catering-hero h1 em, .hero h2 em, .catering-hero h2 em { color: #fff; }
+    /* All text on dark bg sections should be white */
+    .hero *, .catering-hero *, .ratings-section *, .results-header * { color: #fff; }
+    .hero .hero-sub, .catering-hero .hero-sub { color: rgba(255,255,255,0.82); }
+    .hero .btn-lg, .catering-hero .btn-lg, .hero a.btn-lg, .catering-hero a.btn-lg { color: var(--dark); }
     .section-body {
   font-size: 17px;
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -805,7 +809,11 @@ body { font-size: 17px; }
     .section-eyebrow { font-size: 15px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--terra); margin-bottom: 16px; }
     .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(34px, 3.5vw, 54px); font-weight: 600; line-height: 1.1; color: var(--dark); margin-bottom: 28px; }
     .section-title em { color: var(--terra); font-style: italic; }
-    .hero .section-title em, .catering-hero .section-title em, .results-header .section-title em { color: #fff; }
+    .hero .section-title em, .catering-hero .section-title em, .results-header .section-title em, .hero h1 em, .catering-hero h1 em, .hero h2 em, .catering-hero h2 em { color: #fff; }
+    /* All text on dark bg sections should be white */
+    .hero *, .catering-hero *, .ratings-section *, .results-header * { color: #fff; }
+    .hero .hero-sub, .catering-hero .hero-sub { color: rgba(255,255,255,0.82); }
+    .hero .btn-lg, .catering-hero .btn-lg, .hero a.btn-lg, .catering-hero a.btn-lg { color: var(--dark); }
     .section-body {
   font-size: 17px; font-size: 17px; font-weight: 400; color: var(--dark); line-height: 1.85; }
     .section-body + .section-body {
@@ -1024,7 +1032,7 @@ body { font-size: 17px; }
   <div class="hero-grain"></div>
   <div class="hero-accent"></div>
   
-  <h1 class="fade-up">Thirty Years.<br/>One Family.<br/><em>One Kitchen.</em></h1>
+  <h1 class="fade-up">Thirty Years. One Family. <em>One Kitchen.</em></h1>
   <p class="hero-sub fade-up d1">The story of Joloff Restaurant is the story of a dream carried across an ocean, built one meal at a time, and rooted in the soil of Brooklyn for three decades.</p>
 </section>
 

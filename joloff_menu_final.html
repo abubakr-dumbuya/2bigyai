@@ -388,7 +388,11 @@ body { font-size: 17px; }
       margin-bottom: 24px;
     }
     .section-title em { color: var(--terra); font-style: italic; }
-    .hero .section-title em, .catering-hero .section-title em, .results-header .section-title em { color: #fff; }
+    .hero .section-title em, .catering-hero .section-title em, .results-header .section-title em, .hero h1 em, .catering-hero h1 em, .hero h2 em, .catering-hero h2 em { color: #fff; }
+    /* All text on dark bg sections should be white */
+    .hero *, .catering-hero *, .ratings-section *, .results-header * { color: #fff; }
+    .hero .hero-sub, .catering-hero .hero-sub { color: rgba(255,255,255,0.82); }
+    .hero .btn-lg, .catering-hero .btn-lg, .hero a.btn-lg, .catering-hero a.btn-lg { color: var(--dark); }
     .section-body {
   font-size: 17px;
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -1010,7 +1014,7 @@ body { font-size: 17px; }
   <div class="hero-grain"></div>
   <div class="hero-accent"></div>
   
-  <h1>Authentic Senegalese<br/><em>Cuisine</em></h1>
+  <h1>Authentic Senegalese <em>Cuisine</em></h1>
   <p class="hero-sub">Every dish on this menu is made the way it has always been made — slow-braised, hand-rolled, and rooted in thirty years of West African tradition. Order online for pickup or delivery, or stop by the table.</p>
 </section>
 
