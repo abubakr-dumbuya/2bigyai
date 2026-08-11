@@ -1035,18 +1035,7 @@ body { font-size: 17px; }
 <div class="menu-body">
   <div class="menu-layout">
     <div id="menu-sections"></div>
-    <div class="menu-sidebar" style="display:none;">
-      <div class="cart-box">
-        <div class="cart-title">Your order</div>
-        <div class="cart-empty" id="cart-empty">Select items from the menu to start your order.</div>
-        <div class="cart-rows" id="cart-rows" style="display:none;"></div>
-        <div class="cart-total" id="cart-total" style="display:none;">
-          <div class="cart-total-label">Total</div>
-          <div class="cart-total-val" id="cart-total-val">$0.00</div>
-        </div>
-        <button class="cart-cta" id="cart-cta" style="display:none;" onclick="placeOrder()">Place order</button>
-      </div>
-    </div>
+    
   </div>
 </div>
 
@@ -2659,15 +2648,15 @@ render();
     <button onclick="toggleCart()" style="background:none;border:none;cursor:pointer;font-size:20px;color:var(--mid);line-height:1;">✕</button>
   </div>
   <div style="flex:1; overflow-y:auto; padding:16px 20px;">
-    <div class="cart-empty" id="cart-empty-drawer">Select items from the menu to start your order.</div>
-    <div class="cart-rows" id="cart-rows-drawer" style="display:none;"></div>
+    <div class="cart-empty" id="cart-empty">Select items from the menu to start your order.</div>
+    <div class="cart-rows" id="cart-rows" style="display:none;"></div>
   </div>
   <div style="padding:16px 20px; border-top:1px solid var(--border);">
-    <div class="cart-total" id="cart-total-drawer" style="display:none; justify-content:space-between; align-items:center; margin-bottom:14px;">
+    <div class="cart-total" id="cart-total" style="display:none; justify-content:space-between; align-items:center; margin-bottom:14px;">
       <div class="cart-total-label">Total</div>
-      <div class="cart-total-val" id="cart-total-val-drawer">$0.00</div>
+      <div class="cart-total-val" id="cart-total-val">$0.00</div>
     </div>
-    <button class="cart-cta" id="cart-cta-drawer" style="display:none;width:100%;" onclick="placeOrder()">Place order</button>
+    <button class="cart-cta" id="cart-cta" style="display:none;width:100%;" onclick="placeOrder()">Place order</button>
   </div>
 </div>
 
@@ -2688,28 +2677,10 @@ function toggleCart() {
 // Override renderCart to also update the drawer
 const _origRenderCart = typeof renderCart === 'function' ? renderCart : null;
 function renderCartDrawer() {
-  const rows = document.getElementById('cart-rows');
-  const rowsDrawer = document.getElementById('cart-rows-drawer');
-  const emptyDrawer = document.getElementById('cart-empty-drawer');
-  const totalDrawer = document.getElementById('cart-total-drawer');
-  const valDrawer = document.getElementById('cart-total-val-drawer');
-  const ctaDrawer = document.getElementById('cart-cta-drawer');
   const tabCount = document.getElementById('cart-tab-count');
-  
-  if (rows && rowsDrawer) rowsDrawer.innerHTML = rows.innerHTML;
-  
-  const isEmpty = Object.keys(menuCart).length === 0;
-  const count = Object.values(menuCart).reduce((s, i) => s + (i.trays || 1), 0);
-  
-  if (tabCount) tabCount.textContent = count || 0;
-  if (emptyDrawer) emptyDrawer.style.display = isEmpty ? 'block' : 'none';
-  if (rowsDrawer) rowsDrawer.style.display = isEmpty ? 'none' : 'block';
-  if (totalDrawer) totalDrawer.style.display = isEmpty ? 'none' : 'flex';
-  if (ctaDrawer) ctaDrawer.style.display = isEmpty ? 'none' : 'block';
-  
-  // Copy total value
-  const totalVal = document.getElementById('cart-total-val');
-  if (valDrawer && totalVal) valDrawer.textContent = totalVal.textContent;
+  if (!tabCount) return;
+  const count = typeof cart !== 'undefined' ? cart.reduce((s, i) => s + (i.qty || 1), 0) : 0;
+  tabCount.textContent = count || 0;
 }
 
 // Patch renderCart to also update drawer
