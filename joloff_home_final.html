@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Joloff Restaurant — Authentic Senegalese Cuisine · Brooklyn, NY</title>
+  <title>Joloff Restaurant - Authentic Senegalese Cuisine in Brooklyn, New York</title>
+  <meta name="description" content="What began as home-cooked lunches delivered to neighbors in Downtown Brooklyn has grown into one of the borough's most beloved cultural landmarks. In 1995, founder Pape "Papa" Diagne opened Joloff Restaurant on Fulton Street in Clinton Hill, bringing the bold, soulful flavors of Senegal to a neighborhood that had never tasted anything quite like it.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -247,14 +248,14 @@ body { font-size: 17px; }
       box-sizing: border-box;
     }
     .btn-lg.primary {
-      background: var(--terra);
-      color: #fff;
-    }
-    .btn-lg.primary:hover { background: var(--terra-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(196,98,45,0.3); }
-    .btn-lg.secondary {
-      background: transparent;
+      background: var(--gold);
       color: var(--dark);
-      border: 1.5px solid var(--border);
+    }
+    .btn-lg.primary:hover { background: var(--gold); opacity: 0.9; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(196,98,45,0.3); }
+    .btn-lg.secondary {
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
     }
     .btn-lg.secondary:hover { border-color: var(--dark); }
     /* Decorative vertical text on hero */
@@ -399,6 +400,7 @@ body { font-size: 17px; }
       margin-bottom: 24px;
     }
     .section-title em { color: var(--terra); font-style: italic; }
+    .hero .section-title em, .catering-hero .section-title em, .results-header .section-title em { color: #fff; }
     .section-body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 17px;
@@ -852,8 +854,8 @@ body { font-size: 17px; }
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <div class="hero-eyebrow">Brooklyn, New York</div>
-    <h1 class="fade-in">Authentic<br/>Senegalese<br/><em>Cuisine</em></h1>
+    
+    <h1 class="fade-in">Authentic Senegalese Cuisine in <em>Brooklyn, New York</em></h1>
     <p class="hero-sub fade-in d1">Thirty years of West African flavor, culture, and community in the heart of Bed-Stuy.</p>    </div>
   </div>
 </section>
@@ -872,7 +874,7 @@ body { font-size: 17px; }
 <section class="story-section" style="grid-template-columns:1fr;">
   <div class="story-left">
     <div class="section-eyebrow">Our Story</div>
-    <h2 class="section-title">30 Years.<br/>One Kitchen.<br/><em>Brooklyn.</em></h2>
+    <h2 class="section-title">30 Years. One Kitchen. <em>Brooklyn.</em></h2>
     <p class="section-body">What began as home-cooked lunches delivered to neighbors in Downtown Brooklyn grew into one of the borough's most beloved cultural landmarks. In 1995, founder Pape "Papa" Diagne opened Joloff Restaurant on Fulton Street in Clinton Hill, bringing the bold, soulful flavors of Senegal to a neighborhood that had never tasted anything quite like it.</p>
     <p class="section-body" style="margin-top:16px;">For over 30 years, the kitchen has stayed true to its roots — slow-braised yassa, hand-rolled fataya, rich mafé — made the way they've always been made, without shortcuts. Joloff became more than a restaurant. It became a gathering place, a cultural anchor, a home away from home for Brooklyn's West African community and anyone drawn to its warmth.</p>
     <p class="section-body" style="margin-top:16px;">Today, Joloff stands at 1168 Bedford Avenue in Bed-Stuy, earning recognition from The Infatuation, TripAdvisor, and Foursquare — not because it chased trends, but because it never strayed from what made it great. We are proud to feed Brooklyn, and honored that you're at our table.</p>
@@ -973,5 +975,5 @@ body { font-size: 17px; }
 </body>
 </html>
     @media(max-width:900px) { .action-tiles { padding: 0 40px; } }
-    @media(max-width:600px) { .action-tiles { padding: 0 24px; } .action-tiles-grid { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:600px) { .action-tiles { padding: 0 24px; } .action-tiles-grid { grid-template-columns: 1fr 1fr !important; } }
     
