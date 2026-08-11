@@ -2582,12 +2582,15 @@ function renderCart() {
   const totalVal = document.getElementById('cart-total-val');
   const cta = document.getElementById('cart-cta');
 
+  const orderTypeSection = document.getElementById('order-type-section');
   if (cart.length === 0) {
     rows.style.display = 'none'; total.style.display = 'none'; cta.style.display = 'none';
+    if (orderTypeSection) orderTypeSection.style.display = 'none';
     empty.style.display = 'block'; return;
   }
   empty.style.display = 'none'; rows.style.display = 'flex';
   total.style.display = 'flex'; cta.style.display = 'block';
+  if (orderTypeSection) orderTypeSection.style.display = 'block';
 
   let subtotal = 0;
   rows.innerHTML = cart.map(line => {
@@ -2626,7 +2629,16 @@ function removeFromCart(uid) {
   render();
 }
 
+function setOrderType(val) {
+  window._orderType = val;
+  document.getElementById('order-type-error').style.display = 'none';
+}
+
 function placeOrder() {
+  if (!window._orderType) {
+    document.getElementById('order-type-error').style.display = 'block';
+    return;
+  }
   if (cart.length === 0) return;
   const lines = cart.map(l => `${l.qty}× ${l.name}${l.starchLabel?' ('+l.starchLabel+')':''} — $${(l.price*l.qty).toFixed(2)}`).join('%0A');
   const subtotal = cart.reduce((s,l) => s+l.price*l.qty, 0).toFixed(2);
@@ -2677,6 +2689,17 @@ render();
     <div class="cart-rows" id="cart-rows" style="display:none;"></div>
   </div>
   <div style="padding:16px 20px; border-top:1px solid var(--border);">
+    <div id="order-type-section" style="display:none; margin-bottom:16px;">
+      <label style="font-size:12px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--terra); display:block; margin-bottom:8px;">
+        Takeout or delivery? <span style="color:#c0392b;">*</span>
+      </label>
+      <select id="order-type-select" class="q-input" onchange="setOrderType(this.value)" style="width:100%; font-size:14px; padding:12px 14px; border:1.5px solid var(--border); background:#fff; font-family:'Plus Jakarta Sans',sans-serif;">
+        <option value="">Select one…</option>
+        <option value="Takeout">Takeout — pick up at the restaurant</option>
+        <option value="Delivery">Delivery — we bring it to you</option>
+      </select>
+      <div id="order-type-error" style="display:none; color:#c0392b; font-size:12px; margin-top:6px;">Please select takeout or delivery to continue.</div>
+    </div>
     <div class="cart-total" id="cart-total" style="display:none; justify-content:space-between; align-items:center; margin-bottom:14px;">
       <div class="cart-total-label">Total</div>
       <div class="cart-total-val" id="cart-total-val">$0.00</div>
@@ -2702,6 +2725,11 @@ function toggleCart() {
 // Override renderCart to also update the drawer
 const _origRenderCart = typeof renderCart === 'function' ? renderCart : null;
 function renderCartDrawer() {
+  const orderSection = document.getElementById('order-type-section');
+  if (orderSection) {
+    const isEmpty = Object.keys(typeof menuCart !== 'undefined' ? menuCart : {}).length === 0;
+    orderSection.style.display = isEmpty ? 'none' : 'block';
+  }
   const tabCount = document.getElementById('cart-tab-count');
   if (!tabCount) return;
   const count = typeof cart !== 'undefined' ? cart.reduce((s, i) => s + (i.qty || 1), 0) : 0;
