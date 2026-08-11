@@ -1057,6 +1057,12 @@ body { font-size: 17px; }
     @media(max-width:768px) {
       .footer-top { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.12); }
     }
+
+    /* Tablet: hide empty middle column, show 2 columns */
+    @media(max-width:1024px) and (min-width:769px) {
+      .footer-top { grid-template-columns: 1fr 1fr !important; }
+      .footer-top > div:nth-child(2) { display: none !important; }
+    }
 </style>
 </head>
 <body>
