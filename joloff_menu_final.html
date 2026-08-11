@@ -789,8 +789,8 @@ body { font-size: 17px; }
 /* ── LAYOUT ── */
 .menu-body {
   font-size: 17px; max-width:960px; margin:0 auto; padding:60px 24px 80px; }
-.menu-layout { display:grid; grid-template-columns:1fr 300px; gap:40px; align-items:start; }
-@media(max-width:768px){ .menu-layout{ grid-template-columns:1fr; } .menu-sidebar{ order:-1; } }
+.menu-layout { display:block; }
+@media(max-width:768px){ .menu-layout{ grid-template-columns:1fr; }  }
 
 /* ── SECTIONS ── */
 .menu-section { display:block; margin-bottom:56px; }
@@ -1035,7 +1035,7 @@ body { font-size: 17px; }
 <div class="menu-body">
   <div class="menu-layout">
     <div id="menu-sections"></div>
-    <div class="menu-sidebar">
+    <div class="menu-sidebar" style="display:none;">
       <div class="cart-box">
         <div class="cart-title">Your order</div>
         <div class="cart-empty" id="cart-empty">Select items from the menu to start your order.</div>
@@ -2624,5 +2624,105 @@ render();
 </script>
 
 <script>document.getElementById("footer-year").textContent=new Date().getFullYear();</script>
+
+<!-- FLOATING CART TAB -->
+<div id="cart-tab" onclick="toggleCart()" style="
+  position:fixed; right:0; top:50%; transform:translateY(-50%);
+  background:var(--terra); color:#fff;
+  writing-mode:vertical-rl; text-orientation:mixed;
+  padding:20px 14px; cursor:pointer; z-index:1000;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px; font-weight:700; letter-spacing:0.14em;
+  text-transform:uppercase; border-radius:8px 0 0 8px;
+  box-shadow:-2px 0 12px rgba(0,0,0,0.15);
+  transition:background 0.2s;
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+">
+  <span id="cart-tab-count" style="
+    background:#fff; color:var(--terra); border-radius:50%;
+    width:22px; height:22px; display:flex; align-items:center;
+    justify-content:center; font-size:12px; font-weight:800;
+    writing-mode:horizontal-tb; margin-bottom:8px;
+  ">0</span>
+  Your order
+</div>
+
+<!-- CART DRAWER -->
+<div id="cart-drawer" style="
+  position:fixed; right:-360px; top:0; bottom:0; width:340px;
+  background:#fff; z-index:999; box-shadow:-4px 0 24px rgba(0,0,0,0.12);
+  transition:right 0.3s cubic-bezier(0.16,1,0.3,1);
+  display:flex; flex-direction:column; overflow:hidden;
+">
+  <div style="padding:24px 20px 16px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+    <div style="font-size:13px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--terra);">Your order</div>
+    <button onclick="toggleCart()" style="background:none;border:none;cursor:pointer;font-size:20px;color:var(--mid);line-height:1;">✕</button>
+  </div>
+  <div style="flex:1; overflow-y:auto; padding:16px 20px;">
+    <div class="cart-empty" id="cart-empty-drawer">Select items from the menu to start your order.</div>
+    <div class="cart-rows" id="cart-rows-drawer" style="display:none;"></div>
+  </div>
+  <div style="padding:16px 20px; border-top:1px solid var(--border);">
+    <div class="cart-total" id="cart-total-drawer" style="display:none; justify-content:space-between; align-items:center; margin-bottom:14px;">
+      <div class="cart-total-label">Total</div>
+      <div class="cart-total-val" id="cart-total-val-drawer">$0.00</div>
+    </div>
+    <button class="cart-cta" id="cart-cta-drawer" style="display:none;width:100%;" onclick="placeOrder()">Place order</button>
+  </div>
+</div>
+
+<!-- CART OVERLAY -->
+<div id="cart-overlay" onclick="toggleCart()" style="
+  display:none; position:fixed; inset:0; background:rgba(0,0,0,0.3);
+  z-index:998;
+"></div>
+
+<script>
+let cartOpen = false;
+function toggleCart() {
+  cartOpen = !cartOpen;
+  document.getElementById('cart-drawer').style.right = cartOpen ? '0' : '-360px';
+  document.getElementById('cart-overlay').style.display = cartOpen ? 'block' : 'none';
+}
+
+// Override renderCart to also update the drawer
+const _origRenderCart = typeof renderCart === 'function' ? renderCart : null;
+function renderCartDrawer() {
+  const rows = document.getElementById('cart-rows');
+  const rowsDrawer = document.getElementById('cart-rows-drawer');
+  const emptyDrawer = document.getElementById('cart-empty-drawer');
+  const totalDrawer = document.getElementById('cart-total-drawer');
+  const valDrawer = document.getElementById('cart-total-val-drawer');
+  const ctaDrawer = document.getElementById('cart-cta-drawer');
+  const tabCount = document.getElementById('cart-tab-count');
+  
+  if (rows && rowsDrawer) rowsDrawer.innerHTML = rows.innerHTML;
+  
+  const isEmpty = Object.keys(menuCart).length === 0;
+  const count = Object.values(menuCart).reduce((s, i) => s + (i.trays || 1), 0);
+  
+  if (tabCount) tabCount.textContent = count || 0;
+  if (emptyDrawer) emptyDrawer.style.display = isEmpty ? 'block' : 'none';
+  if (rowsDrawer) rowsDrawer.style.display = isEmpty ? 'none' : 'block';
+  if (totalDrawer) totalDrawer.style.display = isEmpty ? 'none' : 'flex';
+  if (ctaDrawer) ctaDrawer.style.display = isEmpty ? 'none' : 'block';
+  
+  // Copy total value
+  const totalVal = document.getElementById('cart-total-val');
+  if (valDrawer && totalVal) valDrawer.textContent = totalVal.textContent;
+}
+
+// Patch renderCart to also update drawer
+document.addEventListener('DOMContentLoaded', () => {
+  const origRender = window.renderCart;
+  if (origRender) {
+    window.renderCart = function() {
+      origRender();
+      renderCartDrawer();
+    };
+  }
+  renderCartDrawer();
+});
+</script>
 </body>
 </html>
