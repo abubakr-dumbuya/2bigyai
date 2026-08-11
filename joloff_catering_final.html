@@ -1392,24 +1392,25 @@ body { font-size: 17px; }
 
       <div class="question">
         <div class="q-label">Have you worked with joloff before?</div>
-        <div class="pill-grid grid-3">
-          <div class="opt-pill" onclick="pick(this,'returning','First time')">First time</div>
-          <div class="opt-pill" onclick="pick(this,'returning','Yes, returning client')">Returning client</div>
-        </div>
+        <select class="q-input" onchange="setVal('returning',this.value)">
+          <option value="">Select one…</option>
+          <option value="First time">First time</option>
+          <option value="Returning client">Returning client</option>
+        </select>
       </div>
 
       <div class="question">
         <div class="q-label">How did you hear about us? <span class="q-optional">optional</span></div>
-        <div class="pill-grid grid-3">
-          <div class="opt-pill" onclick="pick(this,'referral','Word of mouth')">Word of mouth</div>
-          <div class="opt-pill" onclick="pick(this,'referral','Google')">Google</div>
-          <div class="opt-pill" onclick="pick(this,'referral','Instagram')">Instagram</div>
-          <div class="opt-pill" onclick="pick(this,'referral','Facebook')">Facebook</div>
-          <div class="opt-pill" onclick="pick(this,'referral','The Infatuation')">The Infatuation</div>
-          <div class="opt-pill" onclick="pick(this,'referral','Yelp')">Yelp</div>
-          <div class="opt-pill" onclick="pickOther(this,'referral','referral-other-input')">Other</div>
-        </div>
-        <input type="text" id="referral-other-input" class="q-input" placeholder="Please describe..." style="display:none;margin-top:10px;" oninput="setVal('referral',this.value)"/>
+        <select class="q-input" onchange="setVal('referral',this.value)">
+          <option value="">Select one…</option>
+          <option value="Word of mouth">Word of mouth</option>
+          <option value="Google">Google</option>
+          <option value="Instagram">Instagram</option>
+          <option value="Facebook">Facebook</option>
+          <option value="The Infatuation">The Infatuation</option>
+          <option value="Yelp">Yelp</option>
+          <option value="Other">Other</option>
+        </select>
       </div>
 
       <div class="step-nav">
@@ -1546,14 +1547,14 @@ body { font-size: 17px; }
       <!-- LOCATION -->
       <div class="question">
         <div class="q-label">Where is the event taking place?</div>
-        <div class="pill-grid grid-2">
-          <div class="opt-pill" onclick="pick(this,'venue','At a venue / event space')">Venue / event space</div>
-          <div class="opt-pill" onclick="pick(this,'venue','At an office')">Office</div>
-          <div class="opt-pill" onclick="pick(this,'venue','Private home')">Private home</div>
-          <div class="opt-pill" onclick="pick(this,'venue','Outdoor / park / rooftop')">Outdoor / park / rooftop</div>
-          <div class="opt-pill" onclick="pickOther(this,'venue','other-venue-input')">Other location</div>
-        </div>
-        <input type="text" class="q-input" id="other-venue-input" placeholder="Describe the location..." style="display:none;margin-top:10px;" oninput="setVal('venue',this.value)"/>
+        <select class="q-input" onchange="setVal('venue',this.value)">
+          <option value="">Select one…</option>
+          <option value="At a venue / event space">At a venue / event space</option>
+          <option value="Office">Office</option>
+          <option value="Private home">Private home</option>
+          <option value="Outdoor / park / rooftop">Outdoor / park / rooftop</option>
+          <option value="Other location">Other location</option>
+        </select>
       </div>
 
       <div class="question">
@@ -1563,31 +1564,34 @@ body { font-size: 17px; }
 
       <div class="question">
         <div class="q-label">Does the venue have a kitchen?</div>
-        <div class="pill-grid grid-3">
-          <div class="opt-pill" onclick="pick(this,'kitchen','Yes, full kitchen')">Full kitchen</div>
-          <div class="opt-pill" onclick="pick(this,'kitchen','Warming only')">Warming only</div>
-          <div class="opt-pill" onclick="pick(this,'kitchen','No kitchen')">No kitchen</div>
-        </div>
+        <select class="q-input" onchange="setVal('kitchen',this.value)">
+          <option value="">Select one…</option>
+          <option value="Full kitchen">Full kitchen</option>
+          <option value="Warming only">Warming only</option>
+          <option value="No kitchen">No kitchen</option>
+        </select>
       </div>
 
       <!-- SERVICE -->
       <div class="question">
         <div class="q-label">What type of service do you need?</div>
-        <div class="pill-grid grid-2">
-          <div class="opt-pill" onclick="pick(this,'service','Drop-off only')">Drop-off only</div>
-          <div class="opt-pill" onclick="pick(this,'service','Drop-off + setup')">Drop-off + setup</div>
-          <div class="opt-pill" onclick="pick(this,'service','Full service with staff')">Full service</div>
-          <div class="opt-pill" onclick="pick(this,'service','White glove')">White glove</div>
-        </div>
+        <select class="q-input" onchange="setVal('service',this.value)">
+          <option value="">Select one…</option>
+          <option value="Drop-off only">Drop-off only</option>
+          <option value="Drop-off + setup">Drop-off + setup</option>
+          <option value="Full service">Full service</option>
+          <option value="White glove">White glove</option>
+        </select>
       </div>
 
       <div class="question">
         <div class="q-label">How would you like the food served?</div>
-        <div class="pill-grid grid-3">
-          <div class="opt-pill" onclick="pick(this,'servingStyle','Buffet')">Buffet</div>
-          <div class="opt-pill" onclick="pick(this,'servingStyle','Family style')">Family style</div>
-          <div class="opt-pill" onclick="pick(this,'servingStyle','Plated')">Plated</div>
-        </div>
+        <select class="q-input" onchange="setVal('servingStyle',this.value)">
+          <option value="">Select one…</option>
+          <option value="Buffet">Buffet</option>
+          <option value="Family style">Family style</option>
+          <option value="Plated">Plated</option>
+        </select>
       </div>
 
       <!-- EQUIPMENT -->
