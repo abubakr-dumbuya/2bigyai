@@ -2157,7 +2157,7 @@ function calcPricing() {
 
     if (isEntree) {
       const trays = item.trays || 1;
-      const noStarch = ['tiebu','tiebou','joloff'].some(p => item.name.toLowerCase().startsWith(p));
+      const noStarch = ['tiebu','tiebou','thieb','joloff'].some(p => item.name.toLowerCase().startsWith(p));
       const starchName = (!noStarch && item.starch) ? item.starch : (noStarch ? 'None' : 'White rice');
       const starchCostPerTray = STARCH_PRICES[starchName] || 0;
       const entreeCostPerTray = (item.price || 0);
