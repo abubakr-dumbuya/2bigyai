@@ -983,9 +983,7 @@ body { font-size: 17px; }
   });
 
   // Mobile nav toggle
-  function toggleNav() {
-    document.getElementById('nav-links').classList.toggle('open');
-  }
+  
 
   // Fade-in on scroll
   const observer = new IntersectionObserver((entries) => {
@@ -1004,6 +1002,19 @@ body { font-size: 17px; }
       setTimeout(() => el.classList.add('visible'), 100);
     });
   });
+function toggleNav() {
+  const links = document.getElementById('nav-links');
+  if (links) links.classList.toggle('open');
+}
+
+// Close nav when clicking outside
+document.addEventListener('click', function(e) {
+  const nav = document.getElementById('main-nav');
+  const links = document.getElementById('nav-links');
+  if (links && links.classList.contains('open') && !nav.contains(e.target)) {
+    links.classList.remove('open');
+  }
+});
 </script>
 
 <style>

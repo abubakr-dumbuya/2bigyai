@@ -1285,7 +1285,20 @@ body { font-size: 17px; }
       .nav-links { order: 2; }
     }
 </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">function toggleNav() {
+  const links = document.getElementById('nav-links');
+  if (links) links.classList.toggle('open');
+}
+
+// Close nav when clicking outside
+document.addEventListener('click', function(e) {
+  const nav = document.getElementById('main-nav');
+  const links = document.getElementById('nav-links');
+  if (links && links.classList.contains('open') && !nav.contains(e.target)) {
+    links.classList.remove('open');
+  }
+});
+</script>
 </head>
 <body>
 
@@ -1704,13 +1717,7 @@ body { font-size: 17px; }
   </div>
 </div>
 
-<script>function toggleNav() {
-  const menu = document.getElementById('nav-mobile-menu');
-  const burger = document.querySelector('.hamburger');
-  if (!menu) return;
-  const open = menu.classList.toggle('open');
-  if (burger) burger.classList.toggle('open', open);
-}
+<script>
 
 
 // ── STATE ──────────────────────────────────────────────────────────────────

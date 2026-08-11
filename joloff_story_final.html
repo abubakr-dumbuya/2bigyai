@@ -1270,7 +1270,7 @@ body { font-size: 17px; }
   window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
 
   // Mobile nav
-  function toggleNav() { document.getElementById('nav-links').classList.toggle('open'); }
+  
 
   // Scroll animations
   const observer = new IntersectionObserver((entries) => {
@@ -1282,6 +1282,19 @@ body { font-size: 17px; }
   window.addEventListener('load', () => {
     document.querySelectorAll('.story-hero .fade-up').forEach(el => setTimeout(() => el.classList.add('visible'), 200));
   });
+function toggleNav() {
+  const links = document.getElementById('nav-links');
+  if (links) links.classList.toggle('open');
+}
+
+// Close nav when clicking outside
+document.addEventListener('click', function(e) {
+  const nav = document.getElementById('main-nav');
+  const links = document.getElementById('nav-links');
+  if (links && links.classList.contains('open') && !nav.contains(e.target)) {
+    links.classList.remove('open');
+  }
+});
 </script>
 <script>document.getElementById("footer-year").textContent=new Date().getFullYear();</script>
 </body>
