@@ -2727,7 +2727,7 @@ const _origRenderCart = typeof renderCart === 'function' ? renderCart : null;
 function renderCartDrawer() {
   const orderSection = document.getElementById('order-type-section');
   if (orderSection) {
-    const isEmpty = Object.keys(typeof menuCart !== 'undefined' ? menuCart : {}).length === 0;
+    const isEmpty = typeof cart === 'undefined' || cart.length === 0;
     orderSection.style.display = isEmpty ? 'none' : 'block';
   }
   const tabCount = document.getElementById('cart-tab-count');
