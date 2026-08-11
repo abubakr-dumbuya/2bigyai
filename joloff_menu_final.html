@@ -1014,6 +1014,23 @@ body { font-size: 17px; }
       .hamburger { display: flex !important; order: 3; }
       .nav-links { order: 2; }
     }
+
+    /* Mobile-only dropdown */
+    #nav-mobile-dropdown { flex-direction: column; }
+    #nav-mobile-dropdown .nav-link {
+      display: block;
+      padding: 14px 24px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--dark);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.02em;
+    }
+    #nav-mobile-dropdown .nav-link:last-child { border-bottom: none; }
+    @media(min-width:769px) {
+      #nav-mobile-dropdown { display: none !important; }
+    }
 </style>
 </head>
 <body>
@@ -1030,15 +1047,24 @@ body { font-size: 17px; }
       <span></span><span></span><span></span>
     </button>
     <div class="nav-links" id="nav-links">
-      <a href="/" class="nav-link">Homepage</a>
-      <a href="/story" class="nav-link">Learn about our history</a>
-      <a href="/menu" class="nav-link active">Order delivery or takeout</a>
-      <a href="/catering" class="nav-link">Let us cater your next event</a>
-      <a href="/events" class="nav-link">Attend community events at Joloff</a>
-      <a href="/support" class="nav-link">Support our fundraising efforts</a>
+      <a href="/" class="nav-link">Home</a>
+      <a href="/menu" class="nav-link active">Order</a>
+      <a href="/story" class="nav-link">Our Story</a>
+      <a href="/catering" class="nav-link">Catering</a>
+      <a href="/events" class="nav-link">Events</a>
+      <a href="/support" class="nav-link">Support Us</a>
+    
     
       
     </div>
+  </div>
+<div id="nav-mobile-dropdown" style="display:none; flex-direction:column; background:var(--cream); border-top:1px solid var(--border); padding:8px 0;">
+    <a href="/" class="nav-link">Homepage</a>
+    <a href="/story" class="nav-link">Learn about our history</a>
+    <a href="/menu" class="nav-link">Order delivery or takeout</a>
+    <a href="/catering" class="nav-link">Let us cater your next event</a>
+    <a href="/events" class="nav-link">Attend community events at Joloff</a>
+    <a href="/support" class="nav-link">Support our fundraising efforts</a>
   </div>
 </nav>
 <!-- MENU HERO -->
@@ -2671,16 +2697,18 @@ function placeOrder() {
 // ── INIT ────────────────────────────────────────────────────────────────────
 render();
 function toggleNav() {
-  const links = document.getElementById('nav-links');
-  if (links) links.classList.toggle('open');
+  const dropdown = document.getElementById('nav-mobile-dropdown');
+  if (!dropdown) return;
+  const isOpen = dropdown.style.display === 'flex';
+  dropdown.style.display = isOpen ? 'none' : 'flex';
 }
 
 // Close nav when clicking outside
 document.addEventListener('click', function(e) {
   const nav = document.getElementById('main-nav');
-  const links = document.getElementById('nav-links');
-  if (links && links.classList.contains('open') && !nav.contains(e.target)) {
-    links.classList.remove('open');
+  const dropdown = document.getElementById('nav-mobile-dropdown');
+  if (dropdown && dropdown.style.display === 'flex' && !nav.contains(e.target)) {
+    dropdown.style.display = 'none';
   }
 });
 </script>
