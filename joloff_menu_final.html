@@ -1535,8 +1535,7 @@ function catSectionBanner(catId, items) {
 
 function renderMenuCustomizer() {
   const el = document.getElementById('menu-customizer');
-  ['appetizers','entrees','sides','desserts','drinks'];
-  const entreeCats = ['entrees'];
+  const entreeCats = ['chicken','lamb','fish','vegetarian'];
 
   const recommended = totalRecommendedTrays();
   const ordered = traysOrdered();
@@ -1546,23 +1545,20 @@ function renderMenuCustomizer() {
     <h3 style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--dark);margin-bottom:16px;">Customize your menu</h3>
 
   ` + showCategories.map(catId => {
-    if (catId === 'entrees') {
+    if (entreeCats.includes(catId)) {
+      const cat = MENU_DATA[catId];
+      if (!cat) return '';
+      const meta = sectionMeta[catId] || {};
       return `
       <div class="menu-section">
-        <div class="menu-section-title">Entrees</div>
-        <div class="menu-section-sub">Choose from our chicken, lamb, fish, and vegetarian options</div>
+        <div class="menu-section-eyebrow">${meta.eyebrow || ''}</div>
+        <div class="menu-section-title">${meta.title || cat.label}</div>
         <div style="background:var(--warm);border-left:3px solid var(--terra);padding:14px 18px;margin-bottom:24px;">
           <div style="font-size:15px;font-weight:400;color:var(--dark);margin-bottom:6px;">Each tray of a particular entree can feed up to 15 people. Based on <strong>${Q.guests} Guests</strong>, we recommend ordering a total of <strong>${recommended} ${recommended !== 1 ? 'Trays' : 'Tray'}</strong>.</div>
           <div id="entree-count-note" style="font-size:13px;color:var(--dark);font-weight:600;">${entreeCount} ${entreeCount !== 1 ? 'Entrees' : 'Entree'} selected · ${ordered} ${ordered !== 1 ? 'Trays' : 'Tray'} ordered</div>
         </div>
-        ${entreeCats.map(subCatId => {
-          const subCat = MENU_DATA[subCatId];
-          if (!subCat) return '';
-          return `
-            <div style="margin-bottom:24px;">
-              <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#1B5C3A;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);">${subCat.label}</div>
-              <div class="menu-items-grid">
-                ${subCat.items.map(item => {
+        <div class="menu-items-grid">
+                ${cat.items.map(item => {
                   const inCart = !!menuCart[item.id];
                   const trays = inCart ? menuCart[item.id].trays : 0;
                   const riceNote = includedRiceNote(item.name);
@@ -1570,19 +1566,19 @@ function renderMenuCustomizer() {
                   let priceHtml = '';
                   if (riceNote) {
                     priceHtml = `<div style="text-align:right"><div class="mi-price-badge">$${item.trayPrice} / ${unit}</div><div style="font-size:13px;color:var(--mid);text-align:right;margin-top:4px;line-height:1.3;">includes<br/>${riceNote.replace('includes ', '')}</div></div>`;
-                  } else if (inCart && needsStarch(item.name, subCatId)) {
+                  } else if (inCart && needsStarch(item.name, catId)) {
                     const starchName = menuCart[item.id].starch || 'White rice';
                     const starchCost = STARCH_PRICES[starchName] || 0;
                     const combined = item.trayPrice + starchCost;
                     const starchLabel = starchName === 'None' ? 'no side' : starchName.toLowerCase();
                     priceHtml = `<div style="text-align:right"><div class="mi-price-badge">$${combined} / ${unit}</div><div style="font-size:13px;color:var(--mid);text-align:right;margin-top:4px;line-height:1.3;">includes<br/>${starchLabel}</div></div>`;
-                  } else if (!inCart && needsStarch(item.name, subCatId)) {
+                  } else if (!inCart && needsStarch(item.name, catId)) {
                     priceHtml = `<div style="text-align:right"><div class="mi-price-badge">$${item.trayPrice + 60} / ${unit}</div><div style="font-size:13px;color:var(--mid);text-align:right;margin-top:4px;line-height:1.3;">includes<br/>white rice</div></div>`;
                   } else {
                     priceHtml = `<div class="mi-price-badge">$${item.trayPrice} / ${unit}</div>`;
                   }
                   let starchHtml = '';
-                  if (inCart && needsStarch(item.name, subCatId)) {
+                  if (inCart && needsStarch(item.name, catId)) {
                     const curStarch = menuCart[item.id] ? menuCart[item.id].starch || 'White rice' : 'White rice';
                     const curPrice = STARCH_PRICES[curStarch] || 0;
                     const opts = [['White rice','White rice'],['Joloff rice','Joloff rice'],['Brown rice','Brown rice'],['Fonio','Fonio'],['Atcheke','Atcheke'],['Couscous','Couscous'],['None','No side']];
@@ -2266,7 +2262,7 @@ function saveQuote() {
 const STARCH_PRICES = {'White rice':0,'Joloff rice':2,'Brown rice':0,'Fonio':2,'Atcheke':0,'Couscous':0};
 const STARCH_OPTS = ['White rice','Brown rice','Atcheke','Couscous','Fonio','Joloff rice'];
 const entreeCats = ['entrees'];
-const showCategories = ['appetizers','entrees','sides','desserts','drinks'];
+const showCategories = ['appetizers','chicken','lamb','fish','vegetarian','sides','desserts','drinks'];
 
 // Cart: array of line items {uid, id, name, price, starch, qty, catId}
 let cart = [];
@@ -2315,32 +2311,28 @@ function render() {
 // ── RENDER MENU ────────────────────────────────────────────────────────────
 function renderMenu() {
   const sectionMeta = {
-      appetizers: { eyebrow:'To start', title:'Appetizers & <em>small plates</em>' },
-      entrees: { eyebrow:'Main courses', title:'Entrees' },
-      sides: { eyebrow:'Accompaniments', title:'Sides & <em>rice</em>' },
-      desserts: { eyebrow:'To finish', title:'<em>Desserts</em>' },
-      drinks: { eyebrow:'Beverages', title:'Drinks & <em>juices</em>' }
+      appetizers: { eyebrow:'To start', title:'Appetizers' },
+      chicken:    { eyebrow:'Chicken', title:'Chicken entrees' },
+      lamb:       { eyebrow:'Lamb', title:'Lamb entrees' },
+      fish:       { eyebrow:'Fish & seafood', title:'Fish & seafood entrees' },
+      vegetarian: { eyebrow:'Vegetarian & vegan', title:'Vegetarian & vegan entrees' },
+      grilled:    { eyebrow:'Grilled specials', title:'Grilled specials' },
+      sides:      { eyebrow:'Sides', title:'Sides' },
+      desserts:   { eyebrow:'Desserts', title:'Desserts' },
+      drinks:     { eyebrow:'Drinks', title:'Drinks' }
     };
 
   document.getElementById('menu-sections').innerHTML = showCategories.map(catId => {
     const meta = sectionMeta[catId] || {};
     let content = '';
 
-    if (catId === 'entrees') {
-      content = entreeCats.map(subCatId => {
-        const cat = MENU_DATA[subCatId];
-        if (!cat) return '';
-        const starchNote = `<div class="entree-starch-note">${'Served with White rice, Brown rice, Atcheke, Couscous, Fonio (+$2), or Joloff rice (+$2)'}</div>`;
-        return `<div class="entree-subcat">
-          <div class="entree-subcat-label">${cat.label}</div>
-          ${starchNote}
-          <div class="menu-items">${cat.items.map(item => renderCard(item, subCatId)).join('')}</div>
-        </div>`;
-      }).join('');
+    const entreeProteinCats = ['chicken','lamb','fish','vegetarian'];
+    const cat = MENU_DATA[catId];
+    if (!cat) return '';
+    if (entreeProteinCats.includes(catId)) {
+      content = `<div class="menu-items">${cat.items.map(item => renderCard(item, catId)).join('')}</div>`;
     } else {
-      const cat = MENU_DATA[catId];
-      if (!cat) return '';
-      content = catId === 'drinks' ? `<div class="menu-items">${renderDrinksSections(cat.items, catId)}</div>` : catId === 'sides' ? `<div class="menu-items">${renderSidesSections(cat.items, catId)}</div>` : catId === 'entrees' ? renderEntreeSection(cat, catId) : `<div class="menu-items">${cat.items.map(item => renderCard(item, catId)).join('')}</div>`;
+      content = catId === 'drinks' ? `<div class="menu-items">${renderDrinksSections(cat.items, catId)}</div>` : catId === 'sides' ? `<div class="menu-items">${renderSidesSections(cat.items, catId)}</div>` : `<div class="menu-items">${cat.items.map(item => renderCard(item, catId)).join('')}</div>`;
     }
 
     return `<div class="menu-section">
