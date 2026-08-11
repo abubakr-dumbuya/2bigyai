@@ -851,17 +851,7 @@ body { font-size: 17px; }
       display: flex; flex-direction: row; gap: 12px;
       align-items: stretch; margin-top: 32px; width: 100%;
     }
-    .btn-back {
-      padding: 15px 28px;
-      border: 1.5px solid var(--border);
-      background: transparent;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 16px; font-weight: 600;
-      color: var(--dark); cursor: pointer;
-      transition: all 0.2s;
-      display: inline-flex; align-items: center; gap: 8px;
-      white-space: nowrap; flex-shrink: 0;
-    }
+    .btn-back { width: 100%; padding: 14px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border-radius: 0; box-sizing: border-box; background: transparent; color: var(--dark); border: 1.5px solid var(--border); }
     .btn-back:hover { border-color: var(--terra); color: var(--terra); }
     .btn-back:hover { border-color: var(--mid); color: var(--mid); }
     .btn-next { flex: 1; padding: 15px; background: var(--terra); color: #fff; border: none; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; display: inline-flex; align-items: center; justify-content: center; }
@@ -945,9 +935,9 @@ body { font-size: 17px; }
     .bt-row.grand { font-size: 20px; font-weight: 700; color: var(--dark); padding-top: 10px; margin-top: 4px; border-top: 1px solid var(--border); }
     .bt-row.grand .btv { font-family: 'Cormorant Garamond', serif; font-size: 34px; color: var(--terra); font-weight: 700; }
     .bt-deposit { font-size: 15px; color: var(--mid); margin-top: 8px; text-align: right; }
-    .btn-book-now { width: 100%; padding: 15px; background: var(--terra); color: #fff; border: none; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; margin-top: 20px; }
+    .btn-book-now { width: 100%; padding: 14px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border-radius: 0; box-sizing: border-box; background: var(--terra); color: #fff; border: none; }
     .btn-book-now:hover { background: #134530; }
-    .btn-restart { width: 100%; padding: 11px; background: transparent; color: var(--mid); border: 1px solid var(--border); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; cursor: pointer; transition: all 0.2s; margin-top: 10px; }
+    .btn-restart { width: 100%; padding: 14px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border-radius: 0; box-sizing: border-box; background: transparent; color: var(--mid); border: 1px solid var(--border); }
     .btn-restart:hover { color: var(--mid); border-color: var(--mid); }
     .results-divider { height: 1px; background: var(--border); margin: 28px 0; }
 
@@ -980,7 +970,7 @@ body { font-size: 17px; }
       .modal-foot { padding: 0 16px 18px; }
       .mf-row { grid-template-columns: 1fr; }
     }
-    .btn-pay { width: 100%; padding: 14px; background: var(--terra); color: #fff; border: none; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; cursor: pointer; }
+    .btn-pay { width: 100%; padding: 14px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border-radius: 0; box-sizing: border-box; background: var(--terra); color: #fff; border: none; }
     .btn-pay:hover { background: var(--terra-dark); }
     .secure-txt { font-size: 13px; color: var(--mid); text-align: center; }
 
@@ -1657,7 +1647,7 @@ body { font-size: 17px; }
 
       <div id="tray-summary" style="margin-top:20px;padding:16px;background:var(--warm);border:1px solid var(--border);font-size:13px;color:var(--mid);line-height:1.7;"></div>
 
-      <button class="btn-back" onclick="goToStep(3)" style="margin-right:10px;">← Back to Your Event</button><button class="btn-restart" onclick="restartQuote()">Start Over</button>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px;"><button class="btn-back" onclick="goToStep(3)">← Back to Your Event</button><button class="btn-restart" onclick="restartQuote()">Start Over</button></div>
     </div>
   </div>
 </div>
