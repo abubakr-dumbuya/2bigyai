@@ -1,10 +1,9 @@
 {
-  "cleanUrls": true,
-  "routes": [
-    { "src": "^/$",          "dest": "/joloff_home_final.html" },
-    { "src": "^/menu$",      "dest": "/joloff_menu_final.html" },
-    { "src": "^/story$",     "dest": "/joloff_story_final.html" },
-    { "src": "^/events$",    "dest": "/joloff_events_final.html" },
-    { "src": "^/catering$",  "dest": "/joloff_catering_final.html" }
+  "rewrites": [
+    { "source": "/",          "destination": "/joloff_home_final.html" },
+    { "source": "/menu",      "destination": "/joloff_menu_final.html" },
+    { "source": "/story",     "destination": "/joloff_story_final.html" },
+    { "source": "/events",    "destination": "/joloff_events_final.html" },
+    { "source": "/catering",  "destination": "/joloff_catering_final.html" }
   ]
 }
