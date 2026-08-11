@@ -205,7 +205,7 @@ body { font-size: 17px; }
       margin-bottom: 24px;
     }
     .hero h1 em {
-      font-style: italic;
+      font-style: normal;
       color: #fff;
     }
     .hero-sub {
@@ -385,7 +385,7 @@ body { font-size: 17px; }
       color: var(--dark);
       margin-bottom: 24px;
     }
-    .section-title em { color: var(--terra); font-style: italic; }
+    .section-title em { color: var(--terra); font-style: normal; }
     .hero .section-title em, .catering-hero .section-title em, .results-header .section-title em, .hero h1 em, .catering-hero h1 em, .hero h2 em, .catering-hero h2 em { color: #fff; }
     /* All text on dark bg sections should be white */
     .hero *, .catering-hero *, .ratings-section *, .results-header * { color: #fff !important; }
@@ -816,7 +816,7 @@ body { font-size: 17px; }
     .section { padding: 96px 80px; }
     .section-eyebrow { font-size: 15px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--terra); margin-bottom: 16px; }
     .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(34px, 3.5vw, 54px); font-weight: 600; line-height: 1.1; color: var(--dark); margin-bottom: 28px; }
-    .section-title em { color: var(--terra); font-style: italic; }
+    .section-title em { color: var(--terra); font-style: normal; }
     .hero .section-title em, .catering-hero .section-title em, .results-header .section-title em, .hero h1 em, .catering-hero h1 em, .hero h2 em, .catering-hero h2 em { color: #fff; }
     /* All text on dark bg sections should be white */
     .hero *, .catering-hero *, .ratings-section *, .results-header * { color: #fff !important; }
@@ -888,7 +888,7 @@ body { font-size: 17px; }
     /* ── CAMPAIGN CTA ── */
     .cta-section { background: var(--dark); padding: 96px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
     .cta-left h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(34px, 3.5vw, 54px); font-weight: 600; color: #fff; line-height: 1.1; margin-bottom: 24px; }
-    .cta-left h2 em { color: var(--terra); font-style: italic; }
+    .cta-left h2 em { color: var(--terra); font-style: normal; }
     .hero h2 em, .catering-hero h2 em { color: #fff; }
     .cta-left p { font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.55); line-height: 1.8; margin-bottom: 36px; }
     .btn-lg-terra { display: inline-block; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 16px 40px; background: var(--terra); color: #fff; text-decoration: none; transition: all 0.2s; border: none; cursor: pointer; }
@@ -982,7 +982,7 @@ body { font-size: 17px; }
       line-height: 1.05; letter-spacing: -0.02em;
       margin-bottom: 24px;
     }
-    .story-hero h1 em { color: #fff; font-style: italic; }
+    .story-hero h1 em { color: #fff; font-style: normal; }
     .story-hero .hero-sub {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 18px; color: rgba(255,255,255,0.6);
@@ -1013,7 +1013,8 @@ body { font-size: 17px; }
     .catering-feature p,
     .catering-feature .section-body { color: var(--dark); font-weight: 400; }
 
-  </style>
+      .hero em, .hero h1 em, .hero h2 em, [class*="-hero"] em, [class*="-hero"] h1 em { font-style: normal !important; color: #fff !important; }
+    </style>
 </head>
 <body>
 

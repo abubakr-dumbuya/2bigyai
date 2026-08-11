@@ -209,7 +209,7 @@ body { font-size: 17px; }
       margin-bottom: 24px;
     }
     .hero h1 em {
-      font-style: italic;
+      font-style: normal;
       color: #fff;
     }
     .hero-sub {
@@ -389,7 +389,7 @@ body { font-size: 17px; }
       color: var(--dark);
       margin-bottom: 24px;
     }
-    .section-title em { color: var(--terra); font-style: italic; }
+    .section-title em { color: var(--terra); font-style: normal; }
     .hero .section-title em, .catering-hero .section-title em, .results-header .section-title em, .hero h1 em, .catering-hero h1 em, .hero h2 em, .catering-hero h2 em { color: #fff; }
     /* All text on dark bg sections should be white */
     .hero *, .catering-hero *, .ratings-section *, .results-header * { color: #fff !important; }
@@ -944,7 +944,7 @@ body { font-size: 17px; }
       line-height: 1.05; letter-spacing: -0.02em;
       margin-bottom: 24px;
     }
-    .menu-hero h1 em { color: #fff; font-style: italic; }
+    .menu-hero h1 em { color: #fff; font-style: normal; }
     .menu-hero .hero-sub {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 18px; color: rgba(255,255,255,0.6);
@@ -992,7 +992,8 @@ body { font-size: 17px; }
     .protein-label { font-weight: 500; color: #2A3D32; text-transform: lowercase; font-variant: small-caps; font-size: 13.5px; letter-spacing: 0.02em; }
     .pwolof { color: var(--gold); font-weight: 700; font-variant: normal; text-transform: none; }
     .protein-price { color: var(--terra); font-weight: 600; font-size: 13px; margin-left: 10px; }
-  </style>
+      .hero em, .hero h1 em, .hero h2 em, [class*="-hero"] em, [class*="-hero"] h1 em { font-style: normal !important; color: #fff !important; }
+    </style>
 </head>
 <body>
 
