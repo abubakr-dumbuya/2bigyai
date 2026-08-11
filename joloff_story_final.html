@@ -656,17 +656,8 @@ body { font-size: 17px; }
     .hours-row span:last-child { font-weight: 500; }
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--dark);
-      padding: 64px 80px 40px;
-    }
-    .footer-top {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr 1fr;
-      gap: 48px;
-      padding-bottom: 48px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
+    footer { background: var(--dark); padding: 48px 24px 32px; }
+    .footer-top { display: flex; flex-direction: column; gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.12); }
     .footer-logo img {
       height: 64px;
       width: auto;
@@ -763,7 +754,7 @@ body { font-size: 17px; }
       .info-section { padding: 0; grid-template-columns: 1fr; }
       .info-block { padding: 40px 24px; }
       footer { padding: 48px 24px 32px; }
-      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-top { display: flex; flex-direction: column; gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.12); }
     }
     @media(max-width:500px){
       .dishes-grid { grid-template-columns: 1fr; }
@@ -904,8 +895,8 @@ body { font-size: 17px; }
     .cta-progress-label { font-size: 12px; color: #fff; }
 
     /* ── FOOTER ── */
-    footer { background: var(--dark); padding: 64px 80px 40px; }
-    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    footer { background: var(--dark); padding: 48px 24px 32px; }
+    .footer-top { display: flex; flex-direction: column; gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.12); }
     .footer-logo img { height: 52px; width: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.85; margin-bottom: 20px; }
     .footer-tagline { font-size: 15px; font-weight: 300; color: #fff; line-height: 1.7; margin-bottom: 24px; }
     .footer-social { display: flex; gap: 12px; }
@@ -944,7 +935,7 @@ body { font-size: 17px; }
       .philosophy-grid { grid-template-columns: 1fr; }
       .cta-section { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
       footer { padding: 48px 24px 32px; }
-      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-top { display: flex; flex-direction: column; gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.12); }
       .name-val { min-width: 160px; font-size: 18px; }
     }
 
