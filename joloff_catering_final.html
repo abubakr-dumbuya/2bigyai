@@ -2782,91 +2782,75 @@ function formatDate(d) {
 }
 
 function saveQuote() {
-  const p = calcPricing();
-  if (!p) { alert('Please complete the quote first.'); return; }
-  const g = Q.guestCount || '?';
-  const date = Q.eventDate ? new Date(Q.eventDate + 'T12:00:00').toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'}) : 'TBD';
-  const time = (Q.startTime && Q.endTime) ? Q.startTime + ' – ' + Q.endTime : '';
-  const clientName = ((Q.firstName||'') + ' ' + (Q.lastName||'')).trim() || 'Guest';
+  var p = calcPricing();
+  if (!p) { alert('Please complete your menu selection first.'); return; }
+  var g = Q.guestCount || '?';
+  var eventDate = Q.eventDate ? new Date(Q.eventDate + 'T12:00:00').toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'}) : 'TBD';
+  var time = (Q.startTime && Q.endTime) ? Q.startTime + ' \u2013 ' + Q.endTime : '';
+  var clientName = ((Q.firstName||'') + ' ' + (Q.lastName||'')).trim() || 'Guest';
+  var today = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
 
-  const buildLines = (items) => items && items.length
-    ? items.map(([n,v]) => '<tr><td style="padding:4px 8px 4px 0;color:#4A6B56;">' + n + '</td><td style="padding:4px 0;text-align:right;font-weight:600;">' + v + '</td></tr>').join('')
-    : '';
+  function row(label, val) { return '<tr><td style="padding:4px 8px 4px 0;color:#4A6B56;">' + label + '</td><td style="text-align:right;font-weight:600;">' + val + '</td></tr>'; }
+  function section(title, items) {
+    if (!items || !items.length) return '';
+    var rows = items.map(function(i){ return row(i[0], i[1]); }).join('');
+    return '<div style="margin-bottom:18px;"><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#1B5C3A;border-bottom:1px solid #DDD8CE;padding-bottom:4px;margin-bottom:8px;">'+title+'</div><table style="width:100%;border-collapse:collapse;">'+rows+'</table></div>';
+  }
 
-  const html = \`<!DOCTYPE html><html><head><meta charset="UTF-8">
-  <title>Joloff Catering Quote</title>
-  <style>
-    body{font-family:Arial,sans-serif;font-size:13px;color:#0F2018;margin:0;padding:32px;max-width:680px;}
-    h1{font-size:28px;font-weight:300;color:#0F2018;margin:0 0 4px;}
-    .gold{color:#C9A84C;}
-    .terra{color:#1B5C3A;}
-    .header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #C9A84C;padding-bottom:16px;margin-bottom:24px;}
-    .logo{font-size:11px;color:#4A6B56;line-height:1.6;}
-    .section{margin-bottom:20px;}
-    .section-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1B5C3A;border-bottom:1px solid #DDD8CE;padding-bottom:4px;margin-bottom:10px;}
-    table{width:100%;border-collapse:collapse;}
-    .total-row td{font-weight:700;font-size:14px;border-top:2px solid #C9A84C;padding-top:8px;}
-    .info-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
-    .info-block label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4A6B56;display:block;margin-bottom:2px;}
-    .info-block span{font-size:13px;}
-    .footer{margin-top:32px;font-size:10px;color:#4A6B56;border-top:1px solid #DDD8CE;padding-top:12px;text-align:center;}
-    @media print{body{padding:24px;}}
-  </style></head><body>
-  <div class="header">
-    <div>
-      <h1>Joloff Restaurant</h1>
-      <div style="font-size:13px;color:#C9A84C;letter-spacing:.12em;">CATERING QUOTE</div>
-      <div style="font-size:11px;color:#4A6B56;margin-top:4px;">Authentic Senegalese Cuisine · Est. 1995</div>
-    </div>
-    <div style="text-align:right;font-size:11px;color:#4A6B56;line-height:1.8;">
-      <div>1168 Bedford Ave, Brooklyn, NY 11216</div>
-      <div>(718) 230-0523</div>
-      <div>joloffrestaurant@gmail.com</div>
-      <div>joloffjoloff.com</div>
-      <div style="margin-top:8px;color:#C9A84C;">\${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}</div>
-    </div>
-  </div>
+  var body = '';
+  body += '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Joloff Catering Quote</title>';
+  body += '<style>body{font-family:Arial,sans-serif;font-size:13px;color:#0F2018;margin:0;padding:32px;max-width:680px;}@media print{body{padding:24px;}}</style></head><body>';
+  body += '<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #C9A84C;padding-bottom:16px;margin-bottom:24px;">';
+  body += '<div><div style="font-size:28px;font-weight:300;">Joloff Restaurant</div>';
+  body += '<div style="font-size:13px;color:#C9A84C;letter-spacing:.12em;">CATERING QUOTE</div>';
+  body += '<div style="font-size:11px;color:#4A6B56;margin-top:4px;">Authentic Senegalese Cuisine \u00b7 Est. 1995</div></div>';
+  body += '<div style="text-align:right;font-size:11px;color:#4A6B56;line-height:1.8;">';
+  body += '<div>1168 Bedford Ave, Brooklyn, NY 11216</div><div>(718) 230-0523</div>';
+  body += '<div>joloffrestaurant@gmail.com</div><div>joloffjoloff.com</div>';
+  body += '<div style="margin-top:8px;color:#C9A84C;">' + today + '</div></div></div>';
 
-  <div class="section">
-    <div class="section-title">Client & Event</div>
-    <div class="info-grid">
-      <div class="info-block"><label>Client</label><span>\${clientName}</span><br>\${Q.email ? '<span style="font-size:11px;color:#4A6B56;">'+Q.email+'</span><br>' : ''}\${Q.phone ? '<span style="font-size:11px;color:#4A6B56;">'+Q.phone+'</span>' : ''}</div>
-      <div class="info-block"><label>Event</label><span>\${Q.eventType || '—'}</span><br><span style="font-size:11px;">\${date}</span><br>\${time ? '<span style="font-size:11px;color:#4A6B56;">'+time+'</span>' : ''}<br><span style="font-size:11px;">\${g} guests</span></div>
-      <div class="info-block"><label>Location & Service</label><span>\${Q.venue || '—'}</span><br>\${Q.service ? '<span style="font-size:11px;color:#4A6B56;">'+Q.service+'</span>' : ''}\${Q.dietary && Q.dietary.length ? '<br><span style="font-size:11px;">Dietary: '+Q.dietary.join(', ')+'</span>' : ''}</div>
-    </div>
-  </div>
+  body += '<div style="margin-bottom:20px;"><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#1B5C3A;border-bottom:1px solid #DDD8CE;padding-bottom:4px;margin-bottom:12px;">Client & Event</div>';
+  body += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">';
+  body += '<div><div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4A6B56;margin-bottom:2px;">Client</div>';
+  body += '<div>' + clientName + '</div>';
+  if (Q.email) body += '<div style="font-size:11px;color:#4A6B56;">' + Q.email + '</div>';
+  if (Q.phone) body += '<div style="font-size:11px;color:#4A6B56;">' + Q.phone + '</div></div>';
+  body += '<div><div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4A6B56;margin-bottom:2px;">Event</div>';
+  body += '<div>' + (Q.eventType||'—') + '</div><div style="font-size:11px;">' + eventDate + '</div>';
+  if (time) body += '<div style="font-size:11px;color:#4A6B56;">' + time + '</div>';
+  body += '<div style="font-size:11px;">' + g + ' guests</div></div>';
+  body += '<div><div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4A6B56;margin-bottom:2px;">Service</div>';
+  if (Q.venue) body += '<div>' + Q.venue + '</div>';
+  if (Q.service) body += '<div style="font-size:11px;color:#4A6B56;">' + Q.service + '</div>';
+  if (Q.dietary && Q.dietary.length) body += '<div style="font-size:11px;">Dietary: ' + Q.dietary.join(', ') + '</div>';
+  body += '</div></div></div>';
 
-  \${p.lines.entrees && p.lines.entrees.length ? '<div class="section"><div class="section-title">Entrees</div><table>'+buildLines(p.lines.entrees)+'</table></div>' : ''}
-  \${p.lines.sides && p.lines.sides.length ? '<div class="section"><div class="section-title">Sides</div><table>'+buildLines(p.lines.sides)+'</table></div>' : ''}
-  \${p.lines.appetizers && p.lines.appetizers.length ? '<div class="section"><div class="section-title">Appetizers</div><table>'+buildLines(p.lines.appetizers)+'</table></div>' : ''}
-  \${p.lines.desserts && p.lines.desserts.length ? '<div class="section"><div class="section-title">Desserts</div><table>'+buildLines(p.lines.desserts)+'</table></div>' : ''}
-  \${p.lines.drinks && p.lines.drinks.length ? '<div class="section"><div class="section-title">Drinks</div><table>'+buildLines(p.lines.drinks)+'</table></div>' : ''}
-  \${p.lines.service && p.lines.service.length ? '<div class="section"><div class="section-title">Service</div><table>'+buildLines(p.lines.service)+'</table></div>' : ''}
-  \${p.lines.equipment && p.lines.equipment.length ? '<div class="section"><div class="section-title">Equipment</div><table>'+buildLines(p.lines.equipment)+'</table></div>' : ''}
+  body += section('Entrees', p.lines.entrees);
+  body += section('Sides', p.lines.sides);
+  body += section('Appetizers', p.lines.appetizers);
+  body += section('Desserts', p.lines.desserts);
+  body += section('Drinks', p.lines.drinks);
+  body += section('Service', p.lines.service);
+  body += section('Equipment', p.lines.equipment);
 
-  <div class="section">
-    <div class="section-title">Summary</div>
-    <table>
-      \${p.foodFlat ? '<tr><td style="padding:4px 8px 4px 0;color:#4A6B56;">Food subtotal</td><td style="text-align:right;">$'+Number(p.foodFlat).toLocaleString()+'</td></tr>' : ''}
-      \${p.serviceTotal ? '<tr><td style="padding:4px 8px 4px 0;color:#4A6B56;">Service</td><td style="text-align:right;">$'+Number(p.serviceTotal).toLocaleString()+'</td></tr>' : ''}
-      \${p.tax ? '<tr><td style="padding:4px 8px 4px 0;color:#4A6B56;">Tax (8.875%)</td><td style="text-align:right;">$'+Number(p.tax).toLocaleString()+'</td></tr>' : ''}
-      \${p.gratuity ? '<tr><td style="padding:4px 8px 4px 0;color:#4A6B56;">Gratuity (20%)</td><td style="text-align:right;">$'+Number(p.gratuity).toLocaleString()+'</td></tr>' : ''}
-      <tr class="total-row"><td>TOTAL</td><td style="text-align:right;">$\${Number(p.total).toLocaleString()}</td></tr>
-      \${p.deposit ? '<tr><td style="padding:4px 8px 4px 0;color:#C9A84C;font-weight:600;">Deposit (50%)</td><td style="text-align:right;color:#C9A84C;font-weight:600;">$'+Number(p.deposit).toLocaleString()+'</td></tr>' : ''}
-    </table>
-  </div>
+  body += '<div style="margin-top:20px;"><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#1B5C3A;border-bottom:1px solid #DDD8CE;padding-bottom:4px;margin-bottom:8px;">Summary</div>';
+  body += '<table style="width:100%;border-collapse:collapse;">';
+  if (p.foodFlat) body += row('Food subtotal', '$' + Number(p.foodFlat).toLocaleString());
+  if (p.serviceTotal) body += row('Service', '$' + Number(p.serviceTotal).toLocaleString());
+  if (p.tax) body += row('Tax (8.875%)', '$' + Number(p.tax).toLocaleString());
+  if (p.gratuity) body += row('Gratuity (20%)', '$' + Number(p.gratuity).toLocaleString());
+  body += '<tr><td style="padding:8px 8px 4px 0;font-weight:700;font-size:14px;border-top:2px solid #C9A84C;">TOTAL</td><td style="text-align:right;font-weight:700;font-size:14px;border-top:2px solid #C9A84C;">$' + Number(p.total).toLocaleString() + '</td></tr>';
+  if (p.deposit) body += '<tr><td style="padding:4px 8px 4px 0;color:#C9A84C;font-weight:600;">Deposit (50%)</td><td style="text-align:right;color:#C9A84C;font-weight:600;">$' + Number(p.deposit).toLocaleString() + '</td></tr>';
+  body += '</table></div>';
+  body += '<div style="margin-top:32px;font-size:10px;color:#4A6B56;border-top:1px solid #DDD8CE;padding-top:12px;text-align:center;">This quote is valid for 30 days. A 50% deposit is required to confirm your booking.<br>Joloff Restaurant \u00b7 1168 Bedford Ave, Brooklyn, NY 11216 \u00b7 (718) 230-0523 \u00b7 joloffrestaurant@gmail.com</div>';
+  body += '</body></html>';
 
-  <div class="footer">
-    This quote is valid for 30 days. A 50% deposit is required to confirm your booking.<br>
-    Joloff Restaurant · 1168 Bedford Ave, Brooklyn, NY 11216 · (718) 230-0523 · joloffrestaurant@gmail.com
-  </div>
-  </body></html>\`;
-
-  const win = window.open('', '_blank', 'width=760,height=900');
-  win.document.write(html);
+  var win = window.open('', '_blank', 'width=760,height=900');
+  if (!win) { alert('Please allow popups for this site to generate the PDF.'); return; }
+  win.document.write(body);
   win.document.close();
   win.focus();
-  setTimeout(() => win.print(), 600);
+  setTimeout(function(){ win.print(); }, 600);
 }
 
 
