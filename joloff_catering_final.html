@@ -2769,7 +2769,7 @@ function renderMenuCustomizer() {
                     starchHtml = `<div onclick="event.stopPropagation()" style=""><select class="starch-select visible" id="starch-${item.id}" onchange="setStarch('${item.id}', this.value)" style="font-size:14px;padding:5px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--mid);outline:none;width:auto;">${optHtml}</select></div>`;
                   }
                   const trayHtml = inCart ? `<div onclick="event.stopPropagation()" style="display:flex;align-items:center;justify-content:flex-start;gap:8px;margin-top:8px;"><button class="pc-btn" onclick="event.stopPropagation();changeTray('${item.id}',-1)" ${trays <= 1 ? 'disabled' : ''}>−</button><div class="pc-num" id="pcn-${item.id}">${trays} ${trays !== 1 ? 'trays' : 'tray'}</div><button class="pc-btn" onclick="event.stopPropagation();changeTray('${item.id}',1)">+</button></div>` : '';
-                  return `<div class="menu-item-row ${inCart ? 'in-cart' : ''}" id="mir-${item.id}" onclick="toggleMenuItem('${item.id}','${subCat.label}',${item.trayPrice || 0},'${item.name}')"><div class="mi-check-circle">${inCart ? '✓' : ''}</div><div class="mi-info-wrap"><div class="mi-name">${item.name}${item.signature?'<span style="color:var(--gold);">★</span>':''}</div>${item.desc ? `<div class="mi-desc">${item.desc}</div>` : ''}${trayHtml}</div><div class="mi-right">${priceHtml}${starchHtml}</div></div>`;
+                  return `<div class="menu-item-row ${inCart ? 'in-cart' : ''}" id="mir-${item.id}" onclick="toggleMenuItem('${item.id}','${subCat.label}',${item.trayPrice || 0},'${item.name}')"><div class="mi-check-circle">${inCart ? '✓' : ''}</div><div class="mi-info-wrap"><div class="mi-name">${item.name}${item.signature?'  <span style="color:var(--gold);">★</span>':''}</div>${item.desc ? `<div class="mi-desc">${item.desc}</div>` : ''}${trayHtml}</div><div class="mi-right">${priceHtml}${starchHtml}</div></div>`;
                 }).join('')}
               </div>
             </div>`;
@@ -2824,7 +2824,7 @@ function renderMenuCustomizer() {
             <div class="menu-item-row ${inCart ? 'in-cart' : ''}" id="mir-${item.id}" onclick="toggleMenuItem('${item.id}','${cat.label}',${price},'${item.name}')">
               <div class="mi-check-circle">${inCart ? '✓' : ''}</div>
               <div class="mi-info-wrap">
-                <div class="mi-name">${item.name}${item.signature?'<span style="color:var(--gold);">★</span>':''}</div>
+                <div class="mi-name">${item.name}${item.signature?'  <span style="color:var(--gold);">★</span>':''}</div>
                 ${item.desc ? `<div class="mi-desc">${item.desc}</div>` : ''}
                 ${trayHtml}
               </div>
