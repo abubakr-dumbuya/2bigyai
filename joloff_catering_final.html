@@ -1269,6 +1269,87 @@ body { font-size: 17px; }
     }
 </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+function buildEmailBody() {
+  const p = calcPricing();
+  const g = Q.guestCount || '?';
+  const date = Q.eventDate ? new Date(Q.eventDate).toLocaleDateString('en-US', {weekday:'long',year:'numeric',month:'long',day:'numeric'}) : 'TBD';
+  const time = (Q.startTime && Q.endTime) ? Q.startTime + ' – ' + Q.endTime : '';
+
+  let body = '';
+  body += 'EVENT DETAILS\n';
+  body += '─────────────────────────────\n';
+  if (Q.firstName) body += 'Name: ' + Q.firstName + ' ' + (Q.lastName || '') + '\n';
+  if (Q.email) body += 'Email: ' + Q.email + '\n';
+  if (Q.phone) body += 'Phone: ' + Q.phone + '\n';
+  if (Q.eventType) body += 'Event type: ' + Q.eventType + '\n';
+  body += 'Date: ' + date + '\n';
+  if (time) body += 'Time: ' + time + '\n';
+  body += 'Guests: ' + g + '\n';
+  if (Q.venue) body += 'Location: ' + Q.venue + '\n';
+  if (Q.venueAddress) body += 'Address: ' + Q.venueAddress + '\n';
+  if (Q.kitchen) body += 'Kitchen: ' + Q.kitchen + '\n';
+  if (Q.service) body += 'Service type: ' + Q.service + '\n';
+  if (Q.servingStyle) body += 'Serving style: ' + Q.servingStyle + '\n';
+  if (Q.dietary && Q.dietary.length) body += 'Dietary requirements: ' + Q.dietary.join(', ') + '\n';
+  if (Q.returning) body += 'Returning client: ' + Q.returning + '\n';
+  if (Q.referral) body += 'How they heard: ' + Q.referral + '\n';
+  if (Q.notes) body += 'Notes: ' + Q.notes + '\n';
+
+  if (p) {
+    body += '\nPRICE BREAKDOWN\n';
+    body += '─────────────────────────────\n';
+    const sections = [
+      ['Appetizers', p.lines.appetizers],
+      ['Entrees', p.lines.entrees],
+      ['Sides', p.lines.sides],
+      ['Desserts', p.lines.desserts],
+      ['Drinks', p.lines.drinks],
+      ['Service', p.lines.service],
+      ['Equipment', p.lines.equipment],
+    ];
+    sections.forEach(([label, items]) => {
+      if (items && items.length) {
+        body += '\n' + label + '\n';
+        items.forEach(([name, val]) => { body += '  ' + name + ': ' + val + '\n'; });
+      }
+    });
+    body += '\n─────────────────────────────\n';
+    if (p.foodTotal) body += 'Food subtotal: $' + p.foodTotal.toLocaleString() + '\n';
+    if (p.serviceTotal) body += 'Service: $' + p.serviceTotal.toLocaleString() + '\n';
+    if (p.tax) body += 'Tax (8.875%): $' + p.tax.toLocaleString() + '\n';
+    if (p.gratuity) body += 'Gratuity (20%): $' + p.gratuity.toLocaleString() + '\n';
+    if (p.total) body += 'TOTAL: $' + p.total.toLocaleString() + '\n';
+    if (p.deposit) body += 'Deposit (50%): $' + p.deposit.toLocaleString() + '\n';
+  }
+
+  body += '\n─────────────────────────────\n';
+  body += 'Generated via joloffjoloff.com\n';
+  return body;
+}
+
+function buildSubjectLine(prefix) {
+  const g = Q.guestCount || '?';
+  const date = Q.eventDate ? new Date(Q.eventDate).toLocaleDateString('en-US', {month:'long',day:'numeric',year:'numeric'}) : 'TBD';
+  return prefix + ' for ' + g + ' people on ' + date;
+}
+
+function shareQuote() {
+  const subject = encodeURIComponent(buildSubjectLine('Catering Quote from Joloff Restaurant'));
+  const cc = Q.email ? encodeURIComponent(Q.email) : '';
+  const body = encodeURIComponent(buildEmailBody());
+  const ccParam = cc ? '&cc=' + cc : '';
+  window.location.href = 'mailto:?' + 'subject=' + subject + ccParam + '&body=' + body;
+}
+
+function askQuestion() {
+  const subject = encodeURIComponent(buildSubjectLine('Catering Inquiry') + ' | Joloff Restaurant');
+  const cc = Q.email ? encodeURIComponent(Q.email) : '';
+  const body = encodeURIComponent(buildEmailBody());
+  const ccParam = cc ? '&cc=' + cc : '';
+  window.location.href = 'mailto:joloffrestaurant@gmail.com?subject=' + subject + ccParam + '&body=' + body;
+}
+
 </script>
 </head>
 <body>
@@ -1654,7 +1735,10 @@ body { font-size: 17px; }
       <div class="breakdown-title">Price breakdown</div>
       <div id="price-breakdown"></div>
       <button class="btn-book-now" id="btn-book-now" onclick="openModal()">Book with 50% Deposit</button>
-      <button class="btn-book-now" onclick="saveQuote()" style="background:var(--mid);margin-top:10px;">Save Quote as PDF</button>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
+        <button class="btn-book-now" onclick="shareQuote()" style="background:var(--mid);font-size:12px;">Share Quote</button>
+        <button class="btn-book-now" onclick="askQuestion()" style="background:var(--mid);font-size:12px;">Ask Question</button>
+      </div>
 
       <div id="tray-summary" style="margin-top:20px;padding:16px;background:var(--warm);border:1px solid var(--border);font-size:13px;color:var(--mid);line-height:1.7;"></div>
 
