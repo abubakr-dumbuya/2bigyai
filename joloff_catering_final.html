@@ -1442,14 +1442,34 @@ body { font-size: 17px; }
 
 <!-- QUIZ -->
 <div id="quiz-view" style="display:none;">
+<!-- PROGRESS BAR -->
+<div id="quiz-progress-bar" style="
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 64px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+">
+  <div id="progress-step-label" style="
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terra);
+  ">Step 1: Required information</div>
+  <div style="flex:1; height:2px; background:var(--border); border-radius:2px; overflow:hidden;">
+    <div id="progress-fill" style="height:100%; background:var(--terra); border-radius:2px; width:33%; transition:width 0.4s ease;"></div>
+  </div>
+</div>
+
 <div class="quiz-layout">
   <div class="quiz-panel">
 
     <!-- STEP 1: ABOUT YOU -->
     <div class="step-page active" id="step-2">
-      <div class="step-eyebrow">Step 1: Required information</div>
-
-      <div class="question">
+            <div class="question">
         <div class="q-label">Your name <span class="q-required">Required</span></div>
         <div class="input-row">
           <input type="text" class="q-input" placeholder="First name" oninput="setVal('firstName',this.value)"/><div id="err-firstname" style="display:none;color:#c0392b;font-size:13px;margin-top:4px;"></div>
@@ -1592,9 +1612,7 @@ body { font-size: 17px; }
 
     <!-- STEP 2: YOUR EVENT -->
     <div class="step-page" id="step-3">
-      <div class="step-eyebrow">Step 2: Additional details</div>
-
-      <!-- EVENT TYPE -->
+            <!-- EVENT TYPE -->
 
       <!-- DATE & TIME -->
 
@@ -2217,6 +2235,13 @@ function goToStep(n) {
 
   currentStep = n; saveSession();
   window.scrollTo({top:0,behavior:'smooth'});
+  // Update progress bar
+  const stepLabels = {2:'Step 1: Required information', 3:'Step 2: Additional details', 4:'Your quote'};
+  const stepPct   = {2:'33%', 3:'66%', 4:'100%'};
+  const lbl = document.getElementById('progress-step-label');
+  const fill = document.getElementById('progress-fill');
+  if (lbl) lbl.textContent = stepLabels[n] || '';
+  if (fill) fill.style.width = stepPct[n] || '0%';
 }
 
 
