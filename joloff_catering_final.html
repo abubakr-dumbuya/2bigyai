@@ -2286,35 +2286,25 @@ function calcPricing() {
   });
 
 
-  // Serving style
-  const servingAdder = { 'Family style':2, 'Plated':5 }[Q.servingStyle] || 0;
-  if (servingAdder) { foodFlat += servingAdder*g; lines.service.push([Q.servingStyle+' service', `$${(servingAdder*g).toLocaleString()}`]); }
+  // Serving style — awareness only, no cost
 
   // Appetizers and desserts are priced via menuCart (pre-populated in buildResults)
 
-  // Non-alcoholic drinks (from questionnaire)
-  const nonAlcMap = { 'water':1 };
-  const nonAlcAdd = nonAlcMap[Q.drinksNonAlc] || 0;
-  const nonAlcLabel = {'water':'Water'}[Q.drinksNonAlc] || '';
-  if (nonAlcAdd) { drinksPP += nonAlcAdd; lines.drinks.push([nonAlcLabel, `$${(nonAlcAdd*g).toLocaleString()}`]); }
-  // Alcoholic drinks / bar (from questionnaire)
-  const alcMap = { 'beer-wine':15, 'full-bar':25 };
-  const alcAdd = alcMap[Q.drinksAlc] || 0;
-  const alcLabel = {'beer-wine':'Beer & Wine','full-bar':'Full Bar Service'}[Q.drinksAlc] || '';
-  if (alcAdd) { drinksPP += alcAdd; lines.drinks.push([alcLabel, `$${(alcAdd*g).toLocaleString()}`]); }
+  // Non-alcoholic drinks — awareness only, no cost
+  // Alcoholic bar — awareness only, no cost
   // Bar is now part of drinks selection
 
   // Service
-  const serviceMap = { 'Drop-off + setup':3, 'Full service with staff':8, 'White glove':15 };
-  const svcAdd = serviceMap[Q.service] || 0;
-  if (svcAdd) { servicePP += svcAdd; lines.service.push([Q.service, `$${(svcAdd*g).toLocaleString()}`]); }
-
-  // Weekday discount removed
-
-  // Duration surcharge
-  const hrs = getDurationHours();
-  const extraHrs = Math.max(0, Math.ceil(hrs - 4));
-  if (extraHrs > 0) { servicePP += extraHrs*3; lines.service.push([`Extended event (+${extraHrs}hr)`, `$${(extraHrs*3*g).toLocaleString()}`]); }
+  // Service level pricing:
+  // Drop-off only & Drop-off + setup = flat per person
+  // Full service & White glove = per person per hour × event duration
+  const hrs = getDurationHours() || 1;
+  const flatServiceMap = { 'Drop-off only': 0, 'Drop-off + setup': 3 };
+  const hourlyServiceMap = { 'Full service with staff': 8, 'White glove': 15 };
+  const flatAdd = flatServiceMap[Q.service] !== undefined ? flatServiceMap[Q.service] : 0;
+  const hourlyAdd = hourlyServiceMap[Q.service] || 0;
+  const svcAdd = flatAdd + (hourlyAdd * hrs);
+  if (svcAdd > 0) { servicePP += svcAdd; lines.service.push([Q.service, `$${(svcAdd*g).toLocaleString()}`]); }
 
   // Equipment
   const tables = Math.ceil(g/8);
