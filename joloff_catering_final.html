@@ -1268,8 +1268,7 @@ body { font-size: 17px; }
       border-bottom: 1px solid var(--border);
     }
 </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-</head>
+  </head>
 <body>
 
 <nav id="main-nav" style="position:relative;">
@@ -2783,271 +2782,91 @@ function formatDate(d) {
 }
 
 function saveQuote() {
-  if (typeof window.jspdf === 'undefined') {
-    alert('PDF library not loaded. Please check your internet connection.');
-    return;
-  }
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ unit: 'pt', format: 'letter' });
+  const p = calcPricing();
+  if (!p) { alert('Please complete the quote first.'); return; }
+  const g = Q.guestCount || '?';
+  const date = Q.eventDate ? new Date(Q.eventDate + 'T12:00:00').toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'}) : 'TBD';
+  const time = (Q.startTime && Q.endTime) ? Q.startTime + ' – ' + Q.endTime : '';
+  const clientName = ((Q.firstName||'') + ' ' + (Q.lastName||'')).trim() || 'Guest';
 
-  const TERRA  = [196, 98, 45];
-  const DARK   = [26, 15, 8];
-  const MID    = [90, 62, 43];
-  const LIGHT  = [154, 128, 112];
-  const WARM   = [242, 237, 227];
-  const BORDER = [226, 217, 206];
-  const WHITE  = [255, 255, 255];
-  const CREAM  = [250, 248, 243];
+  const buildLines = (items) => items && items.length
+    ? items.map(([n,v]) => '<tr><td style="padding:4px 8px 4px 0;color:#4A6B56;">' + n + '</td><td style="padding:4px 0;text-align:right;font-weight:600;">' + v + '</td></tr>').join('')
+    : '';
 
-  const L = 36; // left margin
-  const R = 576; // right margin (612 - 36)
-  const W = R - L; // usable width
-  let y = 36;
+  const html = \`<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <title>Joloff Catering Quote</title>
+  <style>
+    body{font-family:Arial,sans-serif;font-size:13px;color:#0F2018;margin:0;padding:32px;max-width:680px;}
+    h1{font-size:28px;font-weight:300;color:#0F2018;margin:0 0 4px;}
+    .gold{color:#C9A84C;}
+    .terra{color:#1B5C3A;}
+    .header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #C9A84C;padding-bottom:16px;margin-bottom:24px;}
+    .logo{font-size:11px;color:#4A6B56;line-height:1.6;}
+    .section{margin-bottom:20px;}
+    .section-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1B5C3A;border-bottom:1px solid #DDD8CE;padding-bottom:4px;margin-bottom:10px;}
+    table{width:100%;border-collapse:collapse;}
+    .total-row td{font-weight:700;font-size:14px;border-top:2px solid #C9A84C;padding-top:8px;}
+    .info-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+    .info-block label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4A6B56;display:block;margin-bottom:2px;}
+    .info-block span{font-size:13px;}
+    .footer{margin-top:32px;font-size:10px;color:#4A6B56;border-top:1px solid #DDD8CE;padding-top:12px;text-align:center;}
+    @media print{body{padding:24px;}}
+  </style></head><body>
+  <div class="header">
+    <div>
+      <h1>Joloff Restaurant</h1>
+      <div style="font-size:13px;color:#C9A84C;letter-spacing:.12em;">CATERING QUOTE</div>
+      <div style="font-size:11px;color:#4A6B56;margin-top:4px;">Authentic Senegalese Cuisine · Est. 1995</div>
+    </div>
+    <div style="text-align:right;font-size:11px;color:#4A6B56;line-height:1.8;">
+      <div>1168 Bedford Ave, Brooklyn, NY 11216</div>
+      <div>(718) 230-0523</div>
+      <div>joloffrestaurant@gmail.com</div>
+      <div>joloffjoloff.com</div>
+      <div style="margin-top:8px;color:#C9A84C;">\${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}</div>
+    </div>
+  </div>
 
-  // ── HEADER ───────────────────────────────────────────────────────────────
-  doc.addImage(LOGO_B64, 'PNG', L, y, 65, 65);
+  <div class="section">
+    <div class="section-title">Client & Event</div>
+    <div class="info-grid">
+      <div class="info-block"><label>Client</label><span>\${clientName}</span><br>\${Q.email ? '<span style="font-size:11px;color:#4A6B56;">'+Q.email+'</span><br>' : ''}\${Q.phone ? '<span style="font-size:11px;color:#4A6B56;">'+Q.phone+'</span>' : ''}</div>
+      <div class="info-block"><label>Event</label><span>\${Q.eventType || '—'}</span><br><span style="font-size:11px;">\${date}</span><br>\${time ? '<span style="font-size:11px;color:#4A6B56;">'+time+'</span>' : ''}<br><span style="font-size:11px;">\${g} guests</span></div>
+      <div class="info-block"><label>Location & Service</label><span>\${Q.venue || '—'}</span><br>\${Q.service ? '<span style="font-size:11px;color:#4A6B56;">'+Q.service+'</span>' : ''}\${Q.dietary && Q.dietary.length ? '<br><span style="font-size:11px;">Dietary: '+Q.dietary.join(', ')+'</span>' : ''}</div>
+    </div>
+  </div>
 
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(22);
-  doc.setTextColor(...TERRA);
-  doc.text('Joloff Restaurant', L + 80, y + 20);
+  \${p.lines.entrees && p.lines.entrees.length ? '<div class="section"><div class="section-title">Entrees</div><table>'+buildLines(p.lines.entrees)+'</table></div>' : ''}
+  \${p.lines.sides && p.lines.sides.length ? '<div class="section"><div class="section-title">Sides</div><table>'+buildLines(p.lines.sides)+'</table></div>' : ''}
+  \${p.lines.appetizers && p.lines.appetizers.length ? '<div class="section"><div class="section-title">Appetizers</div><table>'+buildLines(p.lines.appetizers)+'</table></div>' : ''}
+  \${p.lines.desserts && p.lines.desserts.length ? '<div class="section"><div class="section-title">Desserts</div><table>'+buildLines(p.lines.desserts)+'</table></div>' : ''}
+  \${p.lines.drinks && p.lines.drinks.length ? '<div class="section"><div class="section-title">Drinks</div><table>'+buildLines(p.lines.drinks)+'</table></div>' : ''}
+  \${p.lines.service && p.lines.service.length ? '<div class="section"><div class="section-title">Service</div><table>'+buildLines(p.lines.service)+'</table></div>' : ''}
+  \${p.lines.equipment && p.lines.equipment.length ? '<div class="section"><div class="section-title">Equipment</div><table>'+buildLines(p.lines.equipment)+'</table></div>' : ''}
 
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  doc.setTextColor(...LIGHT);
-  doc.text('Authentic Senegalese Cuisine · Est. 1995', L + 80, y + 34);
-  doc.text('1168 Bedford Ave, Brooklyn, NY 11216', L + 80, y + 46);
-  doc.text('(718) 230-0523  ·  joloffrestaurant@gmail.com  ·  joloffjoloff.com', L + 80, y + 58);
+  <div class="section">
+    <div class="section-title">Summary</div>
+    <table>
+      \${p.foodFlat ? '<tr><td style="padding:4px 8px 4px 0;color:#4A6B56;">Food subtotal</td><td style="text-align:right;">$'+Number(p.foodFlat).toLocaleString()+'</td></tr>' : ''}
+      \${p.serviceTotal ? '<tr><td style="padding:4px 8px 4px 0;color:#4A6B56;">Service</td><td style="text-align:right;">$'+Number(p.serviceTotal).toLocaleString()+'</td></tr>' : ''}
+      \${p.tax ? '<tr><td style="padding:4px 8px 4px 0;color:#4A6B56;">Tax (8.875%)</td><td style="text-align:right;">$'+Number(p.tax).toLocaleString()+'</td></tr>' : ''}
+      \${p.gratuity ? '<tr><td style="padding:4px 8px 4px 0;color:#4A6B56;">Gratuity (20%)</td><td style="text-align:right;">$'+Number(p.gratuity).toLocaleString()+'</td></tr>' : ''}
+      <tr class="total-row"><td>TOTAL</td><td style="text-align:right;">$\${Number(p.total).toLocaleString()}</td></tr>
+      \${p.deposit ? '<tr><td style="padding:4px 8px 4px 0;color:#C9A84C;font-weight:600;">Deposit (50%)</td><td style="text-align:right;color:#C9A84C;font-weight:600;">$'+Number(p.deposit).toLocaleString()+'</td></tr>' : ''}
+    </table>
+  </div>
 
-  // Quote badge top-right
-  doc.setFillColor(...TERRA);
-  doc.rect(420, y, 156, 22, 'F');
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9);
-  doc.setTextColor(...WHITE);
-  doc.text('CATERING QUOTE', 498, y + 14, { align: 'center' });
-  doc.setFillColor(...WARM);
-  doc.rect(420, y + 22, 156, 43, 'F');
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8);
-  doc.setTextColor(...MID);
-  const today = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-  doc.text(today, 498, y + 38, { align: 'center' });
-  doc.text('Valid for 30 days', 498, y + 52, { align: 'center' });
-  doc.setDrawColor(...BORDER);
-  doc.setLineWidth(0.5);
-  doc.rect(420, y, 156, 65);
+  <div class="footer">
+    This quote is valid for 30 days. A 50% deposit is required to confirm your booking.<br>
+    Joloff Restaurant · 1168 Bedford Ave, Brooklyn, NY 11216 · (718) 230-0523 · joloffrestaurant@gmail.com
+  </div>
+  </body></html>\`;
 
-  y += 76;
-
-  // Terra rule
-  doc.setDrawColor(...TERRA);
-  doc.setLineWidth(2);
-  doc.line(L, y, R, y);
-  y += 10;
-
-  // ── ABOUT ─────────────────────────────────────────────────────────────────
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8.5);
-  doc.setTextColor(...MID);
-  const aboutText = "Founded in 1995 by Papa Diagne, Joloff Restaurant has spent three decades bringing the warmth and flavors of Senegal to the heart of Brooklyn. What began as home-cooked meals delivered to neighbors grew into one of the borough\'s most celebrated culinary institutions. Every dish carries the same philosophy Papa learned from his grandmother: food doesn\'t need to be spicy to be good. It\'s mostly about flavor.";
-  const aboutLines = doc.splitTextToSize(aboutText, W);
-  doc.text(aboutLines, L, y);
-  y += aboutLines.length * 12 + 8;
-
-  doc.setDrawColor(...BORDER);
-  doc.setLineWidth(0.5);
-  doc.line(L, y, R, y);
-  y += 10;
-
-  // ── CLIENT & EVENT ────────────────────────────────────────────────────────
-  const sectionLabel = (label) => {
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7.5);
-    doc.setTextColor(...TERRA);
-    doc.text(label.toUpperCase(), L, y);
-    doc.setDrawColor(...TERRA);
-    doc.setLineWidth(0.5);
-    doc.line(L, y + 3, R, y + 3);
-    y += 14;
-  };
-
-  sectionLabel('Client & Event Information');
-
-  const evDate = Q.eventDate ? new Date(Q.eventDate + 'T12:00:00').toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric', year:'numeric' }) : 'TBD';
-  const timeStr = Q.startTime && Q.endTime ? Q.startTime + ' – ' + Q.endTime : 'TBD';
-  const g = Q.guestCount || 0;
-
-  const col1 = L, col2 = L + W/3, col3 = L + (W/3)*2;
-  const colW = W/3 - 8;
-
-  // Header row
-  doc.setFillColor(...WARM);
-  doc.rect(L, y, W, 16, 'F');
-  ['CLIENT', 'EVENT', 'LOCATION & SERVICE'].forEach((h, i) => {
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7.5);
-    doc.setTextColor(...LIGHT);
-    doc.text(h, [col1, col2, col3][i] + 6, y + 10);
-  });
-  y += 16;
-
-  const rows = [
-    [Q.firstName + ' ' + Q.lastName, Q.eventType || 'TBD', Q.venue || 'TBD'],
-    [Q.email || '', evDate, Q.service || 'TBD'],
-    [Q.phone || '', timeStr, 'Serving: ' + (Q.servingStyle || 'TBD')],
-    ['Ref: ' + (Q.referral || 'N/A'), 'Setup: ' + (Q.setupTime || 'TBD'), 'Kitchen: ' + (Q.kitchen || 'TBD')],
-    ['', g + ' Guests', 'Address: ' + (Q.venueAddress || 'TBD')],
-  ];
-
-  rows.forEach((row, ri) => {
-    doc.setFillColor(...(ri % 2 === 0 ? WHITE : CREAM));
-    doc.rect(L, y, W, 15, 'F');
-    row.forEach((cell, ci) => {
-      if (!cell) return;
-      doc.setFont('helvetica', ri === 0 ? 'bold' : 'normal');
-      doc.setFontSize(8.5);
-      doc.setTextColor(ri === 0 ? DARK : MID);
-      const lines = doc.splitTextToSize(cell, colW);
-      doc.text(lines[0], [col1, col2, col3][ci] + 6, y + 10);
-    });
-    doc.setDrawColor(...BORDER);
-    doc.setLineWidth(0.3);
-    doc.line(L, y + 15, R, y + 15);
-    y += 15;
-  });
-
-  if (Q.notes) {
-    y += 4;
-    doc.setFillColor(...CREAM);
-    doc.rect(L, y, W, 22, 'F');
-    doc.setDrawColor(...TERRA);
-    doc.setLineWidth(3);
-    doc.line(L, y, L, y + 22);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.5);
-    doc.setTextColor(...MID);
-    const noteLines = doc.splitTextToSize('Notes: ' + Q.notes, W - 16);
-    doc.text(noteLines, L + 10, y + 8);
-    y += 26;
-  }
-
-  y += 10;
-
-  // ── MENU & PRICING ────────────────────────────────────────────────────────
-  sectionLabel('Menu Selection & Pricing');
-
-  const { foodFlat, drinksPP, servicePP, equipmentFlat, subtotal, tax, gratuity, total, deposit, lines } = calcPricing();
-
-  const menuSection = (title, rows_data) => {
-    if (!rows_data.length) return;
-    // Check if we need a new page
-    if (y > 650) { doc.addPage(); y = 36; }
-
-    doc.setFillColor(...TERRA);
-    doc.rect(L, y, W, 18, 'F');
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8);
-    doc.setTextColor(...WHITE);
-    doc.text(title, L + 8, y + 12);
-    y += 18;
-
-    rows_data.forEach(([label, val]) => {
-      if (y > 700) { doc.addPage(); y = 36; }
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(8.5);
-      doc.setTextColor(...DARK);
-      doc.text(label, L + 8, y + 10);
-      doc.text(val, R - 8, y + 10, { align: 'right' });
-      doc.setDrawColor(...BORDER);
-      doc.setLineWidth(0.3);
-      doc.line(L, y + 14, R, y + 14);
-      y += 14;
-    });
-
-    // Subtotal row
-    const sectionTotal = rows_data.reduce((s, [, v]) => s + parseInt(v.replace(/[^0-9]/g, '')), 0);
-    doc.setFillColor(...WARM);
-    doc.rect(L, y, W, 16, 'F');
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8.5);
-    doc.setTextColor(...DARK);
-    doc.text('Subtotal', R - 80, y + 11);
-    doc.setTextColor(...TERRA);
-    doc.text('$' + sectionTotal.toLocaleString(), R - 8, y + 11, { align: 'right' });
-    y += 20;
-  };
-
-  menuSection('ENTREES', lines.entrees);
-  menuSection('SIDES', lines.sides);
-  menuSection('APPETIZERS', lines.appetizers);
-  menuSection('DESSERTS', lines.desserts);
-  menuSection('DRINKS', lines.drinks);
-
-  y += 6;
-  if (y > 620) { doc.addPage(); y = 36; }
-
-  // ── PRICING SUMMARY ────────────────────────────────────────────────────────
-  sectionLabel('Pricing Summary');
-
-  const priceRow = (label, val, bold, terra, bg) => {
-    if (y > 700) { doc.addPage(); y = 36; }
-    if (bg) { doc.setFillColor(...bg); doc.rect(L, y, W, 18, 'F'); }
-    doc.setFont('helvetica', bold ? 'bold' : 'normal');
-    doc.setFontSize(bold ? 10 : 9);
-    doc.setTextColor(...(terra ? TERRA : (bold ? DARK : MID)));
-    doc.text(label, L + 8, y + 12);
-    doc.text(val, R - 8, y + 12, { align: 'right' });
-    doc.setDrawColor(...BORDER);
-    doc.setLineWidth(0.3);
-    doc.line(L, y + 18, R, y + 18);
-    y += 18;
-  };
-
-  const foodTotal = (lines.entrees.concat(lines.sides, lines.appetizers, lines.desserts))
-    .reduce((s, [, v]) => s + parseInt(v.replace(/[^0-9]/g, '')), 0);
-  const drinkTotal = lines.drinks.reduce((s, [, v]) => s + parseInt(v.replace(/[^0-9]/g, '')), 0);
-  const svcTotal = Math.round(servicePP * g);
-
-  priceRow('Food (entrees, sides, appetizers, desserts)', '$' + foodTotal.toLocaleString(), false, false, CREAM);
-  priceRow('Drinks', '$' + drinkTotal.toLocaleString(), false, false, null);
-  priceRow('Service', '$' + svcTotal.toLocaleString(), false, false, CREAM);
-  if (equipmentFlat) priceRow('Equipment', '$' + Math.round(equipmentFlat).toLocaleString(), false, false, null);
-  priceRow('Tax (8.875%)', '$' + tax.toLocaleString(), false, false, CREAM);
-  priceRow('Gratuity (20%)', '$' + gratuity.toLocaleString(), false, false, null);
-
-  // Terra rule above total
-  doc.setDrawColor(...TERRA);
-  doc.setLineWidth(1.5);
-  doc.line(L, y, R, y);
-  y += 2;
-  priceRow('TOTAL', '$' + total.toLocaleString(), true, true, WARM);
-  doc.setDrawColor(...TERRA);
-  doc.setLineWidth(1.5);
-  doc.line(L, y, R, y);
-  y += 6;
-  priceRow('50% Deposit required to book', '$' + deposit.toLocaleString(), true, false, CREAM);
-  priceRow('Balance due (7 days before event)', '$' + (total - deposit).toLocaleString(), false, false, null);
-
-  y += 12;
-
-  // ── FOOTER ────────────────────────────────────────────────────────────────
-  if (y > 680) { doc.addPage(); y = 36; }
-  doc.setDrawColor(...BORDER);
-  doc.setLineWidth(0.5);
-  doc.line(L, y, R, y);
-  y += 8;
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7.5);
-  doc.setTextColor(...LIGHT);
-  doc.text('This quote is valid for 30 days. A 50% deposit is required to confirm your booking. All deposits are non-refundable.', L, y, { maxWidth: W/2 - 10 });
-  doc.text('Joloff Restaurant 2 Inc.  ·  1168 Bedford Ave, Brooklyn NY 11216', R, y, { align: 'right' });
-  doc.text('(718) 230-0523  ·  joloffrestaurant@gmail.com  ·  joloffjoloff.com', R, y + 11, { align: 'right' });
-
-  // Save
-  const fname = Q.firstName ? Q.firstName.replace(/\s+/g, '_') : 'Quote';
-  const evD = Q.eventDate || 'undated';
-  doc.save('Joloff_Catering_' + fname + '_' + evD + '.pdf');
+  const win = window.open('', '_blank', 'width=760,height=900');
+  win.document.write(html);
+  win.document.close();
+  win.focus();
+  setTimeout(() => win.print(), 600);
 }
 
 
