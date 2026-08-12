@@ -2973,6 +2973,8 @@ function buildEmailBody() {
   return lines.join('%0A');
 }
 
+var THANKS = 'Thanks%2C%0A';
+
 function buildSubjectLine(prefix) {
   const g = Q.guestCount || '?';
   const date = Q.eventDate ? new Date(Q.eventDate + 'T12:00:00').toLocaleDateString('en-US', {month:'long',day:'numeric',year:'numeric'}) : 'TBD';
@@ -2994,7 +2996,9 @@ function shareQuote() {
   setTimeout(function() {
     const subject = buildSubjectLine('Catering Quote from Joloff Restaurant');
     const cc = Q.email || '';
-    const body = buildEmailBody();
+    const firstName = encodeURIComponent(Q.firstName || '');
+    const intro = 'Hello%2C%0A%0ASee below for the detail of the proposed Joloff catering order.%0A%0A' + THANKS + firstName + '%0A________________________________________%0A%0A';
+    const body = intro + buildEmailBody();
     openMailto('', subject, cc, body);
   }, 800);
 }
@@ -3004,7 +3008,9 @@ function askQuestion() {
   setTimeout(function() {
     const subject = buildSubjectLine('Catering Inquiry') + encodeURIComponent(' | Joloff Restaurant');
     const cc = Q.email || '';
-    const body = buildEmailBody();
+    const firstName = encodeURIComponent(Q.firstName || '');
+    const intro = 'Hello%2C%0A%0A%0A%0A' + THANKS + firstName + '%0A________________________________________%0A%0A';
+    const body = intro + buildEmailBody();
     openMailto('joloffrestaurant@gmail.com', subject, cc, body);
   }, 800);
 }
