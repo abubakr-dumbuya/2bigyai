@@ -1166,7 +1166,7 @@ const DISH_INFO = {
 
 const MENU_DATA = {
   entrees: {
-    label: 'Entrees', sub: 'Served with White rice, Brown rice, Atcheke, Couscous, Fonio (+$2), or Joloff rice (+$2)',
+    label: 'Entrees', sub: 'Served with White rice or Brown rice, or upgrade to Atcheke (+$2), Couscous (+$2), Fonio (+$2), or Joloff rice (+$2)',
     items: [
       { id:'tiebu-ganar', trayPrice:155, name:'Thiebou Ganar', desc:'Joloff rice served with chicken slow-cooked in a beautifully seasoned broth — a deeply satisfying one-pot Senegalese classic', price:21.95, dishType:'tiebou', proteinLabel:'Chicken' },
       { id:'yassa-ganar', trayPrice:140, name:'Yassa Guinaar', desc:'Tender chicken slow-braised in a deeply savory caramelized onion and lemon sauce — one of Senegal\'s most beloved dishes', price:19.95, dishType:'yassa', proteinLabel:'Chicken', signature:true },
@@ -2363,7 +2363,7 @@ function saveQuote() {
   doc.save('Joloff_Catering_' + fname + '_' + evD + '.pdf');
 }
 
-const STARCH_PRICES = {'White rice':0,'Joloff rice':2,'Brown rice':0,'Fonio':2,'Atcheke':0,'Couscous':0};
+const STARCH_PRICES = {'White rice':0,'Joloff rice':2,'Brown rice':0,'Fonio':2,'Atcheke':2,'Couscous':2};
 const STARCH_OPTS = ['White rice','Brown rice','Atcheke','Couscous','Fonio','Joloff rice'];
 const entreeCats = ['entrees'];
 const showCategories = ['appetizers','entrees','sides','desserts','drinks'];
