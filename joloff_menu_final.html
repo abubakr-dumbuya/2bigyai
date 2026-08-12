@@ -2429,18 +2429,17 @@ function renderMenu() {
     if (catId === 'entrees') {
       const allEntrees = MENU_DATA.entrees.items;
       const proteinCats = [
-        { key: 'Chicken',    label: 'Chicken entrees',            sub: 'Choose your chicken dishes', ids: ['Chicken'] },
-        { key: 'Lamb',       label: 'Lamb entrees',               sub: 'Signature Senegalese lamb dishes', ids: ['Lamb'] },
-        { key: 'Fish',       label: 'Fish & seafood entrees',     sub: 'Fresh fish in the Senegalese coastal tradition', ids: ['Fish', 'Shrimp'] },
-        { key: 'Vegetarian', label: 'Vegetarian & vegan entrees', sub: 'All fully plant-based', ids: ['Vegetables', 'Tofu'] },
+        { key: 'Chicken',    label: 'Chicken entrees',            ids: ['Chicken'] },
+        { key: 'Lamb',       label: 'Lamb entrees',               ids: ['Lamb'] },
+        { key: 'Fish',       label: 'Fish & seafood entrees',     ids: ['Fish', 'Shrimp'] },
+        { key: 'Vegetarian', label: 'Vegetarian & vegan entrees', ids: ['Vegetables', 'Tofu'] },
         { key: 'Grilled',    label: 'Grilled specials',            ids: ['Grilled'], byDishType: 'specialites' },
       ];
       content = proteinCats.map(pc => {
         const items = allEntrees.filter(i => pc.byDishType ? i.dishType === pc.byDishType : pc.ids.includes(i.proteinLabel));
         if (!items.length) return '';
         return `<div class="entree-subcat">
-          <div class="menu-section-title" style="margin-bottom:8px;">${pc.label}</div>
-          ${pc.sub ? `<div class="menu-section-sub" style="margin-bottom:20px;">${pc.sub}</div>` : ''}
+          <div class="entree-subcat-label">${pc.label}</div>
           <div class="menu-items">${items.map(item => renderCard(item, 'entrees')).join('')}</div>
         </div>`;
       }).join('');
@@ -2476,7 +2475,7 @@ function renderDrinksSections(items, catId) {
 
 function renderSidesSections(items, catId) {
   const subcats = [
-    { key: 'grains', label: 'West African Grains', sub: 'Ancient grains with modern health benefits' },
+    { key: 'grains', label: 'West African Grains', sub: '' },
     { key: 'traditional', label: 'Other Sides', sub: '' },
   ];
   return subcats.map(sc => {
@@ -2490,7 +2489,7 @@ function renderSidesSections(items, catId) {
 
 function renderSidesSections(items, catId) {
   const subcats = [
-    { key: 'grains', label: 'West African Grains', sub: 'Ancient grains with modern health benefits' },
+    { key: 'grains', label: 'West African Grains', sub: '' },
     { key: 'traditional', label: 'Other Sides', sub: '' },
   ];
   return subcats.map(function(sc) {
