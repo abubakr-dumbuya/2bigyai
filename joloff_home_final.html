@@ -916,7 +916,7 @@ body { font-size: 17px; }
 
     .hero-tagline {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(28px, 4vw, 40px);
+      font-size: clamp(24px, 3vw, 30px);
       color: var(--terra);
       text-align: center;
       max-width: 600px;
@@ -925,12 +925,15 @@ body { font-size: 17px; }
       font-weight: 700;
     }
     @media (max-width: 768px) {
+      .hero {
+        padding-top: 80px !important;
+      }
       .hero img {
         width: 100% !important;
         max-width: 100% !important;
       }
       .hero-tagline {
-        font-size: 40px;
+        font-size: 30px;
       }
     }
 </style>
