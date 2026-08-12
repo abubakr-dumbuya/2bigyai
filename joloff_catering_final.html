@@ -1932,82 +1932,116 @@ function saveSession() {
 }
 
 function repopulateForm() {
-  // Text/email/tel inputs
-  var fields = {
-    'firstName': 'input[placeholder="First name"]',
-    'lastName':  'input[placeholder="Last name"]',
-    'email':     'input[type="email"]',
-    'phone':     '#phone-input',
-  };
-  Object.keys(fields).forEach(function(key) {
-    var el = document.querySelector(fields[key]);
-    if (el && Q[key]) el.value = Q[key];
-  });
+  // ── STEP 1 ──────────────────────────────────────────────
+  // Name fields
+  var fn = document.querySelector('input[placeholder="First name"]');
+  var ln = document.querySelector('input[placeholder="Last name"]');
+  if (fn && Q.firstName) fn.value = Q.firstName;
+  if (ln && Q.lastName)  ln.value = Q.lastName;
 
-  // Country code display
+  // Email
+  var em = document.querySelector('input[type="email"]');
+  if (em && Q.email) em.value = Q.email;
+
+  // Phone + country code
+  var ph = document.getElementById('phone-input');
+  if (ph && Q.phone) ph.value = Q.phone;
   if (Q.phoneCode) {
-    var codeText = document.getElementById('country-code-text');
-    if (codeText) codeText.textContent = Q.phoneCode;
+    var codeEl = document.getElementById('country-code-text');
+    if (codeEl) codeEl.textContent = Q.phoneCode;
   }
 
-  // Guest count
-  var guestEl = document.querySelector('input[type="number"]');
-  if (guestEl && Q.guestCount) guestEl.value = Q.guestCount;
+  // Event type pills
+  if (Q.eventType) {
+    document.querySelectorAll('.opt-pill').forEach(function(p) {
+      var oc = p.getAttribute('onclick') || '';
+      if (oc.includes("'eventType'") && oc.includes("'" + Q.eventType + "'")) p.classList.add('selected');
+    });
+  }
 
-  // Date input
-  var dateEl = document.querySelector('input[type="date"]');
+  // Custom event type text
+  if (Q.eventType === 'Other' || (Q.eventTypeOther)) {
+    var otherInput = document.getElementById('other-event-input');
+    if (otherInput && Q.eventTypeOther) { otherInput.value = Q.eventTypeOther; otherInput.style.display = ''; }
+  }
+
+  // Event date
+  var dateEl = document.getElementById('eventDate');
   if (dateEl && Q.eventDate) dateEl.value = Q.eventDate;
 
-  // Time inputs
-  var timeEls = document.querySelectorAll('input[type="time"]');
-  if (timeEls[0] && Q.startTime) timeEls[0].value = Q.startTime;
-  if (timeEls[1] && Q.endTime) timeEls[1].value = Q.endTime;
+  // Times
+  if (Q.startTime) { var el = document.getElementById('startTime'); if (el) el.value = Q.startTime; }
+  if (Q.endTime)   { var el = document.getElementById('endTime');   if (el) el.value = Q.endTime; }
+  if (Q.setupTime) { var el = document.getElementById('setupTime'); if (el) el.value = Q.setupTime; }
 
-  // Re-select pills for single-select fields
-  var pillFields = ['eventType','service','servingStyle','kitchen','venue'];
-  pillFields.forEach(function(key) {
-    if (!Q[key]) return;
-    document.querySelectorAll('.opt-pill').forEach(function(pill) {
-      if (pill.getAttribute('onclick') && pill.getAttribute('onclick').includes("'" + Q[key] + "'")) {
-        pill.classList.add('selected');
-      }
-    });
-  });
-
-  // Re-select dietary pills (multi-select)
-  if (Q.dietary && Q.dietary.length) {
-    document.querySelectorAll('.opt-pill').forEach(function(pill) {
-      var onclick = pill.getAttribute('onclick') || '';
-      Q.dietary.forEach(function(d) {
-        if (onclick.includes("'" + d + "'")) pill.classList.add('selected');
-      });
-    });
-  }
-
-  // Guest count slider
+  // Guest count slider + display
   var slider = document.getElementById('guest-slider');
   if (slider && Q.guestCount) {
     slider.value = Q.guestCount;
     updateGuests(Q.guestCount);
   }
+  if (Q.guestCount > 300) {
+    var over300 = document.getElementById('over300-input');
+    if (over300) over300.value = Q.guestCount;
+  }
 
-  // Text areas / notes
-  var textareas = document.querySelectorAll('textarea');
-  if (textareas[0] && Q.notes) textareas[0].value = Q.notes;
+  // Dietary pills (multi-select)
+  if (Q.dietary && Q.dietary.length) {
+    document.querySelectorAll('.opt-pill').forEach(function(p) {
+      var oc = p.getAttribute('onclick') || '';
+      if (oc.includes("'dietary'")) {
+        Q.dietary.forEach(function(d) {
+          if (oc.includes("'" + d + "'")) p.classList.add('selected');
+        });
+      }
+    });
+  }
+  // Dietary other text
+  if (Q.dietaryOther) {
+    var dOther = document.querySelector('input[placeholder="Other dietary requirements or allergies..."]');
+    if (dOther) dOther.value = Q.dietaryOther;
+  }
+
+  // ── STEP 2 ──────────────────────────────────────────────
+  // Venue select
+  var venueEl = document.querySelector('select[onchange*="setVal(\'venue\'"]');
+  if (!venueEl) venueEl = document.querySelector('select[onchange*="venue"]');
+  if (venueEl && Q.venue) venueEl.value = Q.venue;
 
   // Venue address
-  var venueAddrEl = document.querySelector('input[placeholder*="address"], input[placeholder*="Address"]');
-  if (venueAddrEl && Q.venueAddress) venueAddrEl.value = Q.venueAddress;
+  var vaEl = document.querySelector('input[oninput*="venueAddress"]');
+  if (vaEl && Q.venueAddress) vaEl.value = Q.venueAddress;
 
-  // Dropdowns (select elements except country code)
-  document.querySelectorAll('select:not(#phone-country-code)').forEach(function(sel) {
-    var onchange = sel.getAttribute('onchange') || '';
-    var keyMatch = onchange.match(/setVal\('([^']+)'/);
-    if (keyMatch && Q[keyMatch[1]]) {
-      sel.value = Q[keyMatch[1]];
-    }
-  });
+  // Kitchen select
+  var kitchenEl = document.querySelector('select[onchange*="kitchen"]');
+  if (kitchenEl && Q.kitchen) kitchenEl.value = Q.kitchen;
+
+  // Service select
+  var serviceEl = document.querySelector('select[onchange*="service"]');
+  if (serviceEl && Q.service) {
+    serviceEl.value = Q.service;
+    // Show/hide serving style question
+    var ssq = document.getElementById('serving-style-question');
+    if (ssq) ssq.style.display = (Q.service === 'Full service' || Q.service === 'White glove') ? '' : 'none';
+  }
+
+  // Serving style select
+  var ssEl = document.querySelector('select[onchange*="servingStyle"]');
+  if (ssEl && Q.servingStyle) ssEl.value = Q.servingStyle;
+
+  // Returning client
+  var retEl = document.querySelector('select[onchange*="returning"]');
+  if (retEl && Q.returning) retEl.value = Q.returning;
+
+  // Referral
+  var refEl = document.querySelector('select[onchange*="referral"]');
+  if (refEl && Q.referral) refEl.value = Q.referral;
+
+  // Notes textarea
+  var notesEl = document.querySelector('textarea');
+  if (notesEl && Q.notes) notesEl.value = Q.notes;
 }
+
 
 function restoreSession() {
   try {
