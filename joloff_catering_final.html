@@ -2361,7 +2361,7 @@ function renderMenuCustomizer() {
           if (!subCat) return '';
           return `
             <div style="margin-bottom:24px;">
-              <div style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#1B5C3A;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);">${subCat.label}</div>
+              <div class="entree-subcat-label">${subCat.label}</div>
               <div class="menu-items-grid">
                 ${subCat.items.map(item => {
                   const inCart = !!menuCart[item.id];
