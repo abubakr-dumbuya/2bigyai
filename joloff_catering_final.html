@@ -2803,27 +2803,27 @@ function saveQuote() {
       var price = i[1].toString().replace && i[1].toString().replace(/.*\$/, '$');
       if (!price.match(/^\$/)) price = i[1];
       return '<tr>' +
-        '<td style="padding:5px 8px 5px 0;font-size:12px;color:#1B5C3A;">' + name + (detail ? ' <span style="color:#A8BFB0;font-size:11px;">' + detail + '</span>' : '') + '</td>' +
-        '<td style="padding:5px 0;font-size:12px;text-align:right;color:#4A6B56;">' + trays + '</td>' +
-        '<td style="padding:5px 0 5px 8px;font-size:12px;text-align:right;font-weight:600;">' + price + '</td>' +
+        '<td style="padding:5px 8px 5px 0;font-size:14px;color:#1B5C3A;">' + name + (detail ? ' <span style="color:#A8BFB0;font-size:13px;">' + detail + '</span>' : '') + '</td>' +
+        '<td style="padding:5px 0;font-size:14px;text-align:right;color:#4A6B56;">' + trays + '</td>' +
+        '<td style="padding:5px 0 5px 8px;font-size:14px;text-align:right;font-weight:600;">' + price + '</td>' +
         '</tr>';
     }).join('');
     return '<div style="margin-bottom:20px;">' +
       '<table style="width:100%;border-collapse:collapse;">' +
-      '<thead><tr><td colspan="3" style="padding:6px 0 4px;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1B5C3A;border-bottom:1px solid #DDD8CE;">' + title + '</td></tr></thead>' +
+      '<thead><tr><td colspan="3" style="padding:6px 0 4px;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1B5C3A;border-bottom:1px solid #DDD8CE;">' + title + '</td></tr></thead>' +
       '<tbody>' + rows + '</tbody>' +
       '</table></div>';
   }
 
   function summaryRow(label, val, gold) {
     var style = gold ? 'color:#C9A84C;font-weight:700;' : 'color:#4A6B56;';
-    return '<tr><td style="padding:4px 0;font-size:12px;' + style + '">' + label + '</td>' +
-      '<td style="padding:4px 0;font-size:12px;text-align:right;font-weight:600;' + style + '">$' + Number(val).toLocaleString() + '</td></tr>';
+    return '<tr><td style="padding:4px 0;font-size:14px;' + style + '">' + label + '</td>' +
+      '<td style="padding:4px 0;font-size:14px;text-align:right;font-weight:600;' + style + '">$' + Number(val).toLocaleString() + '</td></tr>';
   }
 
   var doc = '';
   doc += '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Joloff Catering Quote</title><style>';
-  doc += 'body{font-family:Arial,sans-serif;font-size:13px;color:#0F2018;margin:0;padding:36px 40px;max-width:700px;}';
+  doc += 'body{font-family:Arial,sans-serif;font-size:15px;color:#0F2018;margin:0;padding:36px 40px;max-width:700px;}';
   doc += '@page{margin:0.5in;}@media print{body{padding:0;}}';
   doc += '.no-break{page-break-inside:avoid;}';
   doc += '</style></head><body>';
@@ -2832,43 +2832,43 @@ function saveQuote() {
   doc += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0;">';
   doc += '<img src="' + LOGO + '" style="height:80px;width:auto;object-fit:contain;">';
   doc += '<div style="text-align:right;">';
-  doc += '<div style="font-size:22px;font-weight:700;color:#1B5C3A;letter-spacing:.01em;">Joloff Restaurant</div>';
-  doc += '<div style="font-size:13px;letter-spacing:.18em;font-weight:700;color:#C9A84C;margin-top:2px;">CATERING QUOTE</div>';
-  doc += '<div style="font-size:10.5px;color:#4A6B56;margin-top:3px;">Authentic Senegalese Cuisine \u00b7 Est. 1995</div>';
-  doc += '<div style="font-size:10.5px;color:#4A6B56;margin-top:1px;">1168 Bedford Ave, Brooklyn, NY 11216</div>';
-  doc += '<div style="font-size:10.5px;color:#4A6B56;margin-top:1px;">' + today + '</div>';
-  doc += '<div style="font-size:10px;color:#A8BFB0;margin-top:1px;">(718) 230-0523 \u00b7 joloffrestaurant@gmail.com \u00b7 joloffjoloff.com</div>';
+  doc += '<div style="font-size:24px;font-weight:700;color:#1B5C3A;letter-spacing:.01em;">Joloff Restaurant</div>';
+  doc += '<div style="font-size:15px;letter-spacing:.18em;font-weight:700;color:#C9A84C;margin-top:2px;">CATERING QUOTE</div>';
+  doc += '<div style="font-size:12.5px;color:#4A6B56;margin-top:3px;">Authentic Senegalese Cuisine \u00b7 Est. 1995</div>';
+  doc += '<div style="font-size:12.5px;color:#4A6B56;margin-top:1px;">1168 Bedford Ave, Brooklyn, NY 11216</div>';
+  doc += '<div style="font-size:12.5px;color:#4A6B56;margin-top:1px;">' + today + '</div>';
+  doc += '<div style="font-size:12px;color:#A8BFB0;margin-top:1px;">(718) 230-0523 \u00b7 joloffrestaurant@gmail.com \u00b7 joloffjoloff.com</div>';
   doc += '</div></div>';
   doc += '<div style="border-top:3px solid #C9A84C;margin:14px 0 18px;"></div>';
 
   // ── CLIENT & EVENT ──
   doc += '<div class="no-break" style="margin-bottom:22px;">';
-  doc += '<div style="font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C9A84C;border-bottom:1px solid #DDD8CE;padding-bottom:5px;margin-bottom:12px;">Client & Event</div>';
+  doc += '<div style="font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C9A84C;border-bottom:1px solid #DDD8CE;padding-bottom:5px;margin-bottom:12px;">Client & Event</div>';
   doc += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;">';
   doc += '<div>';
-  doc += '<div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#A8BFB0;margin-bottom:4px;">Client</div>';
-  doc += '<div style="font-size:12.5px;font-weight:600;">' + clientName + '</div>';
-  if (Q.email) doc += '<div style="font-size:11px;color:#4A6B56;">' + Q.email + '</div>';
-  if (Q.phone) doc += '<div style="font-size:11px;color:#4A6B56;">' + Q.phone + '</div>';
+  doc += '<div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#A8BFB0;margin-bottom:4px;">Client</div>';
+  doc += '<div style="font-size:14.5px;font-weight:600;">' + clientName + '</div>';
+  if (Q.email) doc += '<div style="font-size:13px;color:#4A6B56;">' + Q.email + '</div>';
+  if (Q.phone) doc += '<div style="font-size:13px;color:#4A6B56;">' + Q.phone + '</div>';
   doc += '</div><div>';
-  doc += '<div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#A8BFB0;margin-bottom:4px;">Event Details</div>';
-  doc += '<div style="font-size:12.5px;font-weight:600;">' + (Q.eventType||'—') + '</div>';
-  doc += '<div style="font-size:11px;color:#4A6B56;">' + eventDate + '</div>';
-  if (time) doc += '<div style="font-size:11px;color:#4A6B56;">' + time + '</div>';
-  doc += '<div style="font-size:11px;color:#4A6B56;">' + g + ' guests</div>';
+  doc += '<div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#A8BFB0;margin-bottom:4px;">Event Details</div>';
+  doc += '<div style="font-size:14.5px;font-weight:600;">' + (Q.eventType||'—') + '</div>';
+  doc += '<div style="font-size:13px;color:#4A6B56;">' + eventDate + '</div>';
+  if (time) doc += '<div style="font-size:13px;color:#4A6B56;">' + time + '</div>';
+  doc += '<div style="font-size:13px;color:#4A6B56;">' + g + ' guests</div>';
   doc += '</div><div>';
-  doc += '<div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#A8BFB0;margin-bottom:4px;">Location & Service</div>';
-  if (Q.venue) doc += '<div style="font-size:12.5px;font-weight:600;">' + Q.venue + '</div>';
-  if (Q.venueAddress) doc += '<div style="font-size:11px;color:#4A6B56;">' + Q.venueAddress + '</div>';
-  if (Q.service) doc += '<div style="font-size:11px;color:#4A6B56;">Service: ' + Q.service + '</div>';
-  if (Q.kitchen) doc += '<div style="font-size:11px;color:#4A6B56;">Kitchen: ' + Q.kitchen + '</div>';
-  if (Q.dietary && Q.dietary.length) doc += '<div style="font-size:11px;color:#4A6B56;">Dietary: ' + Q.dietary.join(', ') + '</div>';
+  doc += '<div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#A8BFB0;margin-bottom:4px;">Location & Service</div>';
+  if (Q.venue) doc += '<div style="font-size:14.5px;font-weight:600;">' + Q.venue + '</div>';
+  if (Q.venueAddress) doc += '<div style="font-size:13px;color:#4A6B56;">' + Q.venueAddress + '</div>';
+  if (Q.service) doc += '<div style="font-size:13px;color:#4A6B56;">Service: ' + Q.service + '</div>';
+  if (Q.kitchen) doc += '<div style="font-size:13px;color:#4A6B56;">Kitchen: ' + Q.kitchen + '</div>';
+  if (Q.dietary && Q.dietary.length) doc += '<div style="font-size:13px;color:#4A6B56;">Dietary: ' + Q.dietary.join(', ') + '</div>';
   doc += '</div></div>';
-  if (Q.notes) doc += '<div style="margin-top:10px;font-size:11px;color:#4A6B56;border-top:1px solid #EEE;padding-top:8px;">Notes: ' + Q.notes + '</div>';
+  if (Q.notes) doc += '<div style="margin-top:10px;font-size:13px;color:#4A6B56;border-top:1px solid #EEE;padding-top:8px;">Notes: ' + Q.notes + '</div>';
   doc += '</div>';
 
   // ── MENU SELECTION ──
-  doc += '<div style="font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C9A84C;border-bottom:1px solid #DDD8CE;padding-bottom:5px;margin-bottom:14px;">Menu Selection & Pricing</div>';
+  doc += '<div style="font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C9A84C;border-bottom:1px solid #DDD8CE;padding-bottom:5px;margin-bottom:14px;">Menu Selection & Pricing</div>';
   doc += menuSection('Entrees', p.lines.entrees);
   doc += menuSection('Sides', p.lines.sides);
   doc += menuSection('Appetizers', p.lines.appetizers);
@@ -2879,7 +2879,7 @@ function saveQuote() {
 
   // ── PRICING SUMMARY ──
   doc += '<div class="no-break" style="margin-top:8px;">';
-  doc += '<div style="font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C9A84C;border-bottom:1px solid #DDD8CE;padding-bottom:5px;margin-bottom:10px;">Pricing Summary</div>';
+  doc += '<div style="font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C9A84C;border-bottom:1px solid #DDD8CE;padding-bottom:5px;margin-bottom:10px;">Pricing Summary</div>';
   doc += '<table style="width:60%;margin-left:40%;border-collapse:collapse;">';
   if (p.foodFlat) doc += summaryRow('Food subtotal', p.foodFlat, false);
   if (p.serviceTotal) doc += summaryRow('Service', p.serviceTotal, false);
@@ -2891,7 +2891,7 @@ function saveQuote() {
   doc += '</table></div>';
 
   // ── FOOTER ──
-  doc += '<div style="margin-top:32px;border-top:3px solid #C9A84C;padding-top:14px;font-size:10px;color:#4A6B56;display:flex;justify-content:space-between;">';
+  doc += '<div style="margin-top:32px;border-top:3px solid #C9A84C;padding-top:14px;font-size:12px;color:#4A6B56;display:flex;justify-content:space-between;">';
   doc += '<div>This quote is valid for 30 days from the date of issue.<br>A 50% deposit is required to confirm your booking.<br>Balance due 7 days before the event.</div>';
   doc += '<div style="text-align:right;">Joloff Restaurant<br>1168 Bedford Ave, Brooklyn, NY 11216<br>(718) 230-0523 \u00b7 joloffrestaurant@gmail.com</div>';
   doc += '</div>';
