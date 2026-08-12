@@ -1779,19 +1779,19 @@ const MENU_DATA = {
   sides: {
     label: 'Sides', sub: 'Add sides to complement your entrees',
     items: [
-      { id:'salad', name:'Salad', desc:'Fresh seasonal salad — a crisp, light complement to the richness of Senegalese stews.', price:3, trayPrice:75 },
-      { id:'fried-plantains', name:'Fried plantains', desc:'Ripe plantains fried golden and caramelized at the edges', price:3, trayPrice:75 },
-      { id:'fried-yuca', name:'Fried yuca', desc:'Yuca root fried crisp outside and fluffy within', price:3, trayPrice:75 },
-      { id:'cabbage-carrots', name:'Cabbage and carrots', desc:'Lightly seasoned braised cabbage and carrots', price:3, trayPrice:75 },
-      { id:'okra-side', name:'Okra', desc:'Tender stewed okra, delicately seasoned', price:3, trayPrice:75 },
-      { id:'french-fries', name:'French fries', desc:'Golden crispy fries, a crowd-pleasing classic', price:3, trayPrice:75 },
-      { id:'yuca-manioc', name:'Yuca (manioc)', desc:'Steamed seasoned yuca, soft and subtly sweet', price:3, trayPrice:75 },
-      { id:'joloff-rice-side', trayPrice:95, name:'Joloff rice', desc:'Our signature seasoned rice', price:3 },
-      { id:'white-rice-side', trayPrice:60, name:'White rice', desc:'', price:2 },
-      { id:'brown-rice-side', trayPrice:60, name:'Brown rice', desc:'', price:2 },
-      { id:'fonio-side', trayPrice:95, name:'Fonio', desc:'Ancient West African grain', price:4 },
-      { id:'atcheke-side', trayPrice:95, name:'Atcheke', desc:'Fermented cassava couscous', price:4 },
-      { id:'couscous', trayPrice:95, name:'Couscous', desc:'', price:2 },
+      { id:'salad', name:'Salad', desc:'Fresh seasonal salad — a crisp, light complement to the richness of Senegalese stews.', price:3, trayPrice:75, subcat:'other' },
+      { id:'fried-plantains', name:'Fried plantains', desc:'Ripe plantains fried golden and caramelized at the edges', price:3, trayPrice:75, subcat:'other' },
+      { id:'fried-yuca', name:'Fried yuca', desc:'Yuca root fried crisp outside and fluffy within', price:3, trayPrice:75, subcat:'other' },
+      { id:'cabbage-carrots', name:'Cabbage and carrots', desc:'Lightly seasoned braised cabbage and carrots', price:3, trayPrice:75, subcat:'other' },
+      { id:'okra-side', name:'Okra', desc:'Tender stewed okra, delicately seasoned', price:3, trayPrice:75, subcat:'other' },
+      { id:'french-fries', name:'French fries', desc:'Golden crispy fries, a crowd-pleasing classic', price:3, trayPrice:75, subcat:'other' },
+      { id:'yuca-manioc', name:'Yuca (manioc)', desc:'Steamed seasoned yuca, soft and subtly sweet', price:3, trayPrice:75, subcat:'other' },
+      { id:'joloff-rice-side', trayPrice:95, name:'Joloff rice', desc:'Our signature seasoned rice', price:3, subcat:'grains' },
+      { id:'white-rice-side', trayPrice:60, name:'White rice', desc:'', price:2, subcat:'grains' },
+      { id:'brown-rice-side', trayPrice:60, name:'Brown rice', desc:'', price:2, subcat:'grains' },
+      { id:'fonio-side', trayPrice:95, name:'Fonio', desc:'Ancient West African grain', price:4, subcat:'grains' },
+      { id:'atcheke-side', trayPrice:95, name:'Atcheke', desc:'Fermented cassava couscous', price:4, subcat:'grains' },
+      { id:'couscous', trayPrice:95, name:'Couscous', desc:'', price:2, subcat:'grains' },
     ]
   },
   appetizers: {
@@ -1806,15 +1806,15 @@ const MENU_DATA = {
   drinks: {
     label: 'Drinks', sub: 'From our house-made Bissap to fresh-pressed Ginger Juice, our drinks bring the full flavor of Senegal to your table. Priced per gallon.',
     items: [
-      { id:'bissap', trayPrice:50, name:'Bissap', desc:'House-made hibiscus flower drink', price:3 },
-      { id:'ginger-juice', trayPrice:50, name:'Ginger juice', desc:'Fresh-pressed ginger drink', price:3 },
-      { id:'lemon-ginger', trayPrice:50, name:'Lemon ginger', desc:'Fresh citrus and ginger blend', price:3 },
-      { id:'joloff-cocktail', trayPrice:50, name:'Joloff cocktail', desc:'Signature non-alcoholic blend', price:5 },
-      { id:'bouye', trayPrice:50, name:'Bouye', desc:'Sweet baobab fruit drink', price:3 },
-      { id:'iced-tea', trayPrice:40, name:'Iced tea', desc:'House-made lightly sweetened iced tea', price:3 },
-      { id:'mint-tea', trayPrice:40, name:'Mint tea', desc:'Traditional West African mint tea', price:2 },
-      { id:'ginger-tea', trayPrice:40, name:'Ginger tea', desc:'Warm house-brewed ginger tea', price:3 },
-      { id:'coffee', trayPrice:40, name:'Coffee', desc:'Rich smooth coffee served urn-style', price:3 },
+      { id:'bissap', trayPrice:50, name:'Bissap', desc:'House-made hibiscus flower drink', price:3, subcat:'senegalese' },
+      { id:'ginger-juice', trayPrice:50, name:'Ginger juice', desc:'Fresh-pressed ginger drink', price:3, subcat:'senegalese' },
+      { id:'lemon-ginger', trayPrice:50, name:'Lemon ginger', desc:'Fresh citrus and ginger blend', price:3, subcat:'senegalese' },
+      { id:'joloff-cocktail', trayPrice:50, name:'Joloff cocktail', desc:'Signature non-alcoholic blend', price:5, subcat:'senegalese' },
+      { id:'bouye', trayPrice:50, name:'Bouye', desc:'Sweet baobab fruit drink', price:3, subcat:'senegalese' },
+      { id:'iced-tea', trayPrice:40, name:'Iced tea', desc:'House-made lightly sweetened iced tea', price:3, subcat:'refreshments' },
+      { id:'mint-tea', trayPrice:40, name:'Mint tea', desc:'Traditional West African mint tea', price:2, subcat:'coffee' },
+      { id:'ginger-tea', trayPrice:40, name:'Ginger tea', desc:'Warm house-brewed ginger tea', price:3, subcat:'coffee' },
+      { id:'coffee', trayPrice:40, name:'Coffee', desc:'Rich smooth coffee served urn-style', price:3, subcat:'coffee' },
     ]
   },
   desserts: {
@@ -2398,13 +2398,98 @@ function renderMenuCustomizer() {
     const cat = MENU_DATA[catId];
     if (!cat) return '';
     const isTrayItem = ['sides','appetizers','desserts','drinks'].includes(catId);
+
+    const sidesSubcats = [
+      { key: 'grains', label: 'West African Grains', sub: 'Ancient grains rooted in Senegalese tradition' },
+      { key: 'other',  label: 'Other Sides', sub: '' },
+    ];
+    const drinksSubcats = [
+      { key: 'senegalese',   label: 'Traditional Senegalese drinks', sub: 'House-made recipes brewed fresh daily' },
+      { key: 'refreshments', label: 'Refreshments', sub: '' },
+      { key: 'coffee',       label: 'Coffee & Tea', sub: '' },
+    ];
+
+    const subcatDefs = catId === 'sides' ? sidesSubcats : catId === 'drinks' ? drinksSubcats : null;
+
+    if (subcatDefs) {
+      const subcatSections = subcatDefs.map(sc => {
+        const scItems = cat.items.filter(i => i.subcat === sc.key);
+        if (!scItems.length) return '';
+        const scCat = {...cat, items: scItems};
+        return `<div class="entree-subcat" style="margin-bottom:32px;">
+          <div class="menu-section-title" style="font-size:clamp(24px,2.2vw,36px);margin-bottom:6px;">${sc.label}</div>
+          ${sc.sub ? `<div class="menu-section-sub" style="margin-bottom:16px;">${sc.sub}</div>` : ''}
+          ${catSectionBanner(catId, scItems)}
+          <div class="menu-items-grid">
+            ${scItems.map(item => {
+            const inCart = !!menuCart[item.id];
+            const trays = inCart ? menuCart[item.id].trays : 0;
+            const unit = catId === 'drinks' ? 'Gallon' : 'Tray';
+            const price = item.trayPrice || 0;
+
+            // Price badge — no "includes" sub-text
+            const priceBadge = price ? `<div class="mi-price-badge">$${price} / ${unit}</div>` : '';
+
+            // Starch dropdown (right column, under price)
+            let starchHtml = '';
+            if (inCart && needsStarch(item.name, catId)) {
+              const curStarch = menuCart[item.id] ? menuCart[item.id].starch || 'White rice' : 'White rice';
+              const curPrice = STARCH_PRICES[curStarch] || 0;
+              const opts = [
+                ['White rice','White rice'],['Joloff rice','Joloff rice'],['Brown rice','Brown rice'],
+                ['Fonio','Fonio'],['Atcheke','Atcheke'],['Couscous','Couscous'],['None','No side'],
+              ];
+              const optHtml = opts.map(([val, label]) => {
+                const isSel = val === curStarch;
+                const diff = (STARCH_PRICES[val] || 0) - curPrice;
+                const tag = isSel ? '' : diff > 0 ? ` +$${diff}` : diff < 0 ? ` -$${Math.abs(diff)}` : '';
+                return `<option value="${val}" ${isSel ? 'selected' : ''}>${label}${tag}</option>`;
+              }).join('');
+              starchHtml = `<div onclick="event.stopPropagation()" style=""><select class="starch-select visible" id="starch-${item.id}" onchange="setStarch('${item.id}', this.value)" style="font-size:14px;padding:5px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--mid);outline:none;width:auto;">${optHtml}</select></div>`;
+            }
+
+            // Tray counter (left column, under name/desc)
+            const trayHtml = inCart && isTrayItem ? `
+              <div onclick="event.stopPropagation()" style="display:flex;align-items:center;justify-content:flex-start;gap:8px;margin-top:8px;">
+                <button class="pc-btn" onclick="event.stopPropagation();changeTray('${item.id}',-1)" ${trays <= 1 ? 'disabled' : ''}>−</button>
+                <div class="pc-num" id="pcn-${item.id}">${trays} ${unitLabel(catId, trays)}</div>
+                <button class="pc-btn" onclick="event.stopPropagation();changeTray('${item.id}',1)">+</button>
+              </div>` : '';
+
+            return `
+            <div class="menu-item-row ${inCart ? 'in-cart' : ''}" id="mir-${item.id}" onclick="toggleMenuItem('${item.id}','${cat.label}',${price},'${item.name}')">
+              <div class="mi-check-circle">${inCart ? '✓' : ''}</div>
+              <div class="mi-info-wrap">
+                <div class="mi-name">${item.name}</div>
+                ${item.desc ? `<div class="mi-desc">${item.desc}</div>` : ''}
+                ${trayHtml}
+              </div>
+              <div class="mi-right">
+                ${priceBadge}
+                ${starchHtml}
+              </div>
+            </div>
+          `}).join('')}}
+          </div>
+        </div>`;
+      }).join('');
+      return `
+      <div class="menu-section">
+        <div class="menu-section-title">${cat.label}</div>
+        <div class="menu-section-sub">${cat.sub}</div>
+        ${subcatSections}
+      </div>
+      <div class="results-divider"></div>
+    `;
+    }
+
     return `
       <div class="menu-section">
         <div class="menu-section-title">${cat.label}</div>
         <div class="menu-section-sub">${cat.sub}</div>
         ${catSectionBanner(catId, cat.items)}
         <div class="menu-items-grid">
-          ${cat.items.map(item => {
+          cat.items.map(item => {
             const inCart = !!menuCart[item.id];
             const trays = inCart ? menuCart[item.id].trays : 0;
             const unit = catId === 'drinks' ? 'Gallon' : 'Tray';
