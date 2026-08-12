@@ -2086,17 +2086,14 @@ function goToStep(n) {
 
   const quizView = document.getElementById('quiz-view');
   const resultsView = document.getElementById('results-view');
-  const progressWrap = document.getElementById('progress-wrap');
 
   if (n === 1) {
     if (quizView) quizView.style.display = 'none';
     if (resultsView) resultsView.style.display = 'none';
-    if (progressWrap) progressWrap.style.display = 'none';
-    window.scrollTo({top:0,behavior:'smooth'});
+      window.scrollTo({top:0,behavior:'smooth'});
     currentStep = 1; saveSession(); return;
   }
 
-  if (progressWrap) progressWrap.style.display = '';
 
   if (n === 4) {
     if (quizView) quizView.style.display = 'none';
@@ -2251,9 +2248,7 @@ function buildResults() {
   // Show results, hide quiz and progress bar
   const quizView = document.getElementById('quiz-view');
   const resultsView = document.getElementById('results-view');
-  const progressWrap = document.getElementById('progress-wrap');
   if (quizView) quizView.style.display = 'none';
-  if (progressWrap) progressWrap.style.display = 'none';
   if (resultsView) { resultsView.style.display = ''; resultsView.classList.add('active'); }
 
   // Update progress bar — all steps done except step 3 (active)
@@ -2770,7 +2765,6 @@ function restartQuote() {
   goToStep(1);
   document.getElementById('results-view').classList.remove('active');
   document.getElementById('quiz-view').style.display = 'block';
-  document.getElementById('progress-wrap').style.display = 'block';
   goToStep(1);
 }
 
