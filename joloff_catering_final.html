@@ -1273,81 +1273,77 @@ body { font-size: 17px; }
 function buildEmailBody() {
   const p = calcPricing();
   const g = Q.guestCount || '?';
-  const date = Q.eventDate ? new Date(Q.eventDate).toLocaleDateString('en-US', {weekday:'long',year:'numeric',month:'long',day:'numeric'}) : 'TBD';
-  const time = (Q.startTime && Q.endTime) ? Q.startTime + ' – ' + Q.endTime : '';
+  const date = Q.eventDate ? new Date(Q.eventDate + 'T12:00:00').toLocaleDateString('en-US', {month:'long',day:'numeric',year:'numeric'}) : 'TBD';
+  const time = (Q.startTime && Q.endTime) ? Q.startTime + ' - ' + Q.endTime : '';
+  const lines = [];
 
-  let body = '';
-  body += 'EVENT DETAILS\n';
-  body += '─────────────────────────────\n';
-  if (Q.firstName) body += 'Name: ' + Q.firstName + ' ' + (Q.lastName || '') + '\n';
-  if (Q.email) body += 'Email: ' + Q.email + '\n';
-  if (Q.phone) body += 'Phone: ' + Q.phone + '\n';
-  if (Q.eventType) body += 'Event type: ' + Q.eventType + '\n';
-  body += 'Date: ' + date + '\n';
-  if (time) body += 'Time: ' + time + '\n';
-  body += 'Guests: ' + g + '\n';
-  if (Q.venue) body += 'Location: ' + Q.venue + '\n';
-  if (Q.venueAddress) body += 'Address: ' + Q.venueAddress + '\n';
-  if (Q.kitchen) body += 'Kitchen: ' + Q.kitchen + '\n';
-  if (Q.service) body += 'Service type: ' + Q.service + '\n';
-  if (Q.servingStyle) body += 'Serving style: ' + Q.servingStyle + '\n';
-  if (Q.dietary && Q.dietary.length) body += 'Dietary requirements: ' + Q.dietary.join(', ') + '\n';
-  if (Q.returning) body += 'Returning client: ' + Q.returning + '\n';
-  if (Q.referral) body += 'How they heard: ' + Q.referral + '\n';
-  if (Q.notes) body += 'Notes: ' + Q.notes + '\n';
+  lines.push('EVENT DETAILS');
+  lines.push('---');
+  if (Q.firstName) lines.push('Name: ' + Q.firstName + ' ' + (Q.lastName||''));
+  if (Q.email) lines.push('Email: ' + Q.email);
+  if (Q.phone) lines.push('Phone: ' + Q.phone);
+  if (Q.eventType) lines.push('Event: ' + Q.eventType);
+  lines.push('Date: ' + date + (time ? '  ' + time : ''));
+  lines.push('Guests: ' + g);
+  if (Q.venue) lines.push('Location: ' + Q.venue);
+  if (Q.service) lines.push('Service: ' + Q.service);
+  if (Q.dietary && Q.dietary.length) lines.push('Dietary: ' + Q.dietary.join(', '));
+  if (Q.notes) lines.push('Notes: ' + Q.notes);
 
   if (p) {
-    body += '\nPRICE BREAKDOWN\n';
-    body += '─────────────────────────────\n';
-    const sections = [
-      ['Appetizers', p.lines.appetizers],
-      ['Entrees', p.lines.entrees],
-      ['Sides', p.lines.sides],
-      ['Desserts', p.lines.desserts],
-      ['Drinks', p.lines.drinks],
-      ['Service', p.lines.service],
-      ['Equipment', p.lines.equipment],
-    ];
-    sections.forEach(([label, items]) => {
+    lines.push('');
+    lines.push('PRICE BREAKDOWN');
+    lines.push('---');
+    const cats = [['Appetizers',p.lines.appetizers],['Entrees',p.lines.entrees],
+      ['Sides',p.lines.sides],['Desserts',p.lines.desserts],['Drinks',p.lines.drinks],
+      ['Service',p.lines.service],['Equipment',p.lines.equipment]];
+    cats.forEach(([label, items]) => {
       if (items && items.length) {
-        body += '\n' + label + '\n';
-        items.forEach(([name, val]) => { body += '  ' + name + ': ' + val + '\n'; });
+        lines.push(label + ':');
+        items.forEach(([name, val]) => lines.push('  ' + name + ': ' + val));
       }
     });
-    body += '\n─────────────────────────────\n';
-    if (p.foodTotal) body += 'Food subtotal: $' + p.foodTotal.toLocaleString() + '\n';
-    if (p.serviceTotal) body += 'Service: $' + p.serviceTotal.toLocaleString() + '\n';
-    if (p.tax) body += 'Tax (8.875%): $' + p.tax.toLocaleString() + '\n';
-    if (p.gratuity) body += 'Gratuity (20%): $' + p.gratuity.toLocaleString() + '\n';
-    if (p.total) body += 'TOTAL: $' + p.total.toLocaleString() + '\n';
-    if (p.deposit) body += 'Deposit (50%): $' + p.deposit.toLocaleString() + '\n';
+    lines.push('---');
+    if (p.subtotal) lines.push('Subtotal: $' + Number(p.subtotal).toLocaleString());
+    if (p.tax) lines.push('Tax: $' + Number(p.tax).toLocaleString());
+    if (p.gratuity) lines.push('Gratuity: $' + Number(p.gratuity).toLocaleString());
+    if (p.total) lines.push('TOTAL: $' + Number(p.total).toLocaleString());
+    if (p.deposit) lines.push('Deposit (50%): $' + Number(p.deposit).toLocaleString());
   }
 
-  body += '\n─────────────────────────────\n';
-  body += 'Generated via joloffjoloff.com\n';
-  return body;
+  lines.push('');
+  lines.push('Generated via joloffjoloff.com');
+  return lines.join('%0A');
 }
 
 function buildSubjectLine(prefix) {
   const g = Q.guestCount || '?';
-  const date = Q.eventDate ? new Date(Q.eventDate).toLocaleDateString('en-US', {month:'long',day:'numeric',year:'numeric'}) : 'TBD';
-  return prefix + ' for ' + g + ' people on ' + date;
+  const date = Q.eventDate ? new Date(Q.eventDate + 'T12:00:00').toLocaleDateString('en-US', {month:'long',day:'numeric',year:'numeric'}) : 'TBD';
+  return encodeURIComponent(prefix + ' for ' + g + ' people on ' + date);
+}
+
+function openMailto(to, subject, cc, body) {
+  const ccPart = cc ? '&cc=' + encodeURIComponent(cc) : '';
+  const url = 'mailto:' + to + '?subject=' + subject + ccPart + '&body=' + body;
+  const a = document.createElement('a');
+  a.href = url;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
 
 function shareQuote() {
-  const subject = encodeURIComponent(buildSubjectLine('Catering Quote from Joloff Restaurant'));
-  const cc = Q.email ? encodeURIComponent(Q.email) : '';
-  const body = encodeURIComponent(buildEmailBody());
-  const ccParam = cc ? '&cc=' + cc : '';
-  window.location.href = 'mailto:?' + 'subject=' + subject + ccParam + '&body=' + body;
+  const subject = buildSubjectLine('Catering Quote from Joloff Restaurant');
+  const cc = Q.email || '';
+  const body = buildEmailBody();
+  openMailto('', subject, cc, body);
 }
 
 function askQuestion() {
-  const subject = encodeURIComponent(buildSubjectLine('Catering Inquiry') + ' | Joloff Restaurant');
-  const cc = Q.email ? encodeURIComponent(Q.email) : '';
-  const body = encodeURIComponent(buildEmailBody());
-  const ccParam = cc ? '&cc=' + cc : '';
-  window.location.href = 'mailto:joloffrestaurant@gmail.com?subject=' + subject + ccParam + '&body=' + body;
+  const subject = buildSubjectLine('Catering Inquiry') + encodeURIComponent(' | Joloff Restaurant');
+  const cc = Q.email || '';
+  const body = buildEmailBody();
+  openMailto('joloffrestaurant@gmail.com', subject, cc, body);
 }
 
 </script>
