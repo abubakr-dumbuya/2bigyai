@@ -2415,11 +2415,11 @@ function render() {
 // ── RENDER MENU ────────────────────────────────────────────────────────────
 function renderMenu() {
   const sectionMeta = {
-      appetizers: { eyebrow:'To start', title:'Appetizers & <em>small plates</em>' },
-      entrees: { eyebrow:'Main courses', title:'Entrees' },
-      sides: { eyebrow:'Accompaniments', title:'Sides & <em>rice</em>' },
-      desserts: { eyebrow:'To finish', title:'<em>Desserts</em>' },
-      drinks: { eyebrow:'Beverages', title:'Drinks & <em>juices</em>' }
+      appetizers: { title:'Appetizers', sub:'Starters to open the meal' },
+      entrees: { title:'Entrees', sub:'Choose from our chicken, lamb, fish, and vegetarian options' },
+      sides: { title:'Sides', sub:'Add sides to complement your entrees' },
+      desserts: { title:'Desserts', sub:'Traditional Senegalese sweets' },
+      drinks: { title:'Drinks', sub:'From our house-made Bissap to fresh-pressed Ginger Juice, our drinks bring the full flavor of Senegal to your table. Priced per gallon.' }
     };
 
   document.getElementById('menu-sections').innerHTML = showCategories.map(catId => {
@@ -2429,17 +2429,18 @@ function renderMenu() {
     if (catId === 'entrees') {
       const allEntrees = MENU_DATA.entrees.items;
       const proteinCats = [
-        { key: 'Chicken',    label: 'Chicken entrees',             ids: ['Chicken'] },
-        { key: 'Lamb',       label: 'Lamb entrees',                ids: ['Lamb'] },
-        { key: 'Fish',       label: 'Fish & seafood entrees',      ids: ['Fish', 'Shrimp'] },
-        { key: 'Vegetarian', label: 'Vegetarian & vegan entrees',  ids: ['Vegetables', 'Tofu'] },
+        { key: 'Chicken',    label: 'Chicken entrees',            sub: 'Choose your chicken dishes', ids: ['Chicken'] },
+        { key: 'Lamb',       label: 'Lamb entrees',               sub: 'Signature Senegalese lamb dishes', ids: ['Lamb'] },
+        { key: 'Fish',       label: 'Fish & seafood entrees',     sub: 'Fresh fish in the Senegalese coastal tradition', ids: ['Fish', 'Shrimp'] },
+        { key: 'Vegetarian', label: 'Vegetarian & vegan entrees', sub: 'All fully plant-based', ids: ['Vegetables', 'Tofu'] },
         { key: 'Grilled',    label: 'Grilled specials',            ids: ['Grilled'], byDishType: 'specialites' },
       ];
       content = proteinCats.map(pc => {
         const items = allEntrees.filter(i => pc.byDishType ? i.dishType === pc.byDishType : pc.ids.includes(i.proteinLabel));
         if (!items.length) return '';
         return `<div class="entree-subcat">
-          <div class="entree-subcat-label">${pc.label}</div>
+          <div class="menu-section-title" style="margin-bottom:8px;">${pc.label}</div>
+          ${pc.sub ? `<div class="menu-section-sub" style="margin-bottom:20px;">${pc.sub}</div>` : ''}
           <div class="menu-items">${items.map(item => renderCard(item, 'entrees')).join('')}</div>
         </div>`;
       }).join('');
@@ -2450,8 +2451,8 @@ function renderMenu() {
     }
 
     return `<div class="menu-section">
-      <div class="menu-section-eyebrow">${meta.eyebrow || ''}</div>
       <div class="menu-section-title">${meta.title || catId}</div>
+      ${meta.sub ? `<div class="menu-section-sub">${meta.sub}</div>` : ''}
       ${content}
     </div>`;
   }).join('');
