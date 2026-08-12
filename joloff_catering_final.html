@@ -1984,6 +1984,13 @@ function repopulateForm() {
     });
   }
 
+  // Guest count slider
+  var slider = document.getElementById('guest-slider');
+  if (slider && Q.guestCount) {
+    slider.value = Q.guestCount;
+    updateGuests(Q.guestCount);
+  }
+
   // Text areas / notes
   var textareas = document.querySelectorAll('textarea');
   if (textareas[0] && Q.notes) textareas[0].value = Q.notes;
