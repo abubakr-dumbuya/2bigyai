@@ -2997,7 +2997,7 @@ function shareQuote() {
     const subject = buildSubjectLine('Catering Quote from Joloff Restaurant');
     const cc = Q.email || '';
     const firstName = encodeURIComponent(Q.firstName || '');
-    const intro = 'Hello%2C%0A%0ASee below for the detail of the proposed Joloff catering order.%0A%0A' + THANKS + firstName + '%0A________________________________________%0A%0A';
+    const intro = 'Hello%2C%0A%0ASee below for the details of the proposed Joloff catering order.%0A%0A' + THANKS + firstName + '%0A________________________________________%0A%0A';
     const body = intro + buildEmailBody();
     openMailto('', subject, cc, body);
   }, 800);
