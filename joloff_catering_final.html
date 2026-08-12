@@ -1260,6 +1260,13 @@ body { font-size: 17px; }
       .footer-top > div:nth-child(3) { padding-top: 0 !important; } /* remove desktop padding */
       .ft-social-mobile { display: none !important; } /* social already shown in col 1 above address */
     }
+
+    .entree-subcat-label {
+      font-size: 15px; font-weight: 700; color: var(--terra);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin: 10px 0 4px; padding-bottom: 4px;
+      border-bottom: 1px solid var(--border);
+    }
 </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
 </script>
@@ -2404,7 +2411,7 @@ function renderMenuCustomizer() {
         <div class="menu-section-sub">${cat.sub}</div>
         ${catSectionBanner(catId, cat.items)}
         <div class="menu-items-grid">
-          ${cat.items.map((item, _ii, _arr) => { const _prevSub = _ii > 0 ? _arr[_ii-1].subcat : null; const _showHeader = (catId === 'sides' || catId === 'drinks') && item.subcat && item.subcat !== _prevSub; const _subHeaders = {'grains':'West African Grains','other':'Other Sides','senegalese':'Traditional Senegalese drinks','refreshments':'Refreshments','coffee':'Coffee & Tea'}; const _headerHtml = _showHeader ? '<div class="entree-subcat-label" style="margin:24px 0 12px;padding-top:16px;border-top:1px solid var(--border);">' + (_subHeaders[item.subcat] || '') + '</div>' : '';
+          ${cat.items.map((item, _ii, _arr) => { const _prevSub = _ii > 0 ? _arr[_ii-1].subcat : null; const _showHeader = (catId === 'sides' || catId === 'drinks') && item.subcat && item.subcat !== _prevSub; const _subHeaders = {'grains':'West African Grains','other':'Other Sides','senegalese':'Traditional Senegalese drinks','refreshments':'Refreshments','coffee':'Coffee & Tea'}; const _headerHtml = _showHeader ? '<div class="entree-subcat-label">' + (_subHeaders[item.subcat] || '') + '</div>' : '';
             const inCart = !!menuCart[item.id];
             const trays = inCart ? menuCart[item.id].trays : 0;
             const unit = catId === 'drinks' ? 'Gallon' : 'Tray';
