@@ -1183,17 +1183,17 @@ const MENU_DATA = {
     label: 'Entrees', sub: 'Served with White rice or Brown rice, or upgrade to Atcheke (+$2), Couscous (+$2), Fonio (+$2), or Joloff rice (+$4)',
     items: [
       { id:'tiebu-ganar', trayPrice:155, name:'Thiebou Ganar', desc:'Joloff rice served with chicken slow-cooked in a beautifully seasoned broth — a deeply satisfying one-pot Senegalese classic', price:21.95, dishType:'tiebou', proteinLabel:'Chicken' },
-      { id:'yassa-ganar', trayPrice:140, name:'Yassa Guinaar', desc:'Tender chicken slow-braised in a deeply savory caramelized onion and lemon sauce — one of Senegal\'s most beloved dishes', price:19.95, dishType:'yassa', proteinLabel:'Chicken', signature:true },
+      { id:'yassa-ganar', trayPrice:140, name:'Yassa Guinaar', desc:'Tender chicken slow-braised in a deeply savory caramelized onion and lemon sauce — one of Senegal\'s most beloved dishes', price:19.95, dishType:'yassa', signature:true, proteinLabel:'Chicken' },
       { id:'mafe-ganar', trayPrice:140, name:'Mafé Guinaar', desc:'Chicken in a velvety, richly spiced groundnut sauce — warming, deeply nourishing, and unforgettable', price:19.95, dishType:'mafe', proteinLabel:'Chicken' },
       { id:'thiou-ganar', trayPrice:140, name:'Thiou Guinaar', desc:'Chicken braised low and slow in a fragrant, richly seasoned tomato sauce with aromatic vegetables', price:19.95, dishType:'thiou', proteinLabel:'Chicken' },
       { id:'kanja-ganar', trayPrice:140, name:'Thiou Kanja Guinaar', desc:'Chicken in a rich tomato sauce with fresh okra — earthy, savory, and deeply satisfying', price:19.95, dishType:'thiou-kanja', proteinLabel:'Chicken' },
       { id:'grilled-chicken', trayPrice:140, name:'Boneless grilled chicken', desc:'Marinated boneless chicken grilled over an open flame with West African herbs and spices — perfectly charred, juicy, and full of flavor', price:19.95, dishType:'grilled', proteinLabel:'Chicken' },
       { id:'yassa-yapp', trayPrice:175, name:'Yassa Yapp', desc:'Lamb slow-braised until tender in a caramelized onion and citrus sauce — beautifully balanced between savory and bright', price:24.95, dishType:'yassa', proteinLabel:'Lamb' },
-      { id:'mafe-yapp', trayPrice:175, name:'Mafé Yapp', desc:'Bone-in lamb in a thick, velvety groundnut sauce with root vegetables — rich, warming, and deeply satisfying', price:24.95, dishType:'mafe', proteinLabel:'Lamb', signature:true },
-      { id:'dibbi', trayPrice:175, name:'Dibbi', desc:'Bone-in lamb chops marinated overnight and grilled to perfection — smoky, tender, and deeply flavorful. One of our most celebrated dishes', price:24.95, dishType:'grilled', proteinLabel:'Lamb' },
+      { id:'mafe-yapp', trayPrice:175, name:'Mafé Yapp', desc:'Bone-in lamb in a thick, velvety groundnut sauce with root vegetables — rich, warming, and deeply satisfying', price:24.95, dishType:'mafe', signature:true, proteinLabel:'Lamb' },
+      { id:'dibbi', trayPrice:175, name:'Dibbi', desc:'Bone-in lamb chops marinated overnight and grilled to perfection — smoky, tender, and deeply flavorful. One of our most celebrated dishes', price:24.95, dishType:'grilled', signature:true, proteinLabel:'Lamb' },
       { id:'lamb-shank', trayPrice:180, name:'Lamb shank', desc:'A whole lamb shank slow-braised for hours until fall-off-the-bone tender, served in its own rich, concentrated braising sauce', price:29.95, dishType:'specialites', proteinLabel:'Lamb' },
       { id:'lamb-rack', trayPrice:180, name:'Grilled lamb rack', desc:'A full rack of lamb marinated with West African herbs and spices and grilled to a perfect pink center — the showpiece of any Joloff spread', price:29.95, dishType:'specialites', proteinLabel:'Lamb' },
-      { id:'tiebou-jeun', trayPrice:180, name:'Thiebou Jeun', desc:'Joloff rice served with fresh fish and seasonal vegetables, slow-cooked in a rich tomato broth — the national dish of Senegal and our most iconic preparation', price:25.95, dishType:'tiebou', proteinLabel:'Fish', signature:true },
+      { id:'tiebou-jeun', trayPrice:180, name:'Thiebou Jeun', desc:'Joloff rice served with fresh fish and seasonal vegetables, slow-cooked in a rich tomato broth — the national dish of Senegal and our most iconic preparation', price:25.95, dishType:'tiebou', signature:true, proteinLabel:'Fish' },
       { id:'yassa-jeun', trayPrice:170, name:'Yassa Jeun', desc:'Grilled blue fish braised in our signature caramelized lemon and onion sauce — bright, savory, and deeply flavorful.', price:23.95, dishType:'yassa', proteinLabel:'Fish' },
       { id:'mafe-jeun', trayPrice:170, name:'Mafé Jeun', desc:'Blue fish and vegetables slow-cooked in a rich, golden peanut stew — hearty and deeply satisfying.', price:23.95, dishType:'mafe', proteinLabel:'Fish' },
       { id:'thiou-kanja-jeun', trayPrice:170, name:'Thiou Kanja Jeun', desc:'Blue fish cooked in a rich tomato sauce with stewed okra — a soulful, comforting Senegalese classic.', price:23.95, dishType:'thiou-kanja', proteinLabel:'Fish' },
@@ -1217,10 +1217,10 @@ const MENU_DATA = {
   appetizers: {
     label: 'Appetizers', sub: 'Starters to open the meal',
     items: [
-      { id:'fataya-fish', trayPrice:130, name:'Fish fataya', desc:'Crispy Senegalese-style fish pastry', price:10.95 },
+      { id:'fataya-fish', signature:true, trayPrice:130, name:'Fish fataya', desc:'Crispy Senegalese-style fish pastry', price:10.95 },
       { id:'fataya-veggie', trayPrice:120, name:'Veggie fataya', desc:'Crispy Senegalese-style veggie pastry', price:9.95 },
       { id:'boulette', trayPrice:130, name:'Boulette', desc:'Seasoned Senegalese fish balls', price:10.95 },
-      { id:'nem-legumes', trayPrice:120, name:'Nem legumes', desc:'Crispy Senegalese vegetable spring rolls', price:9.95 },
+      { id:'nem-legumes', trayPrice:120, name:'Nem legumes', desc:'Crispy Senegalese vegetable spring rolls', signature:true, price:9.95 },
     ]
   },
   drinks: {
@@ -1249,7 +1249,7 @@ const MENU_DATA = {
       { id:'okra-side', name:'Okra', desc:'Tender stewed okra, delicately seasoned', price:8.95, subcat:'traditional' },
       { id:'french-fries', name:'French fries', desc:'Golden crispy fries, a crowd-pleasing classic', price:7.95, subcat:'traditional' },
       { id:'yuca-manioc', name:'Yuca (manioc)', desc:'Steamed seasoned yuca, soft and subtly sweet', price:7.95, subcat:'traditional' },
-      { id:'joloff-rice-side', trayPrice:95, name:'Joloff rice', desc:'Our signature seasoned rice', price:9.95, subcat:'grains' },
+      { id:'joloff-rice-side', trayPrice:95, name:'Joloff rice', desc:'Our signature seasoned rice', price:9.95, signature:true, subcat:'grains' },
       { id:'white-rice-side', trayPrice:60, name:'White rice', desc:'', price:5.95, subcat:'grains' },
       { id:'brown-rice-side', trayPrice:60, name:'Brown rice', desc:'', price:5.95, subcat:'grains' },
       { id:'fonio-side', trayPrice:95, name:'Fonio', desc:'Ancient West African grain', price:7.95, subcat:'grains' },
@@ -1709,7 +1709,7 @@ function renderMenuCustomizer() {
                     starchHtml = `<div onclick="event.stopPropagation()" style="margin-top:8px;"><select class="starch-select visible" id="starch-${item.id}" onchange="setStarch('${item.id}', this.value)" style="font-size:12px;padding:5px 8px;border-radius:6px;border:1px solid var(--border);background:#fff;color:var(--mid);outline:none;width:100%;">${optHtml}</select></div>`;
                   }
                   const trayHtml = inCart ? `<div onclick="event.stopPropagation()" style="display:flex;align-items:center;justify-content:flex-end;gap:8px;"><button class="pc-btn" onclick="event.stopPropagation();changeTray('${item.id}',-1)" ${trays <= 1 ? 'disabled' : ''}>−</button><div class="pc-num" id="pcn-${item.id}">${trays} ${trays !== 1 ? 'Trays' : 'Tray'}</div><button class="pc-btn" onclick="event.stopPropagation();changeTray('${item.id}',1)">+</button></div>` : '';
-                  return `<div class="menu-item-row ${inCart ? 'in-cart' : ''}" id="mir-${item.id}" onclick="toggleMenuItem('${item.id}','${subCat.label}',${item.trayPrice || 0},'${item.name}')"><div class="mi-check-circle">${inCart ? '✓' : ''}</div><div class="mi-info-wrap"><div class="mi-name">${item.name}</div>${item.desc ? `<div class="mi-desc">${item.desc}</div>` : ''}${starchHtml}</div><div class="mi-right">${priceHtml}${trayHtml}</div></div>`;
+                  return `<div class="menu-item-row ${inCart ? 'in-cart' : ''}" id="mir-${item.id}" onclick="toggleMenuItem('${item.id}','${subCat.label}',${item.trayPrice || 0},'${item.name}')"><div class="mi-check-circle">${inCart ? '✓' : ''}</div><div class="mi-info-wrap"><div class="mi-name">${item.name}${item.signature?" &#9733;":""}</div>${item.desc ? `<div class="mi-desc">${item.desc}</div>` : ''}${starchHtml}</div><div class="mi-right">${priceHtml}${trayHtml}</div></div>`;
                 }).join('')}
               </div>
             </div>`;
