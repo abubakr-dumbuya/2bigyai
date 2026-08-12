@@ -1373,7 +1373,7 @@ body { font-size: 17px; }
         <div class="q-label">Your name <span class="q-required">Required</span></div>
         <div class="input-row">
           <input type="text" class="q-input" placeholder="First name" oninput="setVal('firstName',this.value)"/><div id="err-firstname" style="display:none;color:#c0392b;font-size:13px;margin-top:4px;"></div>
-          <input type="text" class="q-input" placeholder="Last name" oninput="setVal('lastName',this.value)"/>
+          <input type="text" class="q-input" placeholder="Last name" oninput="setVal('lastName',this.value)"/><div id="err-lastname" style="display:none;color:#c0392b;font-size:13px;margin-top:4px;"></div>
         </div>
       </div>
 
@@ -1384,7 +1384,30 @@ body { font-size: 17px; }
 
       <div class="question">
         <div class="q-label">Phone number <span class="q-required">Required</span></div>
-        <input type="tel" class="q-input" placeholder="(718) 555-0123" oninput="setVal('phone',this.value)"/>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <select id="phone-country-code" onchange="setVal('phoneCode',this.value)" style="padding:12px 8px;border:1px solid var(--border);border-radius:8px;font-size:15px;background:#fff;color:var(--dark);flex-shrink:0;width:140px;">
+            <option value="+1" selected>🇺🇸 +1 (US)</option>
+            <option value="+1-CA">🇨🇦 +1 (CA)</option>
+            <option value="+44">🇬🇧 +44 (UK)</option>
+            <option value="+33">🇫🇷 +33 (FR)</option>
+            <option value="+221">🇸🇳 +221 (SN)</option>
+            <option value="+234">🇳🇬 +234 (NG)</option>
+            <option value="+225">🇨🇮 +225 (CI)</option>
+            <option value="+212">🇲🇦 +212 (MA)</option>
+            <option value="+20">🇪🇬 +20 (EG)</option>
+            <option value="+49">🇩🇪 +49 (DE)</option>
+            <option value="+34">🇪🇸 +34 (ES)</option>
+            <option value="+39">🇮🇹 +39 (IT)</option>
+            <option value="+31">🇳🇱 +31 (NL)</option>
+            <option value="+1-JM">🇯🇲 +1 (JM)</option>
+            <option value="+1-TT">🇹🇹 +1 (TT)</option>
+            <option value="+57">🇨🇴 +57 (CO)</option>
+            <option value="+55">🇧🇷 +55 (BR)</option>
+            <option value="+52">🇲🇽 +52 (MX)</option>
+          </select>
+          <input type="tel" class="q-input" placeholder="(718) 555-0123" style="flex:1;" oninput="setVal('phone',this.value)"/>
+        </div>
+        <div id="err-phone" style="display:none;color:#c0392b;font-size:13px;margin-top:4px;"></div>
       </div>
 
       <div class="question">
@@ -1690,7 +1713,7 @@ const Q = {
   eventType:'', eventDate:'', startTime:'', endTime:'', setupTime:'',
   returning:'', referral:'', guests:25, children:'', dietary:[], budget:'',
   venue:'', indoorOutdoor:'', kitchen:'', venueAddress:'', bar:'', moments:[],
-  firstName:'', lastName:'', email:'', phone:'',
+  firstName:'', lastName:'', email:'', phone:'', phoneCode:'+1',
   service:'', servingStyle:'', foodTypes:[], drinksNonAlc:'none-nonalc', drinksAlc:'none-alc', extras:'', dietaryOther:'',
   equipment:[], notes:''
 };
@@ -2050,9 +2073,31 @@ function closeValidationPopup() {
 function nextStep(n) {
   if (n === 2) {
     const missing = [];
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneDigits = (Q.phone || '').replace(/\D/g, '');
+
     if (!Q.firstName || !Q.firstName.trim()) missing.push('Your first name');
-    if (!Q.email || !Q.email.trim()) missing.push('Email address');
-    if (!Q.phone || !Q.phone.trim()) missing.push('Phone number');
+    if (!Q.lastName || !Q.lastName.trim()) missing.push('Your last name');
+    if (!Q.email || !Q.email.trim()) {
+      missing.push('Email address');
+    } else if (!emailRegex.test(Q.email.trim())) {
+      const el = document.getElementById('err-email');
+      if (el) { el.textContent = 'Please enter a valid email address (e.g. you@example.com)'; el.style.display = 'block'; }
+      missing.push('A valid email address');
+    } else {
+      const el = document.getElementById('err-email');
+      if (el) el.style.display = 'none';
+    }
+    if (!Q.phone || !Q.phone.trim()) {
+      missing.push('Phone number');
+    } else if (phoneDigits.length < 7) {
+      const el = document.getElementById('err-phone');
+      if (el) { el.textContent = 'Please enter a valid phone number'; el.style.display = 'block'; }
+      missing.push('A valid phone number');
+    } else {
+      const el = document.getElementById('err-phone');
+      if (el) el.style.display = 'none';
+    }
     if (!Q.eventType) missing.push('Event type');
     if (!Q.eventDate) missing.push('Event date');
     if (!Q.guestCount) missing.push('Number of guests');
