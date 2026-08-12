@@ -1058,6 +1058,19 @@ body { font-size: 17px; }
       .ft-social-mobile { display: none !important; } /* social already shown in col 1 above address */
     }
     .menu-section-sub { font-size: 19px; color: var(--mid); margin-top: 4px; margin-bottom: 24px; }
+
+    @media (max-width: 768px) {
+      nav {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+      }
+      body {
+        padding-top: 64px;
+      }
+    }
 </style>
 </head>
 <body>

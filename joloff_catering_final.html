@@ -1279,6 +1279,19 @@ body { font-size: 17px; }
     }
     .country-opt:hover { background: var(--warm); }
 
+
+    @media (max-width: 768px) {
+      nav {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+      }
+      body {
+        padding-top: 64px;
+      }
+    }
 </style>
   </head>
 <body>

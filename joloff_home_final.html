@@ -898,6 +898,19 @@ body { font-size: 17px; }
       .footer-top > div:nth-child(3) { padding-top: 0 !important; } /* remove desktop padding */
       .ft-social-mobile { display: none !important; } /* social already shown in col 1 above address */
     }
+
+    @media (max-width: 768px) {
+      nav {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+      }
+      body {
+        padding-top: 64px;
+      }
+    }
 </style>
 </head>
 <body>
