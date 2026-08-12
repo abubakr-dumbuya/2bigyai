@@ -893,7 +893,7 @@ body { font-size: 17px; }
     /* Drink subcategories */
     .drink-subcat { margin-bottom: 14px; } .drink-subcat .menu-item-card { margin-bottom: 6px; }
     .drink-subcat-header {
-      font-size: 15px; font-weight: 700; color: var(--terra);
+      font-size: 17px; font-weight: 700; color: var(--terra);
       text-transform: uppercase; letter-spacing: 0.08em;
       margin: 10px 0 4px; padding-bottom: 4px;
       border-bottom: 1px solid var(--border);
@@ -2466,7 +2466,7 @@ function renderDrinksSections(items, catId) {
     if (!scItems.length) return '';
     const rows = scItems.map(item => renderCard(item, catId)).join('');
     const subLabel = sc.sub ? `<div class="drink-sub">${sc.sub}</div>` : '';
-    return `<div class="drink-subcat"><div class="drink-subcat-header">${sc.label}${subLabel}</div>${rows}</div>`;
+    return `<div class="drink-subcat"><div class="entree-subcat-label">${sc.label}${subLabel}</div>${rows}</div>`;
   }).join('');
 }
 
@@ -2480,7 +2480,7 @@ function renderSidesSections(items, catId) {
     if (!scItems.length) return '';
     const rows = scItems.map(item => renderCard(item, catId)).join('');
     const subLabel = sc.sub ? `<div class="drink-sub">${sc.sub}</div>` : '';
-    return `<div class="drink-subcat"><div class="drink-subcat-header">${sc.label}${subLabel}</div>${rows}</div>`;
+    return `<div class="drink-subcat"><div class="entree-subcat-label">${sc.label}${subLabel}</div>${rows}</div>`;
   }).join('');
 }
 
@@ -2494,7 +2494,7 @@ function renderSidesSections(items, catId) {
     if (!scItems.length) return '';
     const rows = scItems.map(function(item) { return renderCard(item, catId); }).join('');
     const subLabel = sc.sub ? '<div class="drink-sub">' + sc.sub + '</div>' : '';
-    return '<div class="drink-subcat"><div class="drink-subcat-header">' + sc.label + subLabel + '</div>' + rows + '</div>';
+    return '<div class="drink-subcat"><div class="entree-subcat-label">' + sc.label + subLabel + '</div>' + rows + '</div>';
   }).join('');
 }
 
