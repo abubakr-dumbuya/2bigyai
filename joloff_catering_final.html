@@ -1267,6 +1267,18 @@ body { font-size: 17px; }
       margin: 10px 0 4px; padding-bottom: 4px;
       border-bottom: 1px solid var(--border);
     }
+
+    .country-opt {
+      padding: 9px 14px;
+      font-size: 14px;
+      cursor: pointer;
+      color: var(--dark);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .country-opt:hover { background: var(--warm); }
+
 </style>
   </head>
 <body>
@@ -1384,28 +1396,212 @@ body { font-size: 17px; }
 
       <div class="question">
         <div class="q-label">Phone number <span class="q-required">Required</span></div>
-        <div style="display:flex;gap:8px;align-items:center;">
-          <select id="phone-country-code" onchange="setVal('phoneCode',this.value)" style="padding:12px 8px;border:1px solid var(--border);border-radius:8px;font-size:15px;background:#fff;color:var(--dark);flex-shrink:0;width:140px;">
-            <option value="+1" selected>🇺🇸 +1 (US)</option>
-            <option value="+1-CA">🇨🇦 +1 (CA)</option>
-            <option value="+44">🇬🇧 +44 (UK)</option>
-            <option value="+33">🇫🇷 +33 (FR)</option>
-            <option value="+221">🇸🇳 +221 (SN)</option>
-            <option value="+234">🇳🇬 +234 (NG)</option>
-            <option value="+225">🇨🇮 +225 (CI)</option>
-            <option value="+212">🇲🇦 +212 (MA)</option>
-            <option value="+20">🇪🇬 +20 (EG)</option>
-            <option value="+49">🇩🇪 +49 (DE)</option>
-            <option value="+34">🇪🇸 +34 (ES)</option>
-            <option value="+39">🇮🇹 +39 (IT)</option>
-            <option value="+31">🇳🇱 +31 (NL)</option>
-            <option value="+1-JM">🇯🇲 +1 (JM)</option>
-            <option value="+1-TT">🇹🇹 +1 (TT)</option>
-            <option value="+57">🇨🇴 +57 (CO)</option>
-            <option value="+55">🇧🇷 +55 (BR)</option>
-            <option value="+52">🇲🇽 +52 (MX)</option>
-          </select>
-          <input type="tel" class="q-input" placeholder="(718) 555-0123" style="flex:1;" oninput="setVal('phone',this.value)"/>
+        <div style="display:flex;gap:8px;align-items:flex-start;">
+          <div style="position:relative;flex-shrink:0;width:170px;">
+            <div id="country-display" onclick="toggleCountryDropdown()" style="padding:12px 10px;border:1px solid var(--border);border-radius:8px;font-size:15px;background:#fff;color:var(--dark);cursor:pointer;display:flex;align-items:center;gap:6px;">
+              <span id="country-flag">🇺🇸</span><span id="country-code-text">+1 (US)</span><span style="margin-left:auto;font-size:10px;">▼</span>
+            </div>
+            <div id="country-dropdown" style="display:none;position:absolute;top:100%;left:0;z-index:999;background:#fff;border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.12);width:280px;max-height:280px;overflow:hidden;">
+              <div style="padding:8px;border-bottom:1px solid var(--border);">
+                <input type="text" id="country-search" placeholder="Search country..." oninput="filterCountries(this.value)" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:6px;font-size:14px;box-sizing:border-box;"/>
+              </div>
+              <div id="country-list" style="overflow-y:auto;max-height:220px;">
+                <div class="country-opt" onclick="selectCountry('AF','Afghanistan','+93')" data-name="afghanistan" data-dial="+93">Afghanistan +93</div>
+                <div class="country-opt" onclick="selectCountry('AL','Albania','+355')" data-name="albania" data-dial="+355">Albania +355</div>
+                <div class="country-opt" onclick="selectCountry('DZ','Algeria','+213')" data-name="algeria" data-dial="+213">Algeria +213</div>
+                <div class="country-opt" onclick="selectCountry('AD','Andorra','+376')" data-name="andorra" data-dial="+376">Andorra +376</div>
+                <div class="country-opt" onclick="selectCountry('AO','Angola','+244')" data-name="angola" data-dial="+244">Angola +244</div>
+                <div class="country-opt" onclick="selectCountry('AG','Antigua & Barbuda','+1-268')" data-name="antigua & barbuda" data-dial="+1-268">Antigua & Barbuda +1-268</div>
+                <div class="country-opt" onclick="selectCountry('AR','Argentina','+54')" data-name="argentina" data-dial="+54">Argentina +54</div>
+                <div class="country-opt" onclick="selectCountry('AM','Armenia','+374')" data-name="armenia" data-dial="+374">Armenia +374</div>
+                <div class="country-opt" onclick="selectCountry('AU','Australia','+61')" data-name="australia" data-dial="+61">Australia +61</div>
+                <div class="country-opt" onclick="selectCountry('AT','Austria','+43')" data-name="austria" data-dial="+43">Austria +43</div>
+                <div class="country-opt" onclick="selectCountry('AZ','Azerbaijan','+994')" data-name="azerbaijan" data-dial="+994">Azerbaijan +994</div>
+                <div class="country-opt" onclick="selectCountry('BS','Bahamas','+1-242')" data-name="bahamas" data-dial="+1-242">Bahamas +1-242</div>
+                <div class="country-opt" onclick="selectCountry('BH','Bahrain','+973')" data-name="bahrain" data-dial="+973">Bahrain +973</div>
+                <div class="country-opt" onclick="selectCountry('BD','Bangladesh','+880')" data-name="bangladesh" data-dial="+880">Bangladesh +880</div>
+                <div class="country-opt" onclick="selectCountry('BB','Barbados','+1-246')" data-name="barbados" data-dial="+1-246">Barbados +1-246</div>
+                <div class="country-opt" onclick="selectCountry('BY','Belarus','+375')" data-name="belarus" data-dial="+375">Belarus +375</div>
+                <div class="country-opt" onclick="selectCountry('BE','Belgium','+32')" data-name="belgium" data-dial="+32">Belgium +32</div>
+                <div class="country-opt" onclick="selectCountry('BZ','Belize','+501')" data-name="belize" data-dial="+501">Belize +501</div>
+                <div class="country-opt" onclick="selectCountry('BJ','Benin','+229')" data-name="benin" data-dial="+229">Benin +229</div>
+                <div class="country-opt" onclick="selectCountry('BT','Bhutan','+975')" data-name="bhutan" data-dial="+975">Bhutan +975</div>
+                <div class="country-opt" onclick="selectCountry('BO','Bolivia','+591')" data-name="bolivia" data-dial="+591">Bolivia +591</div>
+                <div class="country-opt" onclick="selectCountry('BA','Bosnia & Herzegovina','+387')" data-name="bosnia & herzegovina" data-dial="+387">Bosnia & Herzegovina +387</div>
+                <div class="country-opt" onclick="selectCountry('BW','Botswana','+267')" data-name="botswana" data-dial="+267">Botswana +267</div>
+                <div class="country-opt" onclick="selectCountry('BR','Brazil','+55')" data-name="brazil" data-dial="+55">Brazil +55</div>
+                <div class="country-opt" onclick="selectCountry('BN','Brunei','+673')" data-name="brunei" data-dial="+673">Brunei +673</div>
+                <div class="country-opt" onclick="selectCountry('BG','Bulgaria','+359')" data-name="bulgaria" data-dial="+359">Bulgaria +359</div>
+                <div class="country-opt" onclick="selectCountry('BF','Burkina Faso','+226')" data-name="burkina faso" data-dial="+226">Burkina Faso +226</div>
+                <div class="country-opt" onclick="selectCountry('BI','Burundi','+257')" data-name="burundi" data-dial="+257">Burundi +257</div>
+                <div class="country-opt" onclick="selectCountry('CV','Cabo Verde','+238')" data-name="cabo verde" data-dial="+238">Cabo Verde +238</div>
+                <div class="country-opt" onclick="selectCountry('KH','Cambodia','+855')" data-name="cambodia" data-dial="+855">Cambodia +855</div>
+                <div class="country-opt" onclick="selectCountry('CM','Cameroon','+237')" data-name="cameroon" data-dial="+237">Cameroon +237</div>
+                <div class="country-opt" onclick="selectCountry('CA','Canada','+1')" data-name="canada" data-dial="+1">Canada +1</div>
+                <div class="country-opt" onclick="selectCountry('CF','Central African Republic','+236')" data-name="central african republic" data-dial="+236">Central African Republic +236</div>
+                <div class="country-opt" onclick="selectCountry('TD','Chad','+235')" data-name="chad" data-dial="+235">Chad +235</div>
+                <div class="country-opt" onclick="selectCountry('CL','Chile','+56')" data-name="chile" data-dial="+56">Chile +56</div>
+                <div class="country-opt" onclick="selectCountry('CN','China','+86')" data-name="china" data-dial="+86">China +86</div>
+                <div class="country-opt" onclick="selectCountry('CO','Colombia','+57')" data-name="colombia" data-dial="+57">Colombia +57</div>
+                <div class="country-opt" onclick="selectCountry('KM','Comoros','+269')" data-name="comoros" data-dial="+269">Comoros +269</div>
+                <div class="country-opt" onclick="selectCountry('CD','Congo (DRC)','+243')" data-name="congo (drc)" data-dial="+243">Congo (DRC) +243</div>
+                <div class="country-opt" onclick="selectCountry('CG','Congo (Republic)','+242')" data-name="congo (republic)" data-dial="+242">Congo (Republic) +242</div>
+                <div class="country-opt" onclick="selectCountry('CR','Costa Rica','+506')" data-name="costa rica" data-dial="+506">Costa Rica +506</div>
+                <div class="country-opt" onclick="selectCountry('CI','Côte d'Ivoire','+225')" data-name="côte d'ivoire" data-dial="+225">Côte d'Ivoire +225</div>
+                <div class="country-opt" onclick="selectCountry('HR','Croatia','+385')" data-name="croatia" data-dial="+385">Croatia +385</div>
+                <div class="country-opt" onclick="selectCountry('CU','Cuba','+53')" data-name="cuba" data-dial="+53">Cuba +53</div>
+                <div class="country-opt" onclick="selectCountry('CY','Cyprus','+357')" data-name="cyprus" data-dial="+357">Cyprus +357</div>
+                <div class="country-opt" onclick="selectCountry('CZ','Czech Republic','+420')" data-name="czech republic" data-dial="+420">Czech Republic +420</div>
+                <div class="country-opt" onclick="selectCountry('DK','Denmark','+45')" data-name="denmark" data-dial="+45">Denmark +45</div>
+                <div class="country-opt" onclick="selectCountry('DJ','Djibouti','+253')" data-name="djibouti" data-dial="+253">Djibouti +253</div>
+                <div class="country-opt" onclick="selectCountry('DM','Dominica','+1-767')" data-name="dominica" data-dial="+1-767">Dominica +1-767</div>
+                <div class="country-opt" onclick="selectCountry('DO','Dominican Republic','+1-809')" data-name="dominican republic" data-dial="+1-809">Dominican Republic +1-809</div>
+                <div class="country-opt" onclick="selectCountry('EC','Ecuador','+593')" data-name="ecuador" data-dial="+593">Ecuador +593</div>
+                <div class="country-opt" onclick="selectCountry('EG','Egypt','+20')" data-name="egypt" data-dial="+20">Egypt +20</div>
+                <div class="country-opt" onclick="selectCountry('SV','El Salvador','+503')" data-name="el salvador" data-dial="+503">El Salvador +503</div>
+                <div class="country-opt" onclick="selectCountry('GQ','Equatorial Guinea','+240')" data-name="equatorial guinea" data-dial="+240">Equatorial Guinea +240</div>
+                <div class="country-opt" onclick="selectCountry('ER','Eritrea','+291')" data-name="eritrea" data-dial="+291">Eritrea +291</div>
+                <div class="country-opt" onclick="selectCountry('EE','Estonia','+372')" data-name="estonia" data-dial="+372">Estonia +372</div>
+                <div class="country-opt" onclick="selectCountry('SZ','Eswatini','+268')" data-name="eswatini" data-dial="+268">Eswatini +268</div>
+                <div class="country-opt" onclick="selectCountry('ET','Ethiopia','+251')" data-name="ethiopia" data-dial="+251">Ethiopia +251</div>
+                <div class="country-opt" onclick="selectCountry('FJ','Fiji','+679')" data-name="fiji" data-dial="+679">Fiji +679</div>
+                <div class="country-opt" onclick="selectCountry('FI','Finland','+358')" data-name="finland" data-dial="+358">Finland +358</div>
+                <div class="country-opt" onclick="selectCountry('FR','France','+33')" data-name="france" data-dial="+33">France +33</div>
+                <div class="country-opt" onclick="selectCountry('GA','Gabon','+241')" data-name="gabon" data-dial="+241">Gabon +241</div>
+                <div class="country-opt" onclick="selectCountry('GM','Gambia','+220')" data-name="gambia" data-dial="+220">Gambia +220</div>
+                <div class="country-opt" onclick="selectCountry('GE','Georgia','+995')" data-name="georgia" data-dial="+995">Georgia +995</div>
+                <div class="country-opt" onclick="selectCountry('DE','Germany','+49')" data-name="germany" data-dial="+49">Germany +49</div>
+                <div class="country-opt" onclick="selectCountry('GH','Ghana','+233')" data-name="ghana" data-dial="+233">Ghana +233</div>
+                <div class="country-opt" onclick="selectCountry('GR','Greece','+30')" data-name="greece" data-dial="+30">Greece +30</div>
+                <div class="country-opt" onclick="selectCountry('GD','Grenada','+1-473')" data-name="grenada" data-dial="+1-473">Grenada +1-473</div>
+                <div class="country-opt" onclick="selectCountry('GT','Guatemala','+502')" data-name="guatemala" data-dial="+502">Guatemala +502</div>
+                <div class="country-opt" onclick="selectCountry('GN','Guinea','+224')" data-name="guinea" data-dial="+224">Guinea +224</div>
+                <div class="country-opt" onclick="selectCountry('GW','Guinea-Bissau','+245')" data-name="guinea-bissau" data-dial="+245">Guinea-Bissau +245</div>
+                <div class="country-opt" onclick="selectCountry('GY','Guyana','+592')" data-name="guyana" data-dial="+592">Guyana +592</div>
+                <div class="country-opt" onclick="selectCountry('HT','Haiti','+509')" data-name="haiti" data-dial="+509">Haiti +509</div>
+                <div class="country-opt" onclick="selectCountry('HN','Honduras','+504')" data-name="honduras" data-dial="+504">Honduras +504</div>
+                <div class="country-opt" onclick="selectCountry('HU','Hungary','+36')" data-name="hungary" data-dial="+36">Hungary +36</div>
+                <div class="country-opt" onclick="selectCountry('IS','Iceland','+354')" data-name="iceland" data-dial="+354">Iceland +354</div>
+                <div class="country-opt" onclick="selectCountry('IN','India','+91')" data-name="india" data-dial="+91">India +91</div>
+                <div class="country-opt" onclick="selectCountry('ID','Indonesia','+62')" data-name="indonesia" data-dial="+62">Indonesia +62</div>
+                <div class="country-opt" onclick="selectCountry('IR','Iran','+98')" data-name="iran" data-dial="+98">Iran +98</div>
+                <div class="country-opt" onclick="selectCountry('IQ','Iraq','+964')" data-name="iraq" data-dial="+964">Iraq +964</div>
+                <div class="country-opt" onclick="selectCountry('IE','Ireland','+353')" data-name="ireland" data-dial="+353">Ireland +353</div>
+                <div class="country-opt" onclick="selectCountry('IL','Israel','+972')" data-name="israel" data-dial="+972">Israel +972</div>
+                <div class="country-opt" onclick="selectCountry('IT','Italy','+39')" data-name="italy" data-dial="+39">Italy +39</div>
+                <div class="country-opt" onclick="selectCountry('JM','Jamaica','+1-876')" data-name="jamaica" data-dial="+1-876">Jamaica +1-876</div>
+                <div class="country-opt" onclick="selectCountry('JP','Japan','+81')" data-name="japan" data-dial="+81">Japan +81</div>
+                <div class="country-opt" onclick="selectCountry('JO','Jordan','+962')" data-name="jordan" data-dial="+962">Jordan +962</div>
+                <div class="country-opt" onclick="selectCountry('KZ','Kazakhstan','+7')" data-name="kazakhstan" data-dial="+7">Kazakhstan +7</div>
+                <div class="country-opt" onclick="selectCountry('KE','Kenya','+254')" data-name="kenya" data-dial="+254">Kenya +254</div>
+                <div class="country-opt" onclick="selectCountry('KI','Kiribati','+686')" data-name="kiribati" data-dial="+686">Kiribati +686</div>
+                <div class="country-opt" onclick="selectCountry('KW','Kuwait','+965')" data-name="kuwait" data-dial="+965">Kuwait +965</div>
+                <div class="country-opt" onclick="selectCountry('KG','Kyrgyzstan','+996')" data-name="kyrgyzstan" data-dial="+996">Kyrgyzstan +996</div>
+                <div class="country-opt" onclick="selectCountry('LA','Laos','+856')" data-name="laos" data-dial="+856">Laos +856</div>
+                <div class="country-opt" onclick="selectCountry('LV','Latvia','+371')" data-name="latvia" data-dial="+371">Latvia +371</div>
+                <div class="country-opt" onclick="selectCountry('LB','Lebanon','+961')" data-name="lebanon" data-dial="+961">Lebanon +961</div>
+                <div class="country-opt" onclick="selectCountry('LS','Lesotho','+266')" data-name="lesotho" data-dial="+266">Lesotho +266</div>
+                <div class="country-opt" onclick="selectCountry('LR','Liberia','+231')" data-name="liberia" data-dial="+231">Liberia +231</div>
+                <div class="country-opt" onclick="selectCountry('LY','Libya','+218')" data-name="libya" data-dial="+218">Libya +218</div>
+                <div class="country-opt" onclick="selectCountry('LI','Liechtenstein','+423')" data-name="liechtenstein" data-dial="+423">Liechtenstein +423</div>
+                <div class="country-opt" onclick="selectCountry('LT','Lithuania','+370')" data-name="lithuania" data-dial="+370">Lithuania +370</div>
+                <div class="country-opt" onclick="selectCountry('LU','Luxembourg','+352')" data-name="luxembourg" data-dial="+352">Luxembourg +352</div>
+                <div class="country-opt" onclick="selectCountry('MG','Madagascar','+261')" data-name="madagascar" data-dial="+261">Madagascar +261</div>
+                <div class="country-opt" onclick="selectCountry('MW','Malawi','+265')" data-name="malawi" data-dial="+265">Malawi +265</div>
+                <div class="country-opt" onclick="selectCountry('MY','Malaysia','+60')" data-name="malaysia" data-dial="+60">Malaysia +60</div>
+                <div class="country-opt" onclick="selectCountry('MV','Maldives','+960')" data-name="maldives" data-dial="+960">Maldives +960</div>
+                <div class="country-opt" onclick="selectCountry('ML','Mali','+223')" data-name="mali" data-dial="+223">Mali +223</div>
+                <div class="country-opt" onclick="selectCountry('MT','Malta','+356')" data-name="malta" data-dial="+356">Malta +356</div>
+                <div class="country-opt" onclick="selectCountry('MH','Marshall Islands','+692')" data-name="marshall islands" data-dial="+692">Marshall Islands +692</div>
+                <div class="country-opt" onclick="selectCountry('MR','Mauritania','+222')" data-name="mauritania" data-dial="+222">Mauritania +222</div>
+                <div class="country-opt" onclick="selectCountry('MU','Mauritius','+230')" data-name="mauritius" data-dial="+230">Mauritius +230</div>
+                <div class="country-opt" onclick="selectCountry('MX','Mexico','+52')" data-name="mexico" data-dial="+52">Mexico +52</div>
+                <div class="country-opt" onclick="selectCountry('FM','Micronesia','+691')" data-name="micronesia" data-dial="+691">Micronesia +691</div>
+                <div class="country-opt" onclick="selectCountry('MD','Moldova','+373')" data-name="moldova" data-dial="+373">Moldova +373</div>
+                <div class="country-opt" onclick="selectCountry('MC','Monaco','+377')" data-name="monaco" data-dial="+377">Monaco +377</div>
+                <div class="country-opt" onclick="selectCountry('MN','Mongolia','+976')" data-name="mongolia" data-dial="+976">Mongolia +976</div>
+                <div class="country-opt" onclick="selectCountry('ME','Montenegro','+382')" data-name="montenegro" data-dial="+382">Montenegro +382</div>
+                <div class="country-opt" onclick="selectCountry('MA','Morocco','+212')" data-name="morocco" data-dial="+212">Morocco +212</div>
+                <div class="country-opt" onclick="selectCountry('MZ','Mozambique','+258')" data-name="mozambique" data-dial="+258">Mozambique +258</div>
+                <div class="country-opt" onclick="selectCountry('MM','Myanmar','+95')" data-name="myanmar" data-dial="+95">Myanmar +95</div>
+                <div class="country-opt" onclick="selectCountry('NA','Namibia','+264')" data-name="namibia" data-dial="+264">Namibia +264</div>
+                <div class="country-opt" onclick="selectCountry('NR','Nauru','+674')" data-name="nauru" data-dial="+674">Nauru +674</div>
+                <div class="country-opt" onclick="selectCountry('NP','Nepal','+977')" data-name="nepal" data-dial="+977">Nepal +977</div>
+                <div class="country-opt" onclick="selectCountry('NL','Netherlands','+31')" data-name="netherlands" data-dial="+31">Netherlands +31</div>
+                <div class="country-opt" onclick="selectCountry('NZ','New Zealand','+64')" data-name="new zealand" data-dial="+64">New Zealand +64</div>
+                <div class="country-opt" onclick="selectCountry('NI','Nicaragua','+505')" data-name="nicaragua" data-dial="+505">Nicaragua +505</div>
+                <div class="country-opt" onclick="selectCountry('NE','Niger','+227')" data-name="niger" data-dial="+227">Niger +227</div>
+                <div class="country-opt" onclick="selectCountry('NG','Nigeria','+234')" data-name="nigeria" data-dial="+234">Nigeria +234</div>
+                <div class="country-opt" onclick="selectCountry('MK','North Macedonia','+389')" data-name="north macedonia" data-dial="+389">North Macedonia +389</div>
+                <div class="country-opt" onclick="selectCountry('NO','Norway','+47')" data-name="norway" data-dial="+47">Norway +47</div>
+                <div class="country-opt" onclick="selectCountry('OM','Oman','+968')" data-name="oman" data-dial="+968">Oman +968</div>
+                <div class="country-opt" onclick="selectCountry('PK','Pakistan','+92')" data-name="pakistan" data-dial="+92">Pakistan +92</div>
+                <div class="country-opt" onclick="selectCountry('PW','Palau','+680')" data-name="palau" data-dial="+680">Palau +680</div>
+                <div class="country-opt" onclick="selectCountry('PA','Panama','+507')" data-name="panama" data-dial="+507">Panama +507</div>
+                <div class="country-opt" onclick="selectCountry('PG','Papua New Guinea','+675')" data-name="papua new guinea" data-dial="+675">Papua New Guinea +675</div>
+                <div class="country-opt" onclick="selectCountry('PY','Paraguay','+595')" data-name="paraguay" data-dial="+595">Paraguay +595</div>
+                <div class="country-opt" onclick="selectCountry('PE','Peru','+51')" data-name="peru" data-dial="+51">Peru +51</div>
+                <div class="country-opt" onclick="selectCountry('PH','Philippines','+63')" data-name="philippines" data-dial="+63">Philippines +63</div>
+                <div class="country-opt" onclick="selectCountry('PL','Poland','+48')" data-name="poland" data-dial="+48">Poland +48</div>
+                <div class="country-opt" onclick="selectCountry('PT','Portugal','+351')" data-name="portugal" data-dial="+351">Portugal +351</div>
+                <div class="country-opt" onclick="selectCountry('QA','Qatar','+974')" data-name="qatar" data-dial="+974">Qatar +974</div>
+                <div class="country-opt" onclick="selectCountry('RO','Romania','+40')" data-name="romania" data-dial="+40">Romania +40</div>
+                <div class="country-opt" onclick="selectCountry('RU','Russia','+7')" data-name="russia" data-dial="+7">Russia +7</div>
+                <div class="country-opt" onclick="selectCountry('RW','Rwanda','+250')" data-name="rwanda" data-dial="+250">Rwanda +250</div>
+                <div class="country-opt" onclick="selectCountry('KN','Saint Kitts & Nevis','+1-869')" data-name="saint kitts & nevis" data-dial="+1-869">Saint Kitts & Nevis +1-869</div>
+                <div class="country-opt" onclick="selectCountry('LC','Saint Lucia','+1-758')" data-name="saint lucia" data-dial="+1-758">Saint Lucia +1-758</div>
+                <div class="country-opt" onclick="selectCountry('VC','Saint Vincent & Grenadines','+1-784')" data-name="saint vincent & grenadines" data-dial="+1-784">Saint Vincent & Grenadines +1-784</div>
+                <div class="country-opt" onclick="selectCountry('WS','Samoa','+685')" data-name="samoa" data-dial="+685">Samoa +685</div>
+                <div class="country-opt" onclick="selectCountry('SM','San Marino','+378')" data-name="san marino" data-dial="+378">San Marino +378</div>
+                <div class="country-opt" onclick="selectCountry('ST','São Tomé & Príncipe','+239')" data-name="são tomé & príncipe" data-dial="+239">São Tomé & Príncipe +239</div>
+                <div class="country-opt" onclick="selectCountry('SA','Saudi Arabia','+966')" data-name="saudi arabia" data-dial="+966">Saudi Arabia +966</div>
+                <div class="country-opt" onclick="selectCountry('SN','Senegal','+221')" data-name="senegal" data-dial="+221">Senegal +221</div>
+                <div class="country-opt" onclick="selectCountry('RS','Serbia','+381')" data-name="serbia" data-dial="+381">Serbia +381</div>
+                <div class="country-opt" onclick="selectCountry('SC','Seychelles','+248')" data-name="seychelles" data-dial="+248">Seychelles +248</div>
+                <div class="country-opt" onclick="selectCountry('SL','Sierra Leone','+232')" data-name="sierra leone" data-dial="+232">Sierra Leone +232</div>
+                <div class="country-opt" onclick="selectCountry('SG','Singapore','+65')" data-name="singapore" data-dial="+65">Singapore +65</div>
+                <div class="country-opt" onclick="selectCountry('SK','Slovakia','+421')" data-name="slovakia" data-dial="+421">Slovakia +421</div>
+                <div class="country-opt" onclick="selectCountry('SI','Slovenia','+386')" data-name="slovenia" data-dial="+386">Slovenia +386</div>
+                <div class="country-opt" onclick="selectCountry('SB','Solomon Islands','+677')" data-name="solomon islands" data-dial="+677">Solomon Islands +677</div>
+                <div class="country-opt" onclick="selectCountry('SO','Somalia','+252')" data-name="somalia" data-dial="+252">Somalia +252</div>
+                <div class="country-opt" onclick="selectCountry('ZA','South Africa','+27')" data-name="south africa" data-dial="+27">South Africa +27</div>
+                <div class="country-opt" onclick="selectCountry('SS','South Sudan','+211')" data-name="south sudan" data-dial="+211">South Sudan +211</div>
+                <div class="country-opt" onclick="selectCountry('ES','Spain','+34')" data-name="spain" data-dial="+34">Spain +34</div>
+                <div class="country-opt" onclick="selectCountry('LK','Sri Lanka','+94')" data-name="sri lanka" data-dial="+94">Sri Lanka +94</div>
+                <div class="country-opt" onclick="selectCountry('SD','Sudan','+249')" data-name="sudan" data-dial="+249">Sudan +249</div>
+                <div class="country-opt" onclick="selectCountry('SR','Suriname','+597')" data-name="suriname" data-dial="+597">Suriname +597</div>
+                <div class="country-opt" onclick="selectCountry('SE','Sweden','+46')" data-name="sweden" data-dial="+46">Sweden +46</div>
+                <div class="country-opt" onclick="selectCountry('CH','Switzerland','+41')" data-name="switzerland" data-dial="+41">Switzerland +41</div>
+                <div class="country-opt" onclick="selectCountry('SY','Syria','+963')" data-name="syria" data-dial="+963">Syria +963</div>
+                <div class="country-opt" onclick="selectCountry('TW','Taiwan','+886')" data-name="taiwan" data-dial="+886">Taiwan +886</div>
+                <div class="country-opt" onclick="selectCountry('TJ','Tajikistan','+992')" data-name="tajikistan" data-dial="+992">Tajikistan +992</div>
+                <div class="country-opt" onclick="selectCountry('TZ','Tanzania','+255')" data-name="tanzania" data-dial="+255">Tanzania +255</div>
+                <div class="country-opt" onclick="selectCountry('TH','Thailand','+66')" data-name="thailand" data-dial="+66">Thailand +66</div>
+                <div class="country-opt" onclick="selectCountry('TL','Timor-Leste','+670')" data-name="timor-leste" data-dial="+670">Timor-Leste +670</div>
+                <div class="country-opt" onclick="selectCountry('TG','Togo','+228')" data-name="togo" data-dial="+228">Togo +228</div>
+                <div class="country-opt" onclick="selectCountry('TO','Tonga','+676')" data-name="tonga" data-dial="+676">Tonga +676</div>
+                <div class="country-opt" onclick="selectCountry('TT','Trinidad & Tobago','+1-868')" data-name="trinidad & tobago" data-dial="+1-868">Trinidad & Tobago +1-868</div>
+                <div class="country-opt" onclick="selectCountry('TN','Tunisia','+216')" data-name="tunisia" data-dial="+216">Tunisia +216</div>
+                <div class="country-opt" onclick="selectCountry('TR','Turkey','+90')" data-name="turkey" data-dial="+90">Turkey +90</div>
+                <div class="country-opt" onclick="selectCountry('TM','Turkmenistan','+993')" data-name="turkmenistan" data-dial="+993">Turkmenistan +993</div>
+                <div class="country-opt" onclick="selectCountry('TV','Tuvalu','+688')" data-name="tuvalu" data-dial="+688">Tuvalu +688</div>
+                <div class="country-opt" onclick="selectCountry('UG','Uganda','+256')" data-name="uganda" data-dial="+256">Uganda +256</div>
+                <div class="country-opt" onclick="selectCountry('UA','Ukraine','+380')" data-name="ukraine" data-dial="+380">Ukraine +380</div>
+                <div class="country-opt" onclick="selectCountry('AE','United Arab Emirates','+971')" data-name="united arab emirates" data-dial="+971">United Arab Emirates +971</div>
+                <div class="country-opt" onclick="selectCountry('GB','United Kingdom','+44')" data-name="united kingdom" data-dial="+44">United Kingdom +44</div>
+                <div class="country-opt" onclick="selectCountry('US','United States','+1')" data-name="united states" data-dial="+1" style="font-weight:700;color:var(--terra);">United States +1</div>
+                <div class="country-opt" onclick="selectCountry('UY','Uruguay','+598')" data-name="uruguay" data-dial="+598">Uruguay +598</div>
+                <div class="country-opt" onclick="selectCountry('UZ','Uzbekistan','+998')" data-name="uzbekistan" data-dial="+998">Uzbekistan +998</div>
+                <div class="country-opt" onclick="selectCountry('VU','Vanuatu','+678')" data-name="vanuatu" data-dial="+678">Vanuatu +678</div>
+                <div class="country-opt" onclick="selectCountry('VE','Venezuela','+58')" data-name="venezuela" data-dial="+58">Venezuela +58</div>
+                <div class="country-opt" onclick="selectCountry('VN','Vietnam','+84')" data-name="vietnam" data-dial="+84">Vietnam +84</div>
+                <div class="country-opt" onclick="selectCountry('YE','Yemen','+967')" data-name="yemen" data-dial="+967">Yemen +967</div>
+                <div class="country-opt" onclick="selectCountry('ZM','Zambia','+260')" data-name="zambia" data-dial="+260">Zambia +260</div>
+                <div class="country-opt" onclick="selectCountry('ZW','Zimbabwe','+263')" data-name="zimbabwe" data-dial="+263">Zimbabwe +263</div>
+              </div>
+            </div>
+          </div>
+          <input type="tel" id="phone-input" class="q-input" placeholder="555 555 5555" style="flex:1;" oninput="handlePhoneInput(this)"/>
         </div>
         <div id="err-phone" style="display:none;color:#c0392b;font-size:13px;margin-top:4px;"></div>
       </div>
@@ -2950,6 +3146,54 @@ function saveQuote() {
   setTimeout(function(){ win.print(); }, 800);
 }
 
+
+
+function toggleCountryDropdown() {
+  var dd = document.getElementById('country-dropdown');
+  var isOpen = dd.style.display !== 'none';
+  dd.style.display = isOpen ? 'none' : 'block';
+  if (!isOpen) {
+    var search = document.getElementById('country-search');
+    if (search) { search.value = ''; filterCountries(''); search.focus(); }
+  }
+}
+
+function selectCountry(code, name, dial) {
+  document.getElementById('country-flag').textContent = getFlagEmoji(code);
+  document.getElementById('country-code-text').textContent = dial + ' (' + code + ')';
+  document.getElementById('country-dropdown').style.display = 'none';
+  setVal('phoneCode', dial);
+}
+
+function getFlagEmoji(code) {
+  return code.split('').map(c => String.fromCodePoint(0x1F1E6 + c.charCodeAt(0) - 65)).join('');
+}
+
+function filterCountries(query) {
+  var q = query.toLowerCase();
+  var items = document.querySelectorAll('.country-opt');
+  items.forEach(function(el) {
+    var name = el.getAttribute('data-name') || '';
+    var dial = el.getAttribute('data-dial') || '';
+    el.style.display = (name.includes(q) || dial.includes(q)) ? 'block' : 'none';
+  });
+}
+
+function handlePhoneInput(input) {
+  // Strip everything except digits and spaces, then normalise spaces
+  var digits = input.value.replace(/[^\d\s]/g, '').replace(/\s+/g, ' ').trimStart();
+  input.value = digits;
+  setVal('phone', digits);
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+  var dd = document.getElementById('country-dropdown');
+  var display = document.getElementById('country-display');
+  if (dd && display && !display.contains(e.target) && !dd.contains(e.target)) {
+    dd.style.display = 'none';
+  }
+});
 
 function toggleNav() {
   const dropdown = document.getElementById('nav-mobile-dropdown');
