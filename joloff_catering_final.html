@@ -3009,7 +3009,7 @@ function askQuestion() {
     const subject = buildSubjectLine('Catering Inquiry') + encodeURIComponent(' | Joloff Restaurant');
     const cc = Q.email || '';
     const firstName = encodeURIComponent(Q.firstName || '');
-    const intro = 'Hello%2C%0A%0A%0A%0A' + THANKS + firstName + '%0A________________________________________%0A%0A';
+    const intro = 'Hello%2C%0A%0AInsert question%0A%0A' + THANKS + firstName + '%0A________________________________________%0A%0A';
     const body = intro + buildEmailBody();
     openMailto('joloffrestaurant@gmail.com', subject, cc, body);
   }, 800);
