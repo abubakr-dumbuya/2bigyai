@@ -1,9 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/",          "destination": "/joloff_home_final.html" },
-    { "source": "/menu",      "destination": "/joloff_menu_final.html" },
-    { "source": "/story",     "destination": "/joloff_story_final.html" },
-    { "source": "/events",    "destination": "/joloff_events_final.html" },
-    { "source": "/catering",  "destination": "/joloff_catering_final.html" }
-  ]
-}
