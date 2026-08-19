@@ -32,7 +32,7 @@
   --dark: #201C14;
   --mid: #201C14;
   --light: #A9C0D6;
-  --border: #E3D6B0;
+  --border: #C9D6E6;
 }
 
 /* ── FONT SIZE STANDARDS ── */
@@ -188,8 +188,8 @@ body { font-size: 17px; }
       width: 380px;
       height: 380px;
       border-radius: 50%;
-      background: linear-gradient(145deg, #1B4C8622, #D9932E22);
-      border: 1px solid rgba(196,98,45,0.2);
+      background: linear-gradient(145deg, #1B4C8622, #1B4C8622);
+      border: 1px solid rgba(27,76,134,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -3220,7 +3220,7 @@ function saveQuote() {
     }).join('');
     return '<div style="margin-bottom:20px;">' +
       '<table style="width:100%;border-collapse:collapse;">' +
-      '<thead><tr><td colspan="3" style="padding:6px 0 4px;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1B4C86;border-bottom:1px solid #E3D6B0;">' + title + '</td></tr></thead>' +
+      '<thead><tr><td colspan="3" style="padding:6px 0 4px;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1B4C86;border-bottom:1px solid #C9D6E6;">' + title + '</td></tr></thead>' +
       '<tbody>' + rows + '</tbody>' +
       '</table></div>';
   }
@@ -3253,7 +3253,7 @@ function saveQuote() {
 
   // ── CLIENT & EVENT ──
   doc += '<div class="no-break" style="margin-bottom:22px;">';
-  doc += '<div style="font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0C6535;border-bottom:1px solid #E3D6B0;padding-bottom:5px;margin-bottom:12px;">Client & Event</div>';
+  doc += '<div style="font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0C6535;border-bottom:1px solid #C9D6E6;padding-bottom:5px;margin-bottom:12px;">Client & Event</div>';
   doc += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;">';
   doc += '<div>';
   doc += '<div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4A6E96;margin-bottom:4px;">Client</div>';
@@ -3278,7 +3278,7 @@ function saveQuote() {
   doc += '</div>';
 
   // ── MENU SELECTION ──
-  doc += '<div style="font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0C6535;border-bottom:1px solid #E3D6B0;padding-bottom:5px;margin-bottom:14px;">Menu Selection & Pricing</div>';
+  doc += '<div style="font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0C6535;border-bottom:1px solid #C9D6E6;padding-bottom:5px;margin-bottom:14px;">Menu Selection & Pricing</div>';
   doc += menuSection('Entrees', p.lines.entrees);
   doc += menuSection('Sides', p.lines.sides);
   doc += menuSection('Appetizers', p.lines.appetizers);
@@ -3289,7 +3289,7 @@ function saveQuote() {
 
   // ── PRICING SUMMARY ──
   doc += '<div class="no-break" style="margin-top:8px;">';
-  doc += '<div style="font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0C6535;border-bottom:1px solid #E3D6B0;padding-bottom:5px;margin-bottom:10px;">Pricing Summary</div>';
+  doc += '<div style="font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0C6535;border-bottom:1px solid #C9D6E6;padding-bottom:5px;margin-bottom:10px;">Pricing Summary</div>';
   doc += '<table style="width:60%;margin-left:40%;border-collapse:collapse;">';
   if (p.foodFlat) doc += summaryRow('Food subtotal', p.foodFlat, false);
   if (p.serviceTotal) doc += summaryRow('Service', p.serviceTotal, false);
