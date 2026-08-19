@@ -597,6 +597,141 @@ body { font-size: 17px; }
 }
 #nav-mobile-dropdown .nav-link:last-child { border-bottom: none; }
 @media(min-width:769px) { #nav-mobile-dropdown { display: none !important; } }
+
+
+
+
+/* ── Boxed elements: white, blue outline, deeper shadow ───────── */
+.place-card {
+  background: #fff !important;
+  border: 1px solid var(--terra) !important;
+  box-shadow: 0 4px 18px rgba(27,76,134,0.18) !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+.place-card:hover {
+  border-color: var(--terra-dark) !important;
+  box-shadow: 0 10px 30px rgba(27,76,134,0.28) !important;
+}
+.place-card.active {
+  border-color: var(--terra-dark) !important;
+  border-left: 3px solid var(--terra-dark) !important;
+  box-shadow: 0 12px 34px rgba(27,76,134,0.32) !important;
+}
+
+#map {
+  border: 1px solid var(--terra) !important;
+  box-shadow: 0 4px 18px rgba(27,76,134,0.18) !important;
+}
+
+.dish-stub {
+  border-color: var(--terra) !important;
+  box-shadow: 0 3px 14px rgba(27,76,134,0.15) !important;
+  transition: box-shadow 0.2s, border-color 0.2s !important;
+}
+.dish-stub:hover {
+  box-shadow: 0 8px 24px rgba(27,76,134,0.24) !important;
+}
+
+.form-ok {
+  box-shadow: 0 4px 18px rgba(27,76,134,0.16) !important;
+}
+
+/* region, country under the restaurant name */
+.place-region {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin: -4px 0 12px;
+}
+/* address now sits below the contact row */
+.place-card .place-addr {
+  margin-top: 12px;
+}
+.place-addr-plain {
+  display: inline-block;
+  font-size: 15px;
+  color: var(--mid);
+  border-bottom: 1px solid var(--border);
+}
+
+/* reset-filters button, sits level with the inputs */
+.btn-reset {
+  flex: 0 0 auto;
+  align-self: flex-end;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--terra);
+  background: #fff;
+  border: 1.5px solid var(--border);
+  padding: 0 14px;
+  min-height: 46px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+.btn-reset:hover {
+  border-color: var(--terra);
+  background: var(--terra);
+  color: #fff;
+}
+.btn-reset:disabled {
+  opacity: 0.4;
+  cursor: default;
+  border-color: var(--border);
+  background: #fff;
+  color: var(--terra);
+}
+@media(max-width:640px) {
+  .controls-row .btn-reset { flex: 0 0 auto; }
+}
+
+/* caption bar under the map */
+.map-caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 14px 0 30px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.map-caption-label {
+  font-family: 'Baloo 2', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--dark);
+  line-height: 1.3;
+}
+.map-caption-reset {
+  flex: 0 0 auto;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--terra);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--terra);
+  padding: 0 0 2px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.map-caption-reset:hover { opacity: 0.65; }
+.map-caption-reset:disabled {
+  opacity: 0.35;
+  cursor: default;
+  border-bottom-color: var(--border);
+}
+@media(max-width:640px) {
+  .map-caption { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .map-caption-label { font-size: 18px; }
+}
 </style>
 </head>
 <body>
@@ -609,20 +744,20 @@ body { font-size: 17px; }
     </button>
     <div class="nav-links" id="nav-links">
       <a href="index.html" class="nav-link">Home</a>
-      <a href="2bigyai_menu.html" class="nav-link">Order</a>
-      <a href="2bigyai_catering.html" class="nav-link">Catering Menu</a>
-      <a href="2bigyai_events.html" class="nav-link">Pop-Up Schedule</a>
-      <a href="2bigyai_guide.html" class="nav-link active">Food Guide</a>
-      <a href="2bigyai_about.html" class="nav-link">About Us</a>
+      <a href="menu.html" class="nav-link">Order</a>
+      <a href="catering.html" class="nav-link">Catering Menu</a>
+      <a href="events.html" class="nav-link">Pop-Up Schedule</a>
+      <a href="guide.html" class="nav-link active">Food Guide</a>
+      <a href="about.html" class="nav-link">About Us</a>
     </div>
   </div>
   <div id="nav-mobile-dropdown" style="display:none; flex-direction:column; background:#fff; border-top:1px solid var(--border); padding:8px 0;">
     <a href="index.html" class="nav-link">Homepage</a>
-    <a href="2bigyai_menu.html" class="nav-link">Order takeout or delivery</a>
-    <a href="2bigyai_catering.html" class="nav-link">Browse our catering menu and receive a quote</a>
-    <a href="2bigyai_events.html" class="nav-link">Catch us at our next pop-up</a>
-    <a href="2bigyai_guide.html" class="nav-link">Explore our guide to Sierra Leonean food</a>
-    <a href="2bigyai_about.html" class="nav-link">Learn our story</a>
+    <a href="menu.html" class="nav-link">Order takeout or delivery</a>
+    <a href="catering.html" class="nav-link">Browse our catering menu and receive a quote</a>
+    <a href="events.html" class="nav-link">Catch us at our next pop-up</a>
+    <a href="guide.html" class="nav-link">Explore our guide to Sierra Leonean food</a>
+    <a href="about.html" class="nav-link">Learn our story</a>
   </div>
 </nav>
 
@@ -787,10 +922,15 @@ body { font-size: 17px; }
       <label for="search">Search by name</label>
       <input type="text" id="search" placeholder="Sahara, Shwen Shwen&hellip;" autocomplete="off">
     </div>
+      <button type="button" id="resetFilters" class="btn-reset">Reset</button>
   </div>
 
   <div class="map-layout">
     <div id="map" role="application" aria-label="Map of restaurants serving Sierra Leonean food"></div>
+        <div class="map-caption">
+          <span id="filterLabel" class="map-caption-label">Restaurants in all countries</span>
+          <button type="button" id="resetFilterLink" class="map-caption-reset">Reset filter</button>
+        </div>
     <div class="results" id="results"></div>
   </div>
 </section>
@@ -824,11 +964,11 @@ body { font-size: 17px; }
     <div></div>
     <div style="padding-top: 88px;">
       <div class="footer-links">
-        <a href="2bigyai_menu.html" class="footer-link">Order takeout or delivery</a>
-        <a href="2bigyai_catering.html" class="footer-link">Browse our catering menu and receive a quote</a>
-        <a href="2bigyai_events.html" class="footer-link">Catch us at our next pop-up</a>
-        <a href="2bigyai_guide.html" class="footer-link">Explore our guide to Sierra Leonean food</a>
-        <a href="2bigyai_about.html" class="footer-link">Learn our story</a>
+        <a href="menu.html" class="footer-link">Order takeout or delivery</a>
+        <a href="catering.html" class="footer-link">Browse our catering menu and receive a quote</a>
+        <a href="events.html" class="footer-link">Catch us at our next pop-up</a>
+        <a href="guide.html" class="footer-link">Explore our guide to Sierra Leonean food</a>
+        <a href="about.html" class="footer-link">Learn our story</a>
       </div>
     </div>
   </div>
@@ -839,7 +979,7 @@ body { font-size: 17px; }
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-var SEED = [{"name": "Jalloh", "country": "United States", "region": "New York", "city": "Bronx", "address": "3396 3rd Ave, Bronx, NY 10456", "coords": [40.8278205, -73.906992], "maps_url": "https://www.google.com/maps/search/?api=1&query=Jalloh%203396%203rd%20Ave%20Bronx%20NY&query_place_id=ChIJYcyT-0v0wokRKEK5n1t3a5k", "yelp_url": "", "phone": "+1 718-292-5015", "website": "", "note": "Open around the clock, buffet style. Potato leaves with palm oil and smoked fish is the order."}, {"name": "Sweet Sweet Kitchen", "country": "United States", "region": "District of Columbia", "city": "Washington", "address": "500 H St NE, Washington, DC 20002", "coords": [38.9003993, -76.9993393], "maps_url": "https://www.google.com/maps/search/?api=1&query=Sweet%20Sweet%20Kitchen%20500%20H%20St%20NE%20Washington%20DC&query_place_id=ChIJR6Viloa5t4kR1mqPCu2-aPg", "yelp_url": "", "phone": "+1 202-506-5411", "website": "", "note": "Potato greens, groundnut stew, and cassava leaf all on one steam table."}, {"name": "Shwen Shwen by Maria Bradford", "country": "United Kingdom", "region": "Kent", "city": "Sevenoaks", "address": "1-2 Well Court, Bank St, Sevenoaks TN13 1UN", "coords": [51.2712684, 0.1916813], "maps_url": "https://www.google.com/maps/search/?api=1&query=Shwen%20Shwen%20Sevenoaks&query_place_id=ChIJw2JaQTZN30cRvBUrtjx3hMw", "yelp_url": "", "phone": "+44 1732 496930", "website": "https://shwenshwen.com/", "note": "Sierra Leonean cooking through a fine dining lens. Michelin Opening of the Year and a Bib Gourmand."}, {"name": "Things and Somethings", "country": "Sierra Leone", "region": "Western Area", "city": "Freetown", "address": "Aberdeen Rd, Freetown", "coords": [8.4858185, -13.2686803], "maps_url": "https://www.google.com/maps/search/?api=1&query=Things%20and%20Somethings%20Freetown&query_place_id=ChIJw20HOwDFBA8RONEoR2cNycA", "yelp_url": "", "phone": "+232 75 142874", "website": "", "note": "Small, warm, locally owned. Potato leaves and rice at a fraction of what the hotel restaurants charge."}, {"name": "WayLi", "country": "Sierra Leone", "region": "Western Area", "city": "Freetown", "address": "17 Rawdon St, Freetown", "coords": [8.4898595, -13.2331056], "maps_url": "https://www.google.com/maps/search/?api=1&query=WayLi%20Restaurant%20Freetown&query_place_id=ChIJG_cOjMPDBA8RijIE90-Dwrs", "yelp_url": "", "phone": "+232 72 111100", "website": "", "note": "Downtown standby. Lafidi and hamza with ginger beer or bissap."}, {"name": "Ibbs Restaurant", "country": "United Kingdom", "region": "Greater London", "city": "London", "address": "6 Arnside St, London SE17 2AP", "coords": [51.4846916, -0.0933027], "maps_url": "https://www.google.com/maps/search/?api=1&query=Ibbs%20Restaurant%206%20Arnside%20St%2C%20London%20SE17%202AP&query_place_id=ChIJNXh8mGIDdkgRuC48jAyBhbo", "yelp_url": "", "phone": "+44 20 7708 3904", "website": "", "note": ""}, {"name": "Mingles Bar and Restaurant", "country": "United Kingdom", "region": "Greater London", "city": "London", "address": "1 Peckham Park Rd, London SE15 6TR", "coords": [51.4830244, -0.0650372], "maps_url": "https://www.google.com/maps/search/?api=1&query=Mingles%20Bar%20and%20Restaurant%201%20Peckham%20Park%20Rd%2C%20London%20SE15%206TR&query_place_id=ChIJxYNB-g0DdkgR-EvCfpVtTVQ", "yelp_url": "", "phone": "+44 20 7732 1444", "website": "https://minglesrestaurant.co.uk/", "note": ""}, {"name": "Freetown Kitchen", "country": "United States", "region": "New York", "city": "Brooklyn", "address": "1172 Park Pl, Brooklyn, NY 11213", "coords": [40.6726783, -73.9387261], "maps_url": "https://www.google.com/maps/search/?api=1&query=Freetown%20Kitchen%201172%20Park%20Pl%2C%20Brooklyn%2C%20NY%2011213&query_place_id=ChIJqbnBzcZbwokRFSHpYAKhKKk", "yelp_url": "", "phone": "+1 718-799-7160", "website": "", "note": ""}, {"name": "Fambul Restaurant and Bar", "country": "United Kingdom", "region": "Kent", "city": "Gillingham", "address": "164 High St, Gillingham ME7 1AJ", "coords": [51.3867623, 0.5490814], "maps_url": "https://www.google.com/maps/search/?api=1&query=Fambul%20Restaurant%20and%20Bar%20164%20High%20St%2C%20Gillingham%20ME7%201AJ&query_place_id=ChIJTXy_1k7N2EcRULRiZj8NViU", "yelp_url": "", "phone": "+44 1634 953554", "website": "https://www.fambulrestaurant.co.uk/", "note": ""}, {"name": "Cole Street Guesthouse", "country": "Sierra Leone", "region": "Western Area", "city": "Freetown", "address": "5 Cole St, Freetown", "coords": [8.4949305, -13.265657], "maps_url": "https://www.google.com/maps/search/?api=1&query=Cole%20Street%20Guesthouse%205%20Cole%20St%2C%20Freetown&query_place_id=ChIJE6I1blPDBA8R2bKcGEmBY7c", "yelp_url": "", "phone": "+232 78 170083", "website": "https://colestreetguesthouse.com/", "note": ""}];
+var SEED = [{"name": "Cole Street Guesthouse", "country": "Sierra Leone", "region": "Western Area", "city": "Freetown", "address": "5 Cole St, Freetown", "coords": [8.4949305, -13.265657], "maps_url": "https://www.google.com/maps/search/?api=1&query=Cole%20Street%20Guesthouse%205%20Cole%20St%2C%20Freetown&query_place_id=ChIJE6I1blPDBA8R2bKcGEmBY7c", "yelp_url": "", "phone": "+232 78 170083", "website": "https://colestreetguesthouse.com/", "note": ""}, {"name": "Things and Somethings", "country": "Sierra Leone", "region": "Western Area", "city": "Freetown", "address": "Aberdeen Rd, Freetown", "coords": [8.4858185, -13.2686803], "maps_url": "https://www.google.com/maps/search/?api=1&query=Things%20and%20Somethings%20Freetown&query_place_id=ChIJw20HOwDFBA8RONEoR2cNycA", "yelp_url": "", "phone": "+232 75 142874", "website": "", "note": "Small, warm, locally owned. Potato leaves and rice at a fraction of what the hotel restaurants charge."}, {"name": "WayLi", "country": "Sierra Leone", "region": "Western Area", "city": "Freetown", "address": "17 Rawdon St, Freetown", "coords": [8.4898595, -13.2331056], "maps_url": "https://www.google.com/maps/search/?api=1&query=WayLi%20Restaurant%20Freetown&query_place_id=ChIJG_cOjMPDBA8RijIE90-Dwrs", "yelp_url": "", "phone": "+232 72 111100", "website": "", "note": "Downtown standby. Lafidi and hamza with ginger beer or bissap."}, {"name": "Ibbs Restaurant", "country": "United Kingdom", "region": "Greater London", "city": "London", "address": "6 Arnside St, London SE17 2AP", "coords": [51.4846916, -0.0933027], "maps_url": "https://www.google.com/maps/search/?api=1&query=Ibbs%20Restaurant%206%20Arnside%20St%2C%20London%20SE17%202AP&query_place_id=ChIJNXh8mGIDdkgRuC48jAyBhbo", "yelp_url": "", "phone": "+44 20 7708 3904", "website": "", "note": ""}, {"name": "Mingles Bar and Restaurant", "country": "United Kingdom", "region": "Greater London", "city": "London", "address": "1 Peckham Park Rd, London SE15 6TR", "coords": [51.4830244, -0.0650372], "maps_url": "https://www.google.com/maps/search/?api=1&query=Mingles%20Bar%20and%20Restaurant%201%20Peckham%20Park%20Rd%2C%20London%20SE15%206TR&query_place_id=ChIJxYNB-g0DdkgR-EvCfpVtTVQ", "yelp_url": "", "phone": "+44 20 7732 1444", "website": "https://minglesrestaurant.co.uk/", "note": ""}, {"name": "Fambul Restaurant and Bar", "country": "United Kingdom", "region": "Kent", "city": "Gillingham", "address": "164 High St, Gillingham ME7 1AJ", "coords": [51.3867623, 0.5490814], "maps_url": "https://www.google.com/maps/search/?api=1&query=Fambul%20Restaurant%20and%20Bar%20164%20High%20St%2C%20Gillingham%20ME7%201AJ&query_place_id=ChIJTXy_1k7N2EcRULRiZj8NViU", "yelp_url": "", "phone": "+44 1634 953554", "website": "https://www.fambulrestaurant.co.uk/", "note": ""}, {"name": "Shwen Shwen by Maria Bradford", "country": "United Kingdom", "region": "Kent", "city": "Sevenoaks", "address": "1-2 Well Court, Bank St, Sevenoaks TN13 1UN", "coords": [51.2712684, 0.1916813], "maps_url": "https://www.google.com/maps/search/?api=1&query=Shwen%20Shwen%20Sevenoaks&query_place_id=ChIJw2JaQTZN30cRvBUrtjx3hMw", "yelp_url": "", "phone": "+44 1732 496930", "website": "https://shwenshwen.com/", "note": "Sierra Leonean cooking through a fine dining lens. Michelin Opening of the Year and a Bib Gourmand."}, {"name": "Sweet Sweet Kitchen", "country": "United States", "region": "District of Columbia", "city": "Washington", "address": "500 H St NE, Washington, DC 20002", "coords": [38.9003993, -76.9993393], "maps_url": "https://www.google.com/maps/search/?api=1&query=Sweet%20Sweet%20Kitchen%20500%20H%20St%20NE%20Washington%20DC&query_place_id=ChIJR6Viloa5t4kR1mqPCu2-aPg", "yelp_url": "", "phone": "+1 202-506-5411", "website": "", "note": "Potato greens, groundnut stew, and cassava leaf all on one steam table."}, {"name": "After 12 Cafe", "country": "United States", "region": "Maryland", "city": "Hyattsville", "address": "7523 Landover Rd, Hyattsville, MD 20785", "coords": [38.92613, -76.8859005], "maps_url": "https://www.google.com/maps/search/?api=1&query=After%2012%20African%20Carryout%207523%20Landover%20Rd%20Hyattsville%20MD&query_place_id=ChIJtYldSJLAt4kR-0dPgGleCOI", "yelp_url": "https://www.yelp.com/biz/after-12-cafe-hyattsville", "phone": "+1 301-322-7591", "website": "", "note": "Also signed as After 12 African Carryout. Cassava leaf in palm oil is what people come for; potato leaves and fried fish with cassava bread are the other orders. Closed Sundays."}, {"name": "Freetown Kitchen", "country": "United States", "region": "New York", "city": "Brooklyn", "address": "1172 Park Pl, Brooklyn, NY 11213", "coords": [40.6726783, -73.9387261], "maps_url": "https://www.google.com/maps/search/?api=1&query=Freetown%20Kitchen%201172%20Park%20Pl%2C%20Brooklyn%2C%20NY%2011213&query_place_id=ChIJqbnBzcZbwokRFSHpYAKhKKk", "yelp_url": "", "phone": "+1 718-799-7160", "website": "", "note": ""}, {"name": "Jalloh", "country": "United States", "region": "New York", "city": "Bronx", "address": "3396 3rd Ave, Bronx, NY 10456", "coords": [40.8278205, -73.906992], "maps_url": "https://www.google.com/maps/search/?api=1&query=Jalloh%203396%203rd%20Ave%20Bronx%20NY&query_place_id=ChIJYcyT-0v0wokRKEK5n1t3a5k", "yelp_url": "", "phone": "+1 718-292-5015", "website": "", "note": "Open around the clock, buffet style. Potato leaves with palm oil and smoked fish is the order."}];
 
 var REGION_LABEL = {
   "United States": "State",
@@ -885,20 +1025,51 @@ function filtered(){
 function cardHTML(p, i){
   var h = '<article class="place-card" id="card-' + i + '" data-i="' + i + '">';
   h += '<h3>' + esc(p.name) + '</h3>';
-  if(p.maps_url) h += '<a class="place-addr" href="' + esc(p.maps_url) + '" target="_blank" rel="noopener">' + esc(p.address) + '</a>';
+
+  // region, country — directly under the name
+  var loc = [];
+  if(p.city) loc.push(esc(p.city));
+  // skip the region when it just repeats the city (e.g. London / Greater London)
+  if(p.region && !(p.city && p.region.toLowerCase().indexOf(p.city.toLowerCase()) > -1)) loc.push(esc(p.region));
+  if(p.country) loc.push(esc(p.country));
+  if(loc.length) h += '<div class="place-region">' + loc.join(", ") + '</div>';
+
   h += '<div class="place-links">';
   if(p.maps_url) h += '<a class="btn-rating" href="' + esc(p.maps_url) + '" target="_blank" rel="noopener">Ratings on Google</a>';
   if(p.yelp_url) h += '<a class="btn-rating" href="' + esc(p.yelp_url) + '" target="_blank" rel="noopener">Ratings on Yelp</a>';
   h += '</div>';
+
+  // phone + website, then the address underneath
   var bits = [];
   if(p.phone) bits.push('<span class="wa-pair"><a href="tel:' + esc(p.phone.replace(/[^+\d]/g,"")) + '">' + esc(p.phone) + '</a>' + waLink(p.phone) + '</span>');
   if(p.website) bits.push('<a href="' + esc(p.website) + '" target="_blank" rel="noopener">' + esc(p.website.replace(/^https?:\/\//,"").replace(/\/$/,"")) + '</a>');
   if(bits.length) h += '<div class="place-contact">' + bits.join("") + '</div>';
+
+  if(p.address){
+    h += p.maps_url
+      ? '<a class="place-addr" href="' + esc(p.maps_url) + '" target="_blank" rel="noopener">' + esc(p.address) + '</a>'
+      : '<span class="place-addr place-addr-plain">' + esc(p.address) + '</span>';
+  }
+
   return h + '</article>';
+}
+
+function updateFilterLabel(){
+  var c = document.getElementById("country").value;
+  var r = document.getElementById("region").value;
+  var q = document.getElementById("search").value.trim();
+  var where;
+  if(r && c)      where = r + ", " + c;
+  else if(c)      where = c;
+  else            where = "all countries";
+  var txt = "Restaurants in " + where;
+  if(q) txt += ' matching \u201c' + q + '\u201d';
+  document.getElementById("filterLabel").textContent = txt;
 }
 
 function render(){
   var list = filtered();
+  updateFilterLabel();
   var results = document.getElementById("results");
 
   if(!list.length){
@@ -997,6 +1168,30 @@ function boot(rows){
   });
   document.getElementById("region").addEventListener("change", render);
   document.getElementById("search").addEventListener("input", render);
+
+  var resetBtn = document.getElementById("resetFilters");
+  function syncResetState(){
+    var dirty = document.getElementById("country").value
+             || document.getElementById("region").value
+             || document.getElementById("search").value;
+    resetBtn.disabled = !dirty;
+    var link = document.getElementById("resetFilterLink");
+    if(link) link.disabled = !dirty;
+  }
+  resetBtn.addEventListener("click", function(){
+    document.getElementById("country").value = "";
+    document.getElementById("region").value = "";
+    document.getElementById("search").value = "";
+    syncRegions();
+    render();
+    syncResetState();
+  });
+  ["country","region"].forEach(function(id){
+    document.getElementById(id).addEventListener("change", syncResetState);
+  });
+  document.getElementById("search").addEventListener("input", syncResetState);
+  document.getElementById("resetFilterLink").addEventListener("click", function(){ resetBtn.click(); });
+  syncResetState();
 
   render();
 }

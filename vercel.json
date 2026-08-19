@@ -1,0 +1,13 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/2bigyai_menu.html", "destination": "/menu", "permanent": true },
+    { "source": "/2bigyai_catering.html", "destination": "/catering", "permanent": true },
+    { "source": "/2bigyai_events.html", "destination": "/events", "permanent": true },
+    { "source": "/2bigyai_guide.html", "destination": "/guide", "permanent": true },
+    { "source": "/2bigyai_about.html", "destination": "/about", "permanent": true },
+    { "source": "/story", "destination": "/about", "permanent": true },
+    { "source": "/map", "destination": "/guide", "permanent": true }
+  ]
+}
